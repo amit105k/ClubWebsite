@@ -1,0 +1,768 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* Navbar Styles */
+nav {
+    /* background-color: hsl(202, 75%, 47%); */
+    background-color: black;
+    padding: 10px;
+    text-align: center;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+nav img {
+    margin-top: -15px;
+    margin-left: -21px;
+}
+
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+nav a:hover {
+    color: orange;
+}
+
+nav h4 {
+    font-size: 28px;
+    color: white;
+    position: absolute;
+    left: 10px;
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+nav h3 {
+    font-size: 22px;
+    color: white;
+    position: absolute;
+    right: 15px;
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+/* Club Chart Section Styles */
+.club-chart {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.club-chart button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.club-chart button:hover {
+    background-color: #45a049;
+}
+
+.club-details {
+    margin-top: 30px;
+    text-align: center;
+    background-color: black;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+        /* Video Section Styles */
+.video-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.video-section video {
+    width: 100%;
+    height: 400px;
+}
+
+.video-wrap {
+    /* z-index: -100; */
+    height: 130%;
+}
+
+.custom-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    /* margin-bottom: 300px; */
+}
+
+section video {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 510px;
+    object-fit: cover;
+}
+
+section .navigation {
+    position: absolute;
+    padding: 1px;
+    /* bottom: 5%; */
+    /* left: 50%; */
+    right: 10px;
+    margin-top: -467px;
+    /* transform: translateX(-50%); */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 150px;
+
+}
+
+.leftt {
+    left: 0 !important;
+    display: flex;
+}
+
+section .navigation li {
+    list-style: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 1px;
+    border: 1px solid #fff;
+    opacity: 0.7;
+}
+
+section .navigation li img {
+    transition: 0.5s;
+
+
+}
+
+ul.left-side,
+ul.right-side {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.left-side {
+    margin-top: -467px;
+    left: 10px;
+}
+
+.right-side {
+    margin-top: -431px;
+    right: 10px;
+    position: absolute;
+
+}
+
+ul.left-side li img,
+ul.right-side li img {
+    transition: transform 0.3s ease;
+    border-radius: 8%;
+}
+
+/* ...........slider //////////////////////////////////////////////// */
+
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    height: 450px;
+    border: 10px solid white;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.slide img {
+    width: 100%;
+    display: block;
+    
+
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+button {
+    background-color: rgba(174, 172, 172, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: rgba(62, 54, 54, 0.8);
+}
+
+
+/* ............................club imgages are start here........................... */
+.club-info {
+
+    margin-top: -42px;
+}
+
+.club-info img {
+    border: 10px solid white;
+    width: 60%;
+    height: 400px;
+}
+
+.club-info h2 {
+    /* font-family: "Dancing Script", cursive; */
+    font-family: "Sour Gummy", sans-serif;
+}
+
+.club-info p {
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+}
+
+
+/* ...........................fade in fade out.......................... */
+/* Ensure the images are displayed in a row */
+
+.overviews{
+    margin-top: 47px;
+}
+.overviews h2 {
+    text-align: center;
+    padding: 20px;
+    background-color: black;
+    color: white;
+}
+
+.image-containerr {
+    padding-bottom: 20px;
+    /* font-family: 'Arial', sans-serif; */
+    /* font-family: "Playfair Display", serif; */
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: black;
+
+}
+
+
+.fade {
+    position: relative;
+    border: 12px solid white;
+    width: 27%;
+    height: 350px;
+}
+
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fade:hover .overlay {
+    opacity: 1;
+}
+
+
+.text {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+.text h4,h5,p{
+    padding: 3px;
+}
+.text h2{
+    padding: 5px;
+    margin-top: 10px;
+}
+
+
+
+
+
+/* ....................................footer is here....................................... */
+
+.footer {
+    background-color: black;
+    color: white;
+    display: flex;
+    margin-top: 50px;
+    box-shadow: 0 0 6px 5px rgba(58, 138, 208, 0.57);
+  
+}
+
+.fleft {
+    /* background-color: green; */
+    width: 30%;
+    margin-left: 5%;
+    padding: 20px;
+}
+.fleft p{
+    padding: 5px;
+    text-align: justify;
+}
+
+.fleft h4 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    font-style: italic;
+    text-align: left;
+}
+
+.fright {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-right: 5%;
+    /* background-color: red; */
+    width: 60%;
+    padding: 20px;
+}
+
+.fright ul {
+    list-style-type: none;
+    line-height: 30px;
+    text-align: left;
+    width: 30%;
+}
+
+.fright span {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.fa-brands {
+    font-size: 22px;
+    color: white;
+    padding: 10px;
+    border: .2px solid white;
+    border-radius: 8px;
+    /* background-color: black; */
+}
+
+.fa-brands:hover {
+    background-color: #4CAF50;
+}
+.ftext {
+    text-align: center;
+    /* background-color: white; */
+    color: white;
+    padding: 10px;
+    /* box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57); */
+}
+
+.hr {
+    background-color: white;
+    width: 100%;
+    height: 1px;
+    /* box-shadow: 0 0 6px 5px rgba(3, 235, 173, 0.57); */
+}
+
+/* ............................discount ........................................ */
+
+.dicount {
+    background-color: black;
+    color: white;
+}
+
+.dicount h2 {
+    text-align: center;
+    padding: 15px;
+}
+
+.dicount1 {
+    display: flex;
+    width: 90%;
+    /* background-color: red; */
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.dleft {
+    width: 50%;
+    /* flex: 1; */
+    background-color: #19190c;
+    padding: 20px;
+    padding-left: 10%;
+    margin-right:2%;
+
+}
+
+.dleft h3 {
+    font-size: 28px;
+}
+
+.dleft h3 span {
+    font-size: 33px;
+    margin-left: 20px;
+}
+
+.dleft p {
+    padding: 10px 0px 10px 0px;
+}
+
+.dleft ul li {
+    padding-top: 8px;
+}
+
+.dleft ul {
+    margin-bottom: 30px;
+}
+
+.dleft a {
+    margin-top: 30px;
+    color: white;
+    /* background-color: orange; */
+    padding: 20px;
+    font-size: 22px;
+}
+.clip{
+    background-color: red;
+    position: absolute;
+    height: 90px;
+    width: 90px;
+    margin-top: -220px;
+    margin-left:245px;
+    text-align: center;
+    border-radius: 100%;
+    transition-duration: 2s;
+
+}
+.clip p{
+    padding: 15px;
+    font-size:18px;
+}
+.clip:hover{
+    height: 100px;
+    width: 110px;
+    padding-top: 20px;
+    transition-duration: 2s;
+}
+
+.dleft a:hover {
+    color: #4CAF50;
+}
+
+.dright {
+    width: 50%;
+    margin-left:2%;
+}
+.dleft,.dright{
+    border: 8px double white;
+    margin-bottom: 30px;
+
+}
+.dright {
+    width: 50%;
+    /* flex: 1; */
+    background-color: #19190c;
+    padding: 20px;
+    padding-left: 10%;
+    margin-left:2%;
+
+}
+
+.dright h3 {
+    font-size: 28px;
+}
+
+.dright h3 span {
+    font-size: 33px;
+    margin-left: 20px;
+}
+
+.dright p {
+    padding: 10px 0px 10px 0px;
+}
+
+.dright ul li {
+    padding-top: 8px;
+}
+
+.dright ul {
+    margin-bottom: 30px;
+}
+
+.dright a {
+    margin-top: 30px;
+    color: white;
+    /* background-color: orange; */
+    padding: 20px;
+    font-size: 22px;
+}
+
+.dright a:hover {
+    color: #4CAF50;
+    
+}
+.dright a i{
+    visibility: hidden;
+    animation: 1s infinite alternate linear ;
+}
+.dright a:hover i{
+    visibility: visible;
+}
+.club-info h2 {
+    color: white;
+    padding: 15px;
+
+}
+
+.rclip {
+    margin-left: 281px;
+    margin-top: -219px;
+}
+.rclip p{
+    margin-top: 15px;
+}
+
+/* .............................shows timmings......................................... */
+.schedule-section {
+    /* background-image: url('../image/nainoa-shizuru-unsplash-blur.jpg'); */
+  
+    height: 100%;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+  }
+  .container{
+      margin-left: 5%;
+      margin-right: 5%;
+      /* background-color: blue; */
+  }
+  .row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x));
+  }
+  .text-center {
+    text-align: center !important;
+  }
+  .col-12 {
+    flex: 0 0 auto;
+    width: 100%;
+    /* box-shadow: 2px 2px 23px 5px white; */
+    margin-bottom: 16px;
+  }
+  .text-white {
+    --bs-text-opacity: 1;
+    color: white;
+    font-size: 32px;
+    margin-bottom: 25px;
+    margin-top: 16px;
+  }
+  .table-responsive {
+      filter: drop-shadow(2px 2px 4px #606060);
+      /* overflow-x: auto; */
+      /* width: 80%; */
+      box-shadow: 2px 2px 23px 5px white;
+  border-radius: 17px;
+  }
+  .table-dark {
+    --bs-table-color: #fff;
+    --bs-table-bg: #212529;
+    --bs-table-border-color: #373b3e;
+    --bs-table-striped-bg: #2c3034;
+    --bs-table-striped-color: #fff;
+    --bs-table-active-bg: #373b3e;
+    --bs-table-active-color: #fff;
+    --bs-table-hover-bg: #323539;
+    --bs-table-hover-color: #fff;
+    color: var(--bs-table-color);
+    border-color: var(--bs-table-border-color);
+    /* width: 80%; */
+  }
+  .table {
+    --bs-table-color: var(--bs-body-color);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--bs-border-color);
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: var(--bs-body-color);
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --bs-table-active-color: var(--bs-body-color);
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: var(--bs-body-color);
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--bs-table-color);
+    vertical-align: top;
+    border-color: var(--bs-table-border-color);
+  }
+  
+  .table > thead {
+    vertical-align: bottom;
+  }
+  tbody, td, tfoot, th, thead, tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+  }
+  .table > thead {
+    vertical-align: bottom;
+  }
+  
+  .schedule-table {
+    border-radius:20px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .schedule-table .bg-warning {
+    background: #f0a5a5 !important;
+  }
+  
+  
+  .schedule-table th,
+  .schedule-table tr,
+  .schedule-table td {
+    border-bottom-color: #EE5007;
+    padding: 30px;
+    background-color:#EE5007;
+  
+  }
+  
+  .schedule-table tr:last-child th,
+  .schedule-table tr:last-child td {
+    border-bottom-color: transparent;
+  }
+  
+  .schedule-table thead th {
+    /* border-right: 1px solid #c7460a; */
+    border-bottom-color: transparent;
+    background-color:#EE5007;
+  
+  }
+  
+  .schedule-table th + td {
+    border-bottom: 0;
+  }
+  
+  .schedule-table thead th:last-child {
+    border-right-color: transparent;
+  }
+  
+  .schedule-table .pop-background-image {
+    background-image: url('https://w0.peakpx.com/wallpaper/97/713/HD-wallpaper-arjith-singh-bollywood-singer.jpg');
+    background-position: top;
+  }
+  
+  .schedule-table .rock-background-image {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS_MxzO8ig4RBpdPw7D-Vb5lAeOWMHTXEQbA&s');
+    background-position: top;
+  }
+  
+  .schedule-table .country-background-image {
+    background-image: url('https://static.wixstatic.com/media/fd4e75_995aec3e6ba244529d3305024f599e57~mv2.png/v1/fill/w_1480,h_812,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/fd4e75_995aec3e6ba244529d3305024f599e57~mv2.png');
+    background-position: top;
+  }
+  .free-background-image{
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQURShIxC-AKOg7-CdPHlGXQfZJtX9ItMKpCg&s');
+  }
+  .djnight-background-image{
+      background: url(https://www.blackagroup.com/wp-content/uploads/2020/06/club-sound.jpg);
+  }
+  .table-background-image-wrap {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    box-shadow: none;
+    position: relative;
+  }
+  
+  .schedule-table h3,
+  .schedule-table p {
+    color:white;
+    position: relative;
+    z-index: 2;
+  }
+  .schedule-table h3{
+      font-size: 32px;
+  }
+  .schedule-table p{
+      font-weight: 300;
+      font-size: 18px;
+  }
+
+
+
+  /* .....................................cusomer sli?der.............................................. */
+
+
+  
+
+
+  /*================================================= admin login css==============================*/
+
+
+  

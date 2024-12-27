@@ -1,0 +1,28 @@
+15/11/2024 give a task for making club project
+		which contain cards that
+16/11/2024 searching for content and layout for making better design
+18/11/2024 making index page and sliders which contain songs details
+19/11/2024 cards 
+20/11/2024 making cards for backends that contain cards club name and address
+21/11/2024 slider for feedback which contain star that describe rating 
+23/11/2024 by ticket page making 
+24/11/2024 backends give error they can solve it
+27/11/2024 css desigining
+28/11/2024 myadmin.php not run they can solve and create database 
+29/11/2024 in index front cards (as per requirement of sir changes remove book ticket option and 		make club name details)
+02/12/2024 changes on club ticket booking on click single club the ticket are booking on a single 		club
+04/12/2024 add payment method for ticket booking 
+05/12/2024 error for adding payment method for API key (As per order sir given by lovely )
+06/12/2024 payment method succuessfully worked
+07/12/2024 made About section in the page
+09/12/2024 make service page of the project
+10/12/2024 contact us page has been created 
+
+
+
+
+
+
+
+
+
