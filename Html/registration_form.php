@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Club Registration Form</title>
     <link rel="stylesheet" href="../css/buytickets.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+HR+Lijeva:wght@100..400&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&display=swap"
         rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+HR+Lijeva:wght@100..400&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 </head>
 
@@ -28,19 +37,16 @@
         <a href="../html/service.php">Services</a>
         <!-- <a href="#clubs">Clubs</a>
         <a href="#clubs">Gallery</a> -->
-        <a href="../html/contact.php">Contact Us</a>
-        <!-- <a href="../Html/buyticket.html">Buy Tickets</a><img src="../image/new.gif" alt=""> -->
+        <a href="../Html/contact.php">Contact Us</a>
+        <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <h3>+91 70076000000</h3>
     </nav>
 
-</body>
-
-</html>
 
 
-<?php
-$club_name = isset($_GET['club_name']) ? $_GET['club_name'] : ''; 
-?>
+    <?php
+    $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
+    ?>
 
 <div class="form-container">
     <h1>Club Registration Form</h1>
@@ -50,9 +56,8 @@ $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
         <br><br>
         <input type="text" id="club" name="club" value="<?php echo htmlspecialchars($club_name); ?>" hidden>
 
-        
 
-        <label for="name">Name:</label>
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name" required><br><br>
 
             <label for="gender">Gender:</label>
@@ -89,14 +94,53 @@ $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
     </div>
 
 
-    <!-- <script>
-        function person() {
-            var per = document.getElementById("person").value;
-            document.getElementById("amount").innerText = per * 500;
-            // var inpu=document.getElementById("inputamount");
-            document.getElementById("inputamount").value = per * 500;
-        }
-    </script> -->
+    <script>
+        // function person() {
+        //     var per = document.getElementById("person").value;
+        //     document.getElementById("amount").innerText = per * 500;
+        //     // var inpu=document.getElementById("inputamount");
+        //     document.getElementById("inputamount").value = per * 500;
+        // }
+
+
+        let priceCalculated = false; 
+
+
+function calculatePrice() {
+    const personCount = document.getElementById('person').value;
+    console.log(personCount);
+    if (personCount === "" || personCount <= 0) {
+        alert("Please enter a valid number of persons.");
+        return;
+    }
+    else if(personCount==1){
+        const calculatedAmount = personCount * 500; 
+    document.getElementById('amount').innerText = calculatedAmount;
+    document.getElementById('inputamount').value = calculatedAmount;
+}
+else if(personCount<5){
+        document.getElementById("duscoun").innerHTML="you will get Rs.50 per Ticket Discount ";
+        discount=personCount*5000/100;
+        const calculatedAmount = personCount * 500; 
+        document.getElementById('amount').innerText = calculatedAmount-discount;
+        document.getElementById('inputamount').value = calculatedAmount-discount;
+    }
+    else{
+        discount=personCount*10000/100;
+        const calculatedAmount = personCount * 500; 
+        document.getElementById('amount').innerText = calculatedAmount-discount;
+        document.getElementById('inputamount').value = calculatedAmount-discount;
+        document.getElementById("duscoun").innerHTML="You will get Rs.100 per Ticket Discount ";
+    }
+    
+    
+
+    priceCalculated = true; 
+}
+
+    
+</script>
+
 
 
     <div class="footer">
@@ -142,52 +186,6 @@ $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
 </body>
 
 </html>
-
-
-<script>
-    let priceCalculated = false; 
-
-
-function calculatePrice() {
-    const personCount = document.getElementById('person').value;
-    console.log(personCount);
-    if (personCount === "" || personCount <= 0) {
-        alert("Please enter a valid number of persons.");
-        return;
-    }
-    else if(personCount==1){
-        const calculatedAmount = personCount * 500; 
-    document.getElementById('amount').innerText = calculatedAmount;
-    document.getElementById('inputamount').value = calculatedAmount;
-}
-else if(personCount<5){
-        document.getElementById("duscoun").innerHTML="you will get Rs.50 per Ticket Discount ";
-        discount=personCount*5000/100;
-        const calculatedAmount = personCount * 500; 
-        document.getElementById('amount').innerText = calculatedAmount-discount;
-        document.getElementById('inputamount').value = calculatedAmount-discount;
-    }
-    else{
-        discount=personCount*10000/100;
-        const calculatedAmount = personCount * 500; 
-        document.getElementById('amount').innerText = calculatedAmount-discount;
-        document.getElementById('inputamount').value = calculatedAmount-discount;
-        document.getElementById("duscoun").innerHTML="You will get Rs.100 per Ticket Discount ";
-    }
-    
-    
-
-    priceCalculated = true; 
-}
-
-
-function validateForm(event) {
-    if (!priceCalculated) {
-        event.preventDefault(); 
-        alert("Please calculate the price before submitting the form.");
-    }
-}
-</script>
 
 
 
@@ -416,10 +414,399 @@ function closeModal() {
     document.getElementById('modalBackdrop').remove();
 }
 
+
+
+//..............................payment metod with modol .....................................
+// function payment(bookingId) {
+//     console.log("Booking ID:", bookingId);
+//     fetch(`http://localhost/amitclub/Html/get_booking_details.php?bookingId=${bookingId}`)
+//         .then(res => res.json())
+//         .then(data => {
+//             if (data.error) {
+//                 alert("Booking not found.");
+//                 return;
+//             }
+
+//             var options = {
+//                 "key": "rzp_test_EJk4TWdqYcZpEb",
+//                 "amount": data.amount * 100,  // Razorpay amount is in paise, so multiply by 100
+//                 "currency": "INR",
+//                 "name": data.club,  // Get name from database
+//                 "description": "Booking for Club Entry",
+//                 "image": "../image/new.gif",
+//                 "handler": function (response) {
+//                     var paymentDetails = {
+//                         bookingId: bookingId,
+//                         payment_id: response.razorpay_payment_id,
+//                         payment_status: "Success"
+//                     };
+
+//                     fetch('http://localhost/amitclub/Html/update_payment_status.php', {
+//                         method: 'POST',
+//                         headers: {
+//                             'Content-Type': 'application/json'
+//                         },
+//                         body: JSON.stringify(paymentDetails)
+//                     })
+//                         .then(res => res.json())
+//                         .then(data => {
+//                             if (data.payment_status === 'success') {
+                            
+//                                 showModal({
+//                                     clubName: data.club,
+//                                     customerName: data.name,
+//                                     bookingId:data.id,
+//                                     bookingId:data.payment_id ,
+//                                     tokenId: data.token_id,
+//                                     date: data.date,
+//                                     mobile: data.mobile,
+//                                     email: data.email
+//                                 });
+//                             } else {
+//                                 alert('Failed to update payment status in the database.');
+//                             }
+//                         })
+//                         .catch(error => {
+//                             console.error('Error:', error);
+//                             alert('Something went wrong while updating payment status.');
+//                         });
+//                 },
+//                 "prefill": {
+//                     "name": data.name,
+//                     "email": data.email,
+//                     "contact": data.mobile
+//                 },
+//                 "theme": {
+//                     "color": "red"
+//                 }
+//             };
+
+//             var rzp1 = new Razorpay(options);
+//             rzp1.open();
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             alert('Error fetching booking details.');
+//         });
+// }
+
+
+
+// function showModal(details) {
+//     console.log(details)
+//     const modalContent = `
+//         <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+//                     background: #fff; padding: 20px; border-radius: 8px; width: 400px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+//             <h2>Booking Confirmation</h2>
+//             <p><strong>Club Name:</strong> ${details.club}</p>
+//             <p><strong>Customer Name:</strong> ${details.name}</p>
+//             <p><strong>Booking ID:</strong> ${details.id}</p>
+//             <p><strong>Token ID:</strong> ${details.token_id}</p>
+//             <p><strong>Date:</strong> ${details.date}</p>
+//             <p><strong>Mobile Number:</strong> ${details.mobile}</p>
+//             <p><strong>Email:</strong> ${details.email}</p>
+//             <div style="margin-top: 20px;">
+//                 <button onclick="window.location.href='http://localhost/amitclub/Html/index.php'" 
+//                         style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+//                     Go to Home Page
+//                 </button>
+//                 <button onclick="window.location.href='http://localhost/amitclub/Html/buyticket.php'" 
+//                         style="padding: 10px 20px; background: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+//                     Book Another Ticket
+//                 </button>
+//             </div>
+//         </div>
+//         <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
+//     `;
+
+//     // Append the modal to the body
+//     const modalWrapper = document.createElement('div');
+//     modalWrapper.id = 'paymentConfirmationModal';
+//     modalWrapper.innerHTML = modalContent;
+//     document.body.appendChild(modalWrapper);
+
+//     // Close modal on clicking outside
+//     modalWrapper.querySelector('div:last-child').onclick = () => {
+//         modalWrapper.remove();
+//     };
+// }
+
+
+
+
+//................................modol on index page.............................................
+// function payment(bookingId) {
+//     console.log("Booking ID:", bookingId);
+//     fetch(`http://localhost/amitclub/Html/get_booking_details.php?bookingId=${bookingId}`)
+//         .then(res => res.json())
+//         .then(data => {
+//             if (data.error) {
+//                 alert("Booking not found.");
+//                 return;
+//             }
+
+//             var options = {
+//                 "key": "rzp_test_EJk4TWdqYcZpEb",
+//                 "amount": data.amount * 100,  // Razorpay amount is in paise, so multiply by 100
+//                 "currency": "INR",
+//                 "name": data.club,  // Get name from database
+//                 "description": "Booking for Club Entry",
+//                 "image": "../image/new.gif",
+//                 "handler": function (response) {
+//                     var paymentDetails = {
+//                         bookingId: bookingId,
+//                         payment_id: response.razorpay_payment_id,
+//                         payment_status: "Success"
+//                     };
+
+//                     fetch('http://localhost/amitclub/Html/update_payment_status.php', {
+//                         method: 'POST',
+//                         headers: {
+//                             'Content-Type': 'application/json'
+//                         },
+//                         body: JSON.stringify(paymentDetails)
+//                     })
+//                         .then(res => res.json())
+//                         .then(dbResponse => {
+//                             if (dbResponse.payment_status === 'success') {
+//                                 // Redirect to the homepage
+//                                 window.location.href = `http://localhost/amitclub/Html/index.php?club=${encodeURIComponent(data.club)}&name=${encodeURIComponent(data.name)}&bookingId=${bookingId}&tokenId=${response.razorpay_payment_id}&date=${encodeURIComponent(new Date().toLocaleString())}&mobile=${data.mobile}&email=${encodeURIComponent(data.email)}`;
+//                             } else {
+//                                 alert('Failed to update payment status in the database.');
+//                             }
+//                         })
+//                         .catch(error => {
+//                             console.error('Error:', error);
+//                             alert('Something went wrong while updating payment status.');
+//                         });
+//                 },
+//                 "prefill": {
+//                     "name": data.name,
+//                     "email": data.email,
+//                     "contact": data.mobile
+//                 },
+//                 "theme": {
+//                     "color": "red"
+//                 }
+//             };
+
+//             var rzp1 = new Razorpay(options);
+//             rzp1.open();
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             alert('Error fetching booking details.');
+//         });
+// }
+
+// // Function to display modal on the homepage
+// function showModalOnHomepage() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     if (urlParams.has('club') && urlParams.has('name') && urlParams.has('bookingId') && urlParams.has('tokenId')) {
+//         const details = {
+//             clubName: urlParams.get('club'),
+//             customerName: urlParams.get('name'),
+//             bookingId: urlParams.get('bookingId'),
+//             tokenId: urlParams.get('tokenId'),
+//             date: urlParams.get('date'),
+//             mobile: urlParams.get('mobile'),
+//             email: urlParams.get('email')
+//         };
+
+//         const modalContent = `
+//             <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+//                         background: #fff; padding: 20px; border-radius: 8px; width: 400px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+//                 <h2>Booking Confirmation</h2>
+//                 <p><strong>Club Name:</strong> ${details.clubName}</p>
+//                 <p><strong>Customer Name:</strong> ${details.customerName}</p>
+//                 <p><strong>Booking ID:</strong> ${details.bookingId}</p>
+//                 <p><strong>Token ID:</strong> ${details.tokenId}</p>
+//                 <p><strong>Date:</strong> ${details.date}</p>
+//                 <p><strong>Mobile Number:</strong> ${details.mobile}</p>
+//                 <p><strong>Email:</strong> ${details.email}</p>
+//                 <div style="margin-top: 20px;">
+//                     <button onclick="window.location.href='http://localhost/amitclub/Html/index.php'" 
+//                             style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+//                         Go to Home Page
+//                     </button>
+//                     <button onclick="window.location.href='http://localhost/amitclub/Html/buyticket.php'" 
+//                             style="padding: 10px 20px; background: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+//                         Book Another Ticket
+//                     </button>
+//                 </div>
+//             </div>
+//             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
+//         `;
+
+//         // Append the modal to the body
+//         const modalWrapper = document.createElement('div');
+//         modalWrapper.id = 'paymentConfirmationModal';
+//         modalWrapper.innerHTML = modalContent;
+//         document.body.appendChild(modalWrapper);
+
+//         // Close modal on clicking outside
+//         modalWrapper.querySelector('div:last-child').onclick = () => {
+//             modalWrapper.remove();
+//         };
+//     }
+// }
+
+// // Call this function on the homepage
+// if (window.location.pathname.includes('/index.php')) {
+//     showModalOnHomepage();
+// }
+
+
+
+//.............................url can contain only booking id 
+// function payment(bookingId) {
+//     console.log("Booking ID:", bookingId);
+//     fetch(`http://localhost/amitclub/Html/get_booking_details.php?bookingId=${bookingId}`)
+//         .then(res => res.json())
+//         .then(data => {
+//             if (data.error) {
+//                 alert("Booking not found.");
+//                 return;
+//             }
+
+//             var options = {
+//                 "key": "rzp_test_EJk4TWdqYcZpEb",
+//                 "amount": data.amount * 100,  // Razorpay amount is in paise, so multiply by 100
+//                 "currency": "INR",
+//                 "name": data.club,  // Get name from database
+//                 "description": "Booking for Club Entry",
+//                 "image": "../image/new.gif",
+//                 "handler": function (response) {
+//                     var paymentDetails = {
+//                         bookingId: bookingId,
+//                         payment_id: response.razorpay_payment_id,
+//                         payment_status: "Success"
+//                     };
+
+//                     fetch('http://localhost/amitclub/Html/update_payment_status.php', {
+//                         method: 'POST',
+//                         headers: {
+//                             'Content-Type': 'application/json'
+//                         },
+//                         body: JSON.stringify(paymentDetails)
+//                     })
+//                         .then(res => res.json())
+//                         .then(dbResponse => {
+//                             if (dbResponse.payment_status === 'success') {
+//                                 // Redirect to homepage with only the bookingId in the URL
+//                                 window.location.href = `http://localhost/amitclub/Html/index.php?bookingId=${bookingId}`;
+//                             } else {
+//                                 alert('Failed to update payment status in the database.');
+//                             }
+//                         })
+//                         .catch(error => {
+//                             console.error('Error:', error);
+//                             alert('Something went wrong while updating payment status.');
+//                         });
+//                 },
+//                 "prefill": {
+//                     "name": data.name,
+//                     "email": data.email,
+//                     "contact": data.mobile
+//                 },
+//                 "theme": {
+//                     "color": "red"
+//                 }
+//             };
+
+//             var rzp1 = new Razorpay(options);
+//             rzp1.open();
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             alert('Error fetching booking details.');
+//         });
+// }
+
+
+
+
+
+
+
+// Function to display modal by fetching data from the database
+
+
+
+// function showModalOnHomepage() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const bookingId = urlParams.get('bookingId');
+
+//     if (bookingId) {
+//         fetch(`http://localhost/amitclub/Html/fetch_booking_details.php?bookingId=${bookingId}`)
+//             .then(res => res.json())
+//             .then(data => {
+//                 if (data.error) {
+//                     alert('Failed to fetch booking details.');
+//                     return;
+//                 }
+
+//                 const modalContent = `
+//                     <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+//                                 background: #fff; padding: 20px; border-radius: 8px; width: 400px; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+//                         <h2>Booking Confirmation</h2>
+//                         <p><strong>Club Name:</strong> ${data.club}</p>
+//                         <p><strong>Customer Name:</strong> ${data.name}</p>
+//                         <p><strong>Booking ID:</strong> ${data.bookingId}</p>
+//                         <p><strong>Token ID:</strong> ${data.tokenId}</p>
+//                         <p><strong>Date:</strong> ${data.date}</p>
+//                         <p><strong>Mobile Number:</strong> ${data.mobile}</p>
+//                         <p><strong>Email:</strong> ${data.email}</p>
+//                         <div style="margin-top: 20px;">
+//                             <button onclick="window.location.href='http://localhost/amitclub/Html/index.php'" 
+//                                     style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+//                                 Go to Home Page
+//                             </button>
+//                             <button onclick="window.location.href='http://localhost/amitclub/Html/buyticket.php'" 
+//                                     style="padding: 10px 20px; background: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+//                                 Book Another Ticket
+//                             </button>
+//                         </div>
+//                     </div>
+//                     <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);"></div>
+//                 `;
+
+//                 // Append the modal to the body
+//                 const modalWrapper = document.createElement('div');
+//                 modalWrapper.id = 'paymentConfirmationModal';
+//                 modalWrapper.innerHTML = modalContent;
+//                 document.body.appendChild(modalWrapper);
+
+//                 // Close modal on clicking outside
+//                 modalWrapper.querySelector('div:last-child').onclick = () => {
+//                     modalWrapper.remove();
+//                 };
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching booking details:', error);
+//                 alert('Something went wrong while fetching booking details.');
+//             });
+//     }
+// }
+
+// // Call this function on the homepage
+// if (window.location.pathname.includes('http://localhost/amitclub/Html/index.php')) {
+//     showModalOnHomepage();
+// }
+
 </script>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+
+<!-- ......................paymrnt................................. -->
+
 <style>
+    #paragraph{
+        margin-top: 10px;
+        margin-left: 10%;
+    }
     #registrationForm h2 {
         text-align: center;
         color: #3a4cab;
