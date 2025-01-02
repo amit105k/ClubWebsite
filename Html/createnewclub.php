@@ -18,38 +18,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $image_url1 = $_POST['image_url1'];
     $image_url2 = $_POST['image_url2'];
     $image_url3 = $_POST['image_url3'];
+    $about=$_POST['about'];
 
  
-    $stmt = $conn->prepare("INSERT INTO club_overviews (club_name, image_url, show_time, address, city, postal_code, book_tkt,image_url1,image_url2,image_url3) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?)");
-    $stmt->bind_param("sssssis", $club_name, $image_url, $show_time, $address, $city, $postal_code, $book_tkt,$image_url1, $image_url2, $image_url3);
+    $stmt = $conn->prepare("INSERT INTO club_overviews (club_name, image_url,image_url1,image_url2,image_url3,about,show_time, address, city, postal_code, book_tkt) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?)");
+    $stmt->bind_param("sssssssssss", $club_name, $image_url, $show_time, $address, $city, $postal_code, $book_tkt,$image_url1, $image_url2, $image_url3,$about);
 
     
     if ($stmt->execute()) {
-       
         echo "<script>
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Your data is created.',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'New Club has been created successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'update_club.php';
+                    });
                 });
               </script>";
     } else {
-       
         echo "<script>
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'There was an issue with your submission. Please try again.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to Create New Club.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 });
               </script>";
     }
-
     
     $stmt->close();
-   
 }
 ?>
 
@@ -63,9 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Create New Club</title>
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.8/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.js"></script>
     
     <style>
         body {
@@ -79,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             background-color: #f4f4f4;
             border-radius: 10px;
+            
         }
         .form-container h2 {
             text-align: center;
@@ -98,6 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
+            font-size: 19px;
+            font-weight: normal;
         }
         .form-container input[type="submit"] {
             padding: 10px 15px;
@@ -108,6 +113,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
+        }
+        textarea{
+            width: 100%;
+            height: auto;
+            font-size: 18px;
         }
         
       
@@ -123,8 +133,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="image_url">Image URL:</label>
             <input type="url" id="image_url" name="image_url" required>
             
-            <label for="show_time">Show Time:</label>
-            <input type="datetime-local" id="show_time" name="show_time" required>
+            <label for="show_time">Openaning And Closing Time:</label>
+            <input type="text" id="show_time" name="show_time" required placeholder="12:30 To 11:30 PM">
             
             <label for="address">Address:</label>
             <input type="text" id="address" name="address" required>
@@ -139,13 +149,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="url" id="book_tkt" name="book_tkt" required>
 
             <label for="image_url1">Image URL 1:</label>
-            <input type="url" id="image_url1" name="image_url" >
+            <input type="url" id="image_url1" name="image_url1" >
 
             <label for="image_url2">Image URL 2:</label>
-            <input type="url" id="image_url2" name="image_url">
+            <input type="url" id="image_url2" name="image_url2">
 
             <label for="image_url3">Image URL 3:</label>
-            <input type="url" id="image_url3" name="image_url" >
+            <input type="url" id="image_url3" name="image_url3" >
+            <label for="about">About Of Club :-</label>
+            <textarea name="about" id=""></textarea>
             
             <input type="submit" value="Create Club">
         </form>

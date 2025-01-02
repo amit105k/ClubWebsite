@@ -1,47 +1,6 @@
 <?php
 include('db.php');
 
-// Check if the form is submitted to update data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST['id']; // Club ID (to update)
-
-    // Get all the form data
-    $image_url = $_POST['image_url'];
-    $club_name = $_POST['club_name'];
-    $show_time = $_POST['show_time'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $postal_code = $_POST['postal_code'];
-    $book_tkt = $_POST['book_tkt'];
-
-    // If it's an update request (submit button clicked)
-    if (isset($_POST['submit'])) {
-            $sql = "UPDATE club_overviews SET 
-                        image_url = '$image_url', 
-                        club_name = '$club_name', 
-                        show_time = '$show_time', 
-                        address = '$address', 
-                        city = '$city', 
-                        postal_code = '$postal_code',
-                        book_tkt = '$book_tkt'
-                    WHERE id = $id";
-
-            if ($conn->query($sql) === TRUE) {
-                echo "<script>
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Club details have been updated.',
-                            icon: 'success',
-                        }).then(() => {
-                            window.location.href = window.location.href + '?update_success=true';
-                        });
-                      </script>";
-            } else {
-                echo "Error updating record: " . $conn->error;
-            }
-        }
-    }
-
 // Fetch the list of clubs to display in the dropdown
 $sql = "SELECT id, club_name FROM club_overviews";
 $result = $conn->query($sql);
@@ -50,7 +9,77 @@ while ($row = $result->fetch_assoc()) {
     $clubs[] = $row;
 }
 
-// If a club ID is selected, fetch its details
+$selected_club = null;
+if (isset($_GET['id']) && $_GET['id'] != 'new') {
+    $id = intval($_GET['id']);
+    $stmt = $conn->prepare("SELECT * FROM club_overviews WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $selected_club_result = $stmt->get_result();
+    $selected_club = $selected_club_result->fetch_assoc();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = intval($_POST['id']);
+    $image_url = $conn->real_escape_string($_POST['image_url']);
+    $club_name = $conn->real_escape_string($_POST['club_name']);
+    $show_time = $conn->real_escape_string($_POST['show_time']);
+    $address = $conn->real_escape_string($_POST['address']);
+    $city = $conn->real_escape_string($_POST['city']);
+    $postal_code = $conn->real_escape_string($_POST['postal_code']);
+    $about = $conn->real_escape_string($_POST['about']);
+    $book_tkt = $conn->real_escape_string($_POST['book_tkt']);
+
+    $sql = "UPDATE club_overviews SET 
+                image_url = ?, 
+                club_name = ?, 
+                show_time = ?, 
+                address = ?, 
+                city = ?, 
+                postal_code = ?, 
+                about = ?, 
+                book_tkt = ? 
+            WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssssi", $image_url, $club_name, $show_time, $address, $city, $postal_code, $about, $book_tkt, $id);
+
+    if ($stmt->execute()) {
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Club details have been updated successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'update_club.php';
+                    });
+                });
+              </script>";
+    } else {
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to update the club details.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+              </script>";
+    }
+    
+    $stmt->close();
+}
+
+
+$sql = "SELECT id, club_name FROM club_overviews";
+$result = $conn->query($sql);
+$clubs = [];
+while ($row = $result->fetch_assoc()) {
+    $clubs[] = $row;
+}
+
 $selected_club = null;
 if (isset($_GET['id']) && $_GET['id'] != 'new') {
     $id = $_GET['id'];
@@ -64,11 +93,13 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Club Details</title>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -116,6 +147,12 @@ $conn->close();
             border-radius: 4px;
             font-size: 16px;
         }
+        textarea{
+            padding: 0;
+            width: 99%;
+            height: auto;
+            margin: 0;
+        }
 
         input[type="submit"]:hover {
             background-color: #45a049;
@@ -132,7 +169,6 @@ $conn->close();
     <div class="container">
         <h2>Update Club Details</h2>
 
-        <!-- Form to select a club -->
         <form action="update_club.php" method="get">
             <label for="id">Select Club ID to Edit:</label>
             <select name="id" id="id" required onchange="handleSelectChange(this)">
@@ -146,7 +182,6 @@ $conn->close();
             <input type="submit" value="Select Club">
         </form>
 
-        <!-- Display form for updating a club -->
         <?php if ($selected_club || isset($_GET['id']) && $_GET['id'] == 'new'): ?>
             <form action="update_club.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $selected_club ? $selected_club['id'] : ''; ?>">
@@ -175,6 +210,11 @@ $conn->close();
                 <input type="text" id="postal_code" name="postal_code"
                     value="<?php echo $selected_club ? $selected_club['postal_code'] : ''; ?>"><br><br>
 
+                <label for="about">About of Clubs :-</label>
+                <textarea type="text" id="book_tkt" name="about"
+                    value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
+                </textarea><br><br>
+
                 <label for="book_tkt">Link for Booking:</label>
                 <input type="text" id="book_tkt" name="book_tkt"
                     value="<?php echo $selected_club ? $selected_club['book_tkt'] : ''; ?>"><br><br>
@@ -186,4 +226,5 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.js"></script>
 </body>
+
 </html>
