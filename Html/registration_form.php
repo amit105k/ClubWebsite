@@ -308,8 +308,14 @@ else if(personCount<5){
                                         console.error('Error fetching updated booking details:', error);
                                     });
                             } else {
-                                // alert('this is error in buy ticket.php');
-                                fetch(`http://localhost/amitclub/Html/fetch_booking_details.php?bookingId=${bookingId}`)
+                                alert('this is error in buy ticket.php');
+                               
+                            }
+                        })
+                        .catch(error => {
+                            // console.error('Error updating payment status:', error);
+                            // alert('Something went wrong while updating payment status.');
+                            fetch(`http://localhost/amitclub/Html/fetch_booking_details.php?bookingId=${bookingId}`)
                                     .then(res => res.json())
                                     .then(bookingData => {
                                         showModal({
@@ -327,11 +333,6 @@ else if(personCount<5){
                                     .catch(error => {
                                         console.error('Error fetching updated booking details:', error);
                                     });
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error updating payment status:', error);
-                            alert('Something went wrong while updating payment status.');
                         });
                 },
                 "prefill": {
