@@ -252,13 +252,11 @@
 
     <div id="main-content">
         <div id="sidebar">
-            <a href="showallbookings.php" id="listList">Bookings</a>
-            <a href="query.php" id="listList">Queries</a>
-            <a href="javascript:void(0);" id="listList" onclick="loadContent('clublist.php')">Club List</a>
-            <a href="javascript:void(0);" id="createLink" onclick="loadContent('createnewclub.php')" class="hidden">Create New Club</a>
-            <a href="javascript:void(0);" id="updateLink" onclick="loadContent('update_club.php')" class="hidden">Update Club Details</a>
-            <a href="javascript:void(0);" id="deleteLink" onclick="loadContent('deleteclub.php')" class="hidden">Delete Club</a>
-            <a href="farmHouseAdmin.php" id="listList">FarmHouse</a>
+            <a href="javascript:void(0);" id="listList" onclick="loadContent('farmHouseList.php')">FarmHouse List</a>
+            <a href="javascript:void(0);" id="createLink" onclick="loadContent('farmcreate.php')" class="hidden">Create New</a>
+            <a href="javascript:void(0);" id="updateLink" onclick="loadContent('farmUpdate.php')" class="hidden">Update Details</a>
+            <a href="javascript:void(0);" id="deleteLink" onclick="loadContent('farmDelete.php')" class="hidden">Delete</a>
+            <a href="admin.php" id="listList">Return to Club</a>
 
         </div>
 
@@ -279,43 +277,15 @@
                 content.style.width = '75%';
                 content.style.marginRight = '5%'; 
                 content.style.border='10px double white';
-                // toggleButton.innerText = 'Hide Sidebar'; 
             } else {
                 sidebar.style.display = 'none'; 
                 content.style.width = '100%';
                 content.style.margin = '0px';
                 content.style.border='none';
-                // toggleButton.innerText = '<i class="fa-solid fa-list"></i>'; 
             }
         }
 
-        function loadContent(page) {
-            var contentFrame = document.getElementById('content');
-            contentFrame.innerHTML = "<iframe src='" + page + "' style='width: 100%; height: 100%; border: none;'></iframe>";
-
-            document.getElementById('listList').classList.add('hidden');
-            document.getElementById('createLink').classList.add('hidden');
-            document.getElementById('updateLink').classList.add('hidden');
-            document.getElementById('deleteLink').classList.add('hidden');
-
-            if (page === 'clublist.php') {
-                document.getElementById('updateLink').classList.remove('hidden');
-                document.getElementById('deleteLink').classList.remove('hidden');
-                document.getElementById('createLink').classList.remove('hidden');
-            } else if (page === 'update_club.php') {
-                document.getElementById('listList').classList.remove('hidden');
-                document.getElementById('createLink').classList.remove('hidden');
-                document.getElementById('deleteLink').classList.remove('hidden');
-            } else if (page === 'deleteclub.php') {
-                document.getElementById('createLink').classList.remove('hidden');
-                document.getElementById('updateLink').classList.remove('hidden');
-                document.getElementById('listList').classList.remove('hidden');
-            } else if (page === 'createnewclub.php') {
-                document.getElementById('deleteLink').classList.remove('hidden');
-                document.getElementById('updateLink').classList.remove('hidden');
-                document.getElementById('listList').classList.remove('hidden');
-            }
-        }
+      
     </script>
 
 

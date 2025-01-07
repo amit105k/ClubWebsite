@@ -28,76 +28,118 @@
 
 </head>
 <style>
+    .ss {
+        margin-top: 0px !important;
+    }
+
     form {
-    display: flex;
-    flex-direction: column;
-}
+        display: flex;
+        flex-direction: column;
+    }
 
-input[type="text"],input[type="password"] {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+    input[type="text"],
+    input[type="password"] {
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-button {
-    padding: 10px;
- /*   background-color:#4CAF50;*/
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    button {
+        padding: 10px;
+        /*   background-color:#4CAF50;*/
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
 
 
-    #adminpage{
-    background-color:hsl(202, 75%, 47%);
-    height: 380px;
-    width: 50%;
-    margin-left: 25%;
-    padding: 10px;
-    position: absolute;
-    top: 130px;
-    z-index: 2;
-    border-radius: 10px;
-    display: none;
-    
-  }
-  #cross{
-    width: 6%;
-    text-align: center;
-    margin-left: 90.7%;
-    margin-top: -100px;
-    padding: 10px;
-    position: absolute;
-    top: 100px;
-    z-index: 2;
-    /* color: red; */
-    font-size: 22px;
-    background-color:inherit;
-    border-radius: 100%;
-    cursor: pointer;
-  }
-  #capta{
-    text-align: center;
-    width: auto !important;
-    color: black;
-    padding: 5px;
-    display: inline-block !important;
-    /* margin-top: 10px; */
-    font-weight: bold;
-    font-size: 28px;
-    background:url(https://www.codeproject.com/KB/scripting/CreateCaptcha/1.JPG);
-  }
-  #password{
-    /* background-color: rgba(0, 0, 0, 0); */
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
- 
-}
+    #adminpage {
+        background-color: hsl(202, 75%, 47%);
+        height: 380px;
+        width: 50%;
+        margin-left: 25%;
+        padding: 10px;
+        position: absolute;
+        top: 130px;
+        z-index: 2;
+        border-radius: 10px;
+        display: none;
+
+    }
+
+    #statuspage {
+        background-color: hsl(202, 75%, 47%);
+        height: 380px;
+        width: 50%;
+        margin-left: 25%;
+        padding: 10px;
+        position: absolute;
+        top: 130px;
+        z-index: 2;
+        border-radius: 10px;
+        /* display: none; */
+    }
+    .search{
+        line-height: 25px;
+        font-size: 17px;
+        margin-top: 20px;
+    }
+
+    #cross {
+        width: 6%;
+        text-align: center;
+        margin-left: 90.7%;
+        margin-top: -100px;
+        padding: 10px;
+        position: absolute;
+        top: 100px;
+        z-index: 2;
+        /* color: red; */
+        font-size: 22px;
+        background-color: inherit;
+        border-radius: 100%;
+        cursor: pointer;
+    }
+
+    #crosss {
+        width: 6%;
+        text-align: center;
+        margin-left: 90.7%;
+        margin-top: -100px;
+        padding: 10px;
+        position: absolute;
+        top: 100px;
+        z-index: 2;
+        /* color: red; */
+        font-size: 22px;
+        background-color: inherit;
+        border-radius: 100%;
+        cursor: pointer;
+    }
+
+    #capta {
+        text-align: center;
+        width: auto !important;
+        color: black;
+        padding: 5px;
+        display: inline-block !important;
+        /* margin-top: 10px; */
+        font-weight: bold;
+        font-size: 28px;
+        background: url(https://www.codeproject.com/KB/scripting/CreateCaptcha/1.JPG);
+    }
+
+    #password {
+        /* background-color: rgba(0, 0, 0, 0); */
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+
+    }
 </style>
 
 <body>
@@ -111,8 +153,8 @@ button {
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
-        <a href="#" id="admin" >Admin</a>
-        <!-- <a href="../Html/admin.php">Admin</a> -->
+        <a href="#" id="admin">Admin</a>
+        <a href="#" id="status">Booking Status</a>
         <!-- <h3>+91 70076000000</h3> -->
 
     </nav>
@@ -175,6 +217,13 @@ button {
         <?php include('club_overviews.php'); ?>
     </div>
 
+
+
+    <!-- .........................Farm house overviews Of the Clubs.......................... -->
+
+    <div class="overviews  ss">
+        <?php include('farmhouse.php'); ?>
+    </div>
 
 
 
@@ -669,28 +718,81 @@ button {
 
 
 
-    <!--..................................admin login ...............................-->
+        <!--..................................admin login ...............................-->
 
 
 
 
-    <div id="adminpage">
-    <div class="login-container">
-        <h2 style="text-align: center;">Admin Login</h2>
-        <form action="" id="loginForm">
-            UserId :<input type="text" placeholder="Enter your User id" id="userId">
-            Password :<input type="password" placeholder="Enter your password" id="password">
-            <span id="capta"></span><button type="button" id="refreshCaptcha" style="background: none; border: none; cursor: pointer;">
-              <i class="fas fa-sync-alt" style="color: black; position: absolute; margin-bottom:2px ;"></i> 
-          </button>
-            <input type="text" id="captcha" placeholder="Enter Capta Code">
-            <button type="submit">Login</button>
-        </form>
+        <div id="adminpage">
+            <div class="login-container">
+                <h2 style="text-align: center;">Admin Login</h2>
+                <form action="" id="loginForm">
+                    UserId :<input type="text" placeholder="Enter your User id" id="userId">
+                    Password :<input type="password" placeholder="Enter your password" id="password">
+                    <span id="capta"></span><button type="button" id="refreshCaptcha"
+                        style="background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-sync-alt" style="color: black; position: absolute; margin-bottom:2px ;"></i>
+                    </button>
+                    <input type="text" id="captcha" placeholder="Enter Capta Code">
+                    <button type="submit">Login</button>
+                </form>
 
-        <div id="cross">X</div>
-    </div>
-</div>
+                <div id="cross">X</div>
+            </div>
+        </div>
 
+
+
+
+        <!-- booking status is here...................................................-->
+        <div id="statuspage">
+            <div class="login-container">
+                <h2>Booking status</h2>
+                <form action="" method="post">
+                    <label for="searchInput">Enter booking ID / Mobile number</label>
+                    <input type="text" name="searchInput" id="searchInput" required>
+                    <input type="submit" value="Search">
+                </form>
+                <div class="search">
+                    <?php
+                    include("db.php");
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        $searchInput = $_POST['searchInput'];
+
+                        $stmt = $conn->prepare("SELECT count,amount,id,club,name, payment_id, payment_status,date FROM registrations WHERE id = ? OR mobile = ?");
+                        $stmt->bind_param("ss", $searchInput, $searchInput);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "Club Name: " . $row['club'] . "<br>";
+                                echo "Name: " . $row['name'] . "<br>";
+                                echo "Payment ID: " . $row['payment_id'] . "<br>";
+                                echo "Payment Status: " . $row['payment_status'] . "<br>";
+                                echo "Booking Date: " . $row['date'] . "<br>";
+                                echo "Total Persons: " . $row['count'] . "<br>";
+                                echo "Amount : " . $row['amount'] . "<br>";
+                            }
+                        } else {
+                            echo "No records found for the provided booking ID or mobile number.";
+                        }
+
+                        $stmt->close();
+                        $conn->close();
+                    }
+                    ?>
+
+                </div>
+
+                <div id="crosss">X</div>
+            </div>
+        </div>
 
 
 
@@ -709,71 +811,90 @@ button {
     </script> -->
 
 
-    <!--.............admin login js......................................-->
+        <!--.............admin login js......................................-->
 
 
 
-    <script>
-    document.getElementById('admin').addEventListener('click', function() {
-    const adminpage = document.getElementById('adminpage');
-    if (adminpage.style.display === 'none' || adminpage.style.display === '') {
-        adminpage.style.display = 'block';
-    } else {
-        adminpage.style.display = 'none';
-    }
-});
+        <script>
+            document.getElementById('admin').addEventListener('click', function () {
+                const adminpage = document.getElementById('adminpage');
+                if (adminpage.style.display === 'none' || adminpage.style.display === '') {
+                    adminpage.style.display = 'block';
+                } else {
+                    adminpage.style.display = 'none';
+                }
+            });
 
-document.getElementById('cross').addEventListener('click', function() {
-    const adminpage = document.getElementById('adminpage');
-    adminpage.style.display = 'none'; 
-});
+            document.getElementById('cross').addEventListener('click', function () {
+                const adminpage = document.getElementById('adminpage');
+                adminpage.style.display = 'none';
+            });
 
-// Function to generate captcha
-function generateCaptcha() {
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const randomLetters = letters.charAt(Math.floor(Math.random() * letters.length)) +
-                          letters.charAt(Math.floor(Math.random() * letters.length));
-    const randomLower = Math.random().toString(36).substring(2, 5);
-    const randomNumber = Math.floor(Math.random() * 90) + 10;
+            // Function to generate captcha
+            function generateCaptcha() {
+                const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const randomLetters = letters.charAt(Math.floor(Math.random() * letters.length)) +
+                    letters.charAt(Math.floor(Math.random() * letters.length));
+                const randomLower = Math.random().toString(36).substring(2, 5);
+                const randomNumber = Math.floor(Math.random() * 90) + 10;
 
-    return randomLetters + randomLower + randomNumber;
-}
+                return randomLetters + randomLower + randomNumber;
+            }
 
-// Display the initial captcha
-document.getElementById('capta').innerText = generateCaptcha();
+            // Display the initial captcha
+            document.getElementById('capta').innerText = generateCaptcha();
 
-// Update captcha when refresh button is clicked
-document.getElementById('refreshCaptcha').addEventListener('click', function() {
-    document.getElementById('capta').innerText = generateCaptcha();
-});
+            // Update captcha when refresh button is clicked
+            document.getElementById('refreshCaptcha').addEventListener('click', function () {
+                document.getElementById('capta').innerText = generateCaptcha();
+            });
 
-// Handling form submission
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+            // Handling form submission
+            document.getElementById('loginForm').addEventListener('submit', function (event) {
+                event.preventDefault();
 
-    const userId = document.getElementById('userId').value;
-    const password = document.getElementById('password').value;
-    const captchaInput = document.getElementById('captcha').value;
-    const captchaText = document.getElementById('capta').innerText;
+                const userId = document.getElementById('userId').value;
+                const password = document.getElementById('password').value;
+                const captchaInput = document.getElementById('captcha').value;
+                const captchaText = document.getElementById('capta').innerText;
 
-    if (userId === 'admin' && password === 'admin123' && captchaInput === captchaText) {
-        window.location.href = "http://localhost/amitclub/Html/admin.php";
-    } else if (captchaInput !== captchaText) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: 'Enter correct captcha code'
-        });
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: 'User and password are incorrect, please try again'
-        });
-    }
-});
+                if (userId === 'admin' && password === 'admin123' && captchaInput === captchaText) {
+                    window.location.href = "http://localhost/amitclub/Html/admin.php";
+                } else if (captchaInput !== captchaText) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Enter correct captcha code'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'User and password are incorrect, please try again'
+                    });
+                }
+            });
 
-</script>
+        </script>
+
+        <!-- ..................................booking status........ -->
+        <script>
+            document.getElementById('status').addEventListener('click', function () {
+                const statuspage = document.getElementById('statuspage');
+                if (statuspage.style.display === 'none' || statuspage.style.display === '') {
+                    statuspage.style.display = 'block';
+                } else {
+                    statuspage.style.display = 'none';
+                }
+            });
+
+            document.getElementById('crosss').addEventListener('click', function () {
+                const statuspage = document.getElementById('statuspage');
+                statuspage.style.display = 'none';
+            });
+
+
+        </script>
 
 
         <!-- ..............................slider......................... -->

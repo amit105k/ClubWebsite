@@ -33,7 +33,7 @@
     if (isset($_GET['id'])) {
         $club_id = $_GET['id'];
 
-        $sql = "SELECT * FROM club_overviews WHERE id = ?";
+        $sql = "SELECT * FROM farmhouse WHERE id = ?";
         $stmt = $conn->prepare($sql);
 
         if ($stmt === false) {
@@ -50,7 +50,7 @@
 
             <nav>
                 <h4>The Noida Club</h4>
-                <!-- <h4><?php echo $row['club_name']; ?></h4> -->
+                <!-- <h4><?php echo $row['name']; ?></h4> -->
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
                 <a href="service.php">Services</a>
@@ -65,7 +65,7 @@
 
 
             <div class="overviews">
-                <h2><span>Welcome To</span> <?php echo $row['club_name']; ?></h2>
+                <h2><span>Welcome To</span> <?php echo $row['name']; ?></h2>
                 <div class="image-containerr">
 
                     <div class="fade">
@@ -83,7 +83,7 @@
                                     <pi id="hhh"><?php echo $row['address']; ?></pi><br>
 
                                     <!-- <a href="<?php echo $row['book_tkt']; ?>" class="btn">Buy Tickets</a> -->
-                                    <a href="registration_form.php?club_name=<?php echo urlencode($row['club_name']); ?>"
+                                    <a href="registration_form.php?club_name=<?php echo urlencode($row['name']); ?>"
                                         class="btn">Buy
                                         Tickets</a>
                         </div>
