@@ -80,12 +80,37 @@
         top: 130px;
         z-index: 2;
         border-radius: 10px;
+        /* overflow-x: scroll; */
         /* display: none; */
     }
-    .search{
+
+    .search {
         line-height: 25px;
         font-size: 17px;
         margin-top: 20px;
+
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+        cursor: pointer;
+    }
+   #paynow a{
+      color: black;
+      background-color: #4CAF50;
+      text-decoration: none;
+      color: orange;
+    }
+    #paynow{
+      background-color: #4CAF50;
+      position:absolute;
+      margin-top: -170px;
+      right: 20px;
+      animation: pay 3s infinite alternate linear;
+    }
+    @keyframes pay{
+       0%{margin-top: -170px;};
+       100%{margin-top: -110px;};
     }
 
     #cross {
@@ -747,9 +772,9 @@
         <!-- booking status is here...................................................-->
         <div id="statuspage">
             <div class="login-container">
-                <h2>Booking status</h2>
+                <h2>Booking Status</h2>
                 <form action="" method="post">
-                    <label for="searchInput">Enter booking ID / Mobile number</label>
+                    <label for="searchInput">Enter Booking ID / Mobile Number</label>
                     <input type="text" name="searchInput" id="searchInput" required>
                     <input type="submit" value="Search">
                 </form>
@@ -764,20 +789,35 @@
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $searchInput = $_POST['searchInput'];
 
-                        $stmt = $conn->prepare("SELECT count,amount,id,club,name, payment_id, payment_status,date FROM registrations WHERE id = ? OR mobile = ?");
+                        $stmt = $conn->prepare("SELECT count,amount,id,club,name,payment_id,payment_status,date FROM registrations WHERE id = ? OR mobile = ?");
                         $stmt->bind_param("ss", $searchInput, $searchInput);
                         $stmt->execute();
                         $result = $stmt->get_result();
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "Club Name: " . $row['club'] . "<br>";
-                                echo "Name: " . $row['name'] . "<br>";
-                                echo "Payment ID: " . $row['payment_id'] . "<br>";
-                                echo "Payment Status: " . $row['payment_status'] . "<br>";
-                                echo "Booking Date: " . $row['date'] . "<br>";
-                                echo "Total Persons: " . $row['count'] . "<br>";
-                                echo "Amount : " . $row['amount'] . "<br>";
+                                if ($row['payment_status'] == "Success") {
+                                    echo "<strong>Club Name:</strong> " . $row['club'] . "<br>";
+                                    echo "<strong>Name:</strong> " . $row['name'] . "<br>";
+                                    echo "<strong>Payment ID:</strong> " . $row['payment_id'] . "<br>";
+                                    echo "<strong>Payment Status:</strong> " . $row['payment_status'] . "<br>";
+                                    echo "<strong>Booking Date:</strong> " . $row['date'] . "<br>";
+                                    echo "<strong>Total Persons:</strong> " . $row['count'] . "<br>";
+                                    echo "<strong>Amount:</strong> " . $row['amount'] . "<br><br>";
+
+                                }
+                                else if ($row['payment_status'] == "Pending") {
+                                    echo "<strong>Club Name:</strong> " . $row['club'] . "<br>";
+                                    echo "<strong>Booking Id:</strong> " . $row['id'] . "<br>";
+                                    echo "<strong>Name:</strong> " . $row['name'] . "<br>";
+                                    echo "<strong>Payment ID:</strong> " . $row['payment_id'] . "<br>";
+                                    echo "<strong>Payment Status:</strong> " . $row['payment_status'] . "<br>";
+                                    echo "<strong>Booking Date:</strong> " . $row['date'] . "<br>";
+                                    echo "<strong>Total Persons:</strong> " . $row['count'] . "<br>";
+                                    echo "<strong>Amount:</strong> " . $row['amount'] . "<br><br>";
+                                    // echo "<button type='submit'>Pay Now</button>";
+                                    echo '<button id="paynow"><a href="paynow.php?id=' . $row['id'] . '">Pay Now</a></button>';
+                                }
                             }
                         } else {
                             echo "No records found for the provided booking ID or mobile number.";
@@ -787,7 +827,6 @@
                         $conn->close();
                     }
                     ?>
-
                 </div>
 
                 <div id="crosss">X</div>

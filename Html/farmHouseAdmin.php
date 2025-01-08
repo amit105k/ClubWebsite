@@ -214,20 +214,20 @@
             document.getElementById('updateLink').classList.add('hidden');
             document.getElementById('deleteLink').classList.add('hidden');
 
-            if (page === 'clublist.php') {
+            if (page === 'farmHouseList.php') {
                 document.getElementById('updateLink').classList.remove('hidden');
                 document.getElementById('deleteLink').classList.remove('hidden');
                 document.getElementById('createLink').classList.remove('hidden');
-            } else if (page === 'update_club.php') {
+            } else if (page === 'farmUpdate') {
                 document.getElementById('listList').classList.remove('hidden');
                 document.getElementById('createLink').classList.remove('hidden');
                 document.getElementById('deleteLink').classList.remove('hidden');
-            } else if (page === 'deleteclub.php') {
+            } else if (page === 'farmDelete.php') {
                 document.getElementById('createLink').classList.remove('hidden');
                 document.getElementById('updateLink').classList.remove('hidden');
                 document.getElementById('listList').classList.remove('hidden');
 
-            } else if (page === 'createnewclub.php') {
+            } else if (page === 'farmcreate') {
                 document.getElementById('deleteLink').classList.remove('hidden');
                 document.getElementById('updateLink').classList.remove('hidden');
                 document.getElementById('listList').classList.remove('hidden');
@@ -261,7 +261,7 @@
         </div>
 
         <div id="content">
-            <iframe src="clublist.php" style="width:100%" height="100%"></iframe>
+            <iframe src="farmHouseList.php" style="width:100%" height="100%"></iframe>
         </div>
     </div>
 

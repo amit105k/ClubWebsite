@@ -54,7 +54,7 @@ $result = $conn->query($sql);
 <body>
 
     <div class="container">
-        <h2 style="text-align:center">All Clubs</h2>
+        <h2 style="text-align:center">All FarmHouse List</h2>
 
         <?php
         // Check if there are any records to display
@@ -70,6 +70,7 @@ $result = $conn->query($sql);
                         <th>City</th>
                         <th>Pin Code</th>
                         <th>About</th>
+                        <th>Price</th>
                         
                     </tr>";
             
@@ -84,6 +85,7 @@ $result = $conn->query($sql);
                         <td>" . $row["city"] . "</td>
                         <td>" . $row["pincode"] . "</td>
                         <td> <textarea>" . $row["about"] . "</textarea></td>
+                        <td>" . $row["price"] . "</td>
                        
                     </tr>";
             }

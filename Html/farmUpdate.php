@@ -177,8 +177,8 @@ $conn->close();
                 <input type="text" id="club_name" name="name"
                     value="<?php echo $selected_club ? $selected_club['name'] : ''; ?>" required><br><br>
 
-                <label for="show_time">Show Time:</label>
-                <input type="datetime-local" id="show_time" name="show_time"
+                <label for="show_time">Openaning And Closing Time:</label>
+                <input type="text" id="show_time" name="show_time"
                     value="<?php echo $selected_club ? $selected_club['show_time'] : ''; ?>"><br><br>
 
                 <label for="address">Address:</label>
@@ -195,7 +195,10 @@ $conn->close();
 
                 <label for="about">About of Clubs :-</label>
                 <textarea type="text" id="book_tkt" name="about" value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
-                    </textarea><br><br>
+                        </textarea><br><br>
+                <label for="postal_code">Price:</label>
+                <input type="text" id="postal_code" name="pincode"
+                    value="<?php echo $selected_club ? $selected_club['price'] : ''; ?>"><br><br>
 
                 <input type="submit" name="submit" value="Update Club">
             </form>
