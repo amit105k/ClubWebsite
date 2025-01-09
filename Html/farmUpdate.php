@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = intval($_POST['id']);
     $image_url = $conn->real_escape_string($_POST['image_url']);
     $club_name = $conn->real_escape_string($_POST['name']);
+    $price = $conn->real_escape_string($_POST['price']);
     $show_time = $conn->real_escape_string($_POST['show_time']);
     $address = $conn->real_escape_string($_POST['address']);
     $city = $conn->real_escape_string($_POST['city']);
@@ -31,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE farmhouse SET 
             image_url = ?, 
             name = ?, 
+            price = ?,
             show_time = ?, 
             address = ?, 
             city = ?, 
@@ -39,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         WHERE id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssi", $image_url, $club_name, $show_time, $address, $city, $postal_code, $about, $id);
+    $stmt->bind_param("ssssssssi", $image_url, $club_name, $price,$show_time, $address, $city, $postal_code, $about, $id);
 
     if ($stmt->execute()) {
         echo "<script>
@@ -50,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.href = 'update_club.php';
+                        window.location.href = 'farmUPDATE.PHP';
                     });
                 });
               </script>";
@@ -176,9 +178,13 @@ $conn->close();
                 <label for="club_name">Name:</label>
                 <input type="text" id="club_name" name="name"
                     value="<?php echo $selected_club ? $selected_club['name'] : ''; ?>" required><br><br>
+                
+                <label for="club_name">Price:</label>
+                <input type="text" id="price" name="price"
+                    value="<?php echo $selected_club ? $selected_club['price'] : ''; ?>"><br><br>
 
-                <label for="show_time">Openaning And Closing Time:</label>
-                <input type="text" id="show_time" name="show_time"
+                <label for="show_time">Show Time:</label>
+                <input type="datetime-local" id="show_time" name="show_time"
                     value="<?php echo $selected_club ? $selected_club['show_time'] : ''; ?>"><br><br>
 
                 <label for="address">Address:</label>
@@ -195,10 +201,8 @@ $conn->close();
 
                 <label for="about">About of Clubs :-</label>
                 <textarea type="text" id="book_tkt" name="about" value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
-                        </textarea><br><br>
-                <label for="postal_code">Price:</label>
-                <input type="text" id="postal_code" name="pincode"
-                    value="<?php echo $selected_club ? $selected_club['price'] : ''; ?>"><br><br>
+                            </textarea><br><br>
+
 
                 <input type="submit" name="submit" value="Update Club">
             </form>

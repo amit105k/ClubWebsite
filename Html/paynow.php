@@ -25,17 +25,35 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 </head>
-<button onclick="payment(bookingId)">Pay on Razorpay</button>
+<style>
+    *{
+        background-color: black;
+        /* display: flex; */
+    }
+    #payon{
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+        border-radius: 5px;
+        margin-top: 20%;
+        margin-left: 48%;
+        
+
+    }
+</style>
+<?php
+    $bookingId = $_GET['bookingId'];
+    ?>
+<button onclick="payment(bookingId)" id="payon">Pay on Razorpay</button>
 
 <body>
-    <?php
-    $bookingId = $_GET['id'];
-    ?>
+    
+    
     <script>
-
         var bookingId = "<?php echo $bookingId; ?>";
-
         function payment(bookingId) {
             console.log("Booking ID:", bookingId);
 

@@ -83,7 +83,7 @@
                                     <pi id="hhh"><?php echo $row['address']; ?></pi><br>
 
                                     <!-- <a href="<?php echo $row['book_tkt']; ?>" class="btn">Buy Tickets</a> -->
-                                    <a href="registration_form.php?club_name=<?php echo urlencode($row['name']); ?>"
+                                    <a href="farmHouseTicket.php?id=<?php echo urlencode($row['id']); ?>"
                                         class="btn">Buy
                                         Tickets</a>
                         </div>
@@ -952,4 +952,5 @@
         width: 100%;
         height: 1px;
     }
+ 
 </style>

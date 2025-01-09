@@ -81,7 +81,7 @@
         z-index: 2;
         border-radius: 10px;
         /* overflow-x: scroll; */
-        /* display: none; */
+        display: none;
     }
 
     .search {
@@ -179,7 +179,7 @@
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="#" id="admin">Admin</a>
-        <a href="#" id="status">Booking Status</a>
+        <a href="status.php" id="status">Booking Status</a>
         <!-- <h3>+91 70076000000</h3> -->
 
     </nav>
@@ -776,7 +776,8 @@
                 <form action="" method="post">
                     <label for="searchInput">Enter Booking ID / Mobile Number</label>
                     <input type="text" name="searchInput" id="searchInput" required>
-                    <input type="submit" value="Search">
+                    <!-- <input type="submit" value="Search"> -->
+                     <button>Search</button>
                 </form>
                 <div class="search">
                     <?php
@@ -852,8 +853,6 @@
 
         <!--.............admin login js......................................-->
 
-
-
         <script>
             document.getElementById('admin').addEventListener('click', function () {
                 const adminpage = document.getElementById('adminpage');
@@ -916,24 +915,7 @@
 
         </script>
 
-        <!-- ..................................booking status........ -->
-        <script>
-            document.getElementById('status').addEventListener('click', function () {
-                const statuspage = document.getElementById('statuspage');
-                if (statuspage.style.display === 'none' || statuspage.style.display === '') {
-                    statuspage.style.display = 'block';
-                } else {
-                    statuspage.style.display = 'none';
-                }
-            });
-
-            document.getElementById('crosss').addEventListener('click', function () {
-                const statuspage = document.getElementById('statuspage');
-                statuspage.style.display = 'none';
-            });
-
-
-        </script>
+       
 
 
         <!-- ..............................slider......................... -->
