@@ -40,6 +40,7 @@
         <a href="#clubs">Gallery</a> -->
         <a href="../Html/contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
+        <a href="status.php" id="status">Booking Status</a>
         <h3>+91 70076000000</h3>
     </nav>
 

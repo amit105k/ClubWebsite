@@ -76,7 +76,7 @@
         color: white;
         text-align: center;
         background-color: hsl(202, 75%, 47%);
-        height: 380px;
+        /* height: 380px; */
         width: 50%;
         margin-left: 25%;
         padding: 10px;
@@ -84,7 +84,6 @@
         top: 130px;
         z-index: 2;
         border-radius: 10px;
-        /* overflow-x: scroll; */
         /* display: none; */
     }
 
@@ -413,15 +412,12 @@
             return randomLetters + randomLower + randomNumber;
         }
 
-        // Display the initial captcha
         document.getElementById('capta').innerText = generateCaptcha();
 
-        // Update captcha when refresh button is clicked
         document.getElementById('refreshCaptcha').addEventListener('click', function () {
             document.getElementById('capta').innerText = generateCaptcha();
         });
 
-        // Handling form submission
         document.getElementById('loginForm').addEventListener('submit', function (event) {
             event.preventDefault();
 

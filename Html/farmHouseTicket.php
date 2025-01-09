@@ -123,57 +123,70 @@
     </div>
 
 
-    
 
-    
+
+
     <!-- .............................................new script.............................. -->
     <script>
-    const dbdis = <?php echo json_encode($promodis); ?>;
-    const dbpromo = <?php echo json_encode($promocode); ?>; 
+        const dbdis = <?php echo json_encode($promodis); ?>;
+        const dbpromo = <?php echo json_encode($promocode); ?>;
 
-    const initialPersons = 10;
-    const extraChargePerPerson = <?php echo htmlspecialchars($extraperson); ?>;
-    const basePrice = <?php echo htmlspecialchars($price); ?>;
-    
-    const personInput = document.getElementById('person');
-    const amountDisplay = document.getElementById('amount');
-    const inputAmount = document.getElementById('inputamount');
+        const initialPersons = 10;
+        const extraChargePerPerson = <?php echo htmlspecialchars($extraperson); ?>;
+        const basePrice = <?php echo htmlspecialchars($price); ?>;
 
-    let isPromoApplied = false; 
+        const personInput = document.getElementById('person');
+        const amountDisplay = document.getElementById('amount');
+        const inputAmount = document.getElementById('inputamount');
 
-    personInput.addEventListener('input', calculatePrice);
+        let isPromoApplied = false;
 
-    function calculatePrice() {
-        const currentPersons = parseInt(personInput.value, 10);
-        const extraPersons = Math.max(currentPersons - initialPersons, 0); 
-        let totalAmount = basePrice + (extraPersons * extraChargePerPerson);
+        personInput.addEventListener('input', calculatePrice);
 
-        if (isPromoApplied) {
-            const discount = (totalAmount * dbdis) / 100; 
-            totalAmount -= discount;
+        function calculatePrice() {
+            const currentPersons = parseInt(personInput.value, 10);
+            const extraPersons = Math.max(currentPersons - initialPersons, 0);
+            let totalAmount = basePrice + (extraPersons * extraChargePerPerson);
+
+            if (isPromoApplied) {
+                const discount = (totalAmount * dbdis) / 100;
+                totalAmount -= discount;
+            }
+
+            amountDisplay.textContent = totalAmount;
+            inputAmount.value = totalAmount;
         }
 
-        amountDisplay.textContent = totalAmount; 
-        inputAmount.value = totalAmount; 
-    }
+        function apply() {
+            const userPromoCode = document.getElementById("promocode").value;
+            const promoUpper = userPromoCode.toUpperCase();
 
-    function apply() {
-        const userPromoCode = document.getElementById("promocode").value;
-        const promoUpper = userPromoCode.toUpperCase();
+            if (promoUpper === dbpromo) {
+                isPromoApplied = true;
+                // alert("Promo applied! You get " + dbdis + "% off.");
+                Swal.fire({
+                    title: "Congratulations ",
+                    text: "Promo applied! You get "+dbdis+"% off.",
+                    icon: "success"
+                });
+                // promocode.style
+                document.getElementById("promocode").disabled = true;
+                document.getElementById("promo").disabled = true;
+            } else {
+                isPromoApplied = false;
+                // alert("Invalid promo code!");
+                Swal.fire({
+                    title: "Sorry We Cannot Find Any Coupon/Promocode !",
+                    text: "Please Enter Correct Coupon/Promocode I'd!",
+                    icon: "error"
+                });
+            }
 
-        if (promoUpper === dbpromo) {
-            isPromoApplied = true;
-            alert("Promo applied! You get " + dbdis + "% off.");
-        } else {
-            isPromoApplied = false;
-            alert("Invalid promo code!");
+            calculatePrice();
         }
 
         calculatePrice(); 
-    }
-
-    calculatePrice(); 
-</script>
+    </script>
 
 
 

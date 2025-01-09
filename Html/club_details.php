@@ -56,6 +56,7 @@
                 <a href="service.php">Services</a>
                 <a href="contact.php">Contact Us</a>
                 <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
+                <a href="status.php" id="status">Booking Status</a>
 
             </nav>
 

@@ -360,6 +360,7 @@ footer p {
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
+        <a href="status.php" id="status">Booking Status</a>
         <a href="../Html/admin.php">Admin</a>
     </nav>
 

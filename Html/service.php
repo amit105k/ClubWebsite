@@ -97,8 +97,8 @@ main {
 }
 
 .service-item {
-    background-color: #071520;
-    padding: 20px;
+    background-color: #3b4954;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

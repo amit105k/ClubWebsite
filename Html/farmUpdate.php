@@ -183,8 +183,8 @@ $conn->close();
                 <input type="text" id="price" name="price"
                     value="<?php echo $selected_club ? $selected_club['price'] : ''; ?>"><br><br>
 
-                <label for="show_time">Show Time:</label>
-                <input type="datetime-local" id="show_time" name="show_time"
+                <label for="show_time">Openaning And Closing Time:</label>
+                <input type="text" id="show_time" name="show_time"
                     value="<?php echo $selected_club ? $selected_club['show_time'] : ''; ?>"><br><br>
 
                 <label for="address">Address:</label>
