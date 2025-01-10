@@ -84,8 +84,7 @@
                                     <pi id="hhh"><?php echo $row['address']; ?></pi><br>
 
                                     <!-- <a href="<?php echo $row['book_tkt']; ?>" class="btn">Buy Tickets</a> -->
-                                    <a href="farmHouseTicket.php?id=<?php echo urlencode($row['id']); ?>"
-                                        class="btn">Buy
+                                    <a href="farmHouseTicket.php?id=<?php echo urlencode($row['id']); ?>" class="btn">Buy
                                         Tickets</a>
                         </div>
 
@@ -111,7 +110,7 @@
                     width: 90%;
                     margin-left: 5%;
                     flex-wrap: wrap;
-                    flex-direction:row;
+                    flex-direction: row;
                 }
 
                 .section {
@@ -146,7 +145,7 @@
                 }
             </style>
             <div class="menu">
-            <h1>MENU BAR</h1>
+                <h1>MENU BAR</h1>
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
@@ -296,7 +295,7 @@
             </div>
             <hr>
             <div class="menu">
-            <h1>Selection of HUKKA</h1>
+                <h1>Selection of HUKKA</h1>
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
@@ -453,6 +452,146 @@
             <div class="music">
                 this div contain music whcich has been in club
             </div>
+            <hr>
+            <div class="carousel">
+                <div class="carousel-content">
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=lawn&price=500">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/FarmHouse.png" loading="lazy">
+                                <h6 class="text-center">Lawn 1</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=Family Suite">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Lawn.png" loading="lazy">
+                                <h6 class="text-center">Family Suite 2</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=Engagement">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Engagement.png"
+                                    loading="lazy">
+                                <h6 class="text-center">Engagement 3</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=Pool Party">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/PoolParty.png" loading="lazy">
+                                <h6 class="text-center">Pool Party 4</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=BYOB">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/BYOB.png" loading="lazy">
+                                <h6 class="text-center">BYOB 5</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body">
+                            <a href="lawnticketbook.php?club_name=Corporate">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Corporate.png" loading="lazy">
+                                <h6 class="text-center">Corporate 6</h6>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .carousel {
+                    width: 100%;
+                    background-color: black;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    padding: 10px;
+                    justify-content: center;
+                }
+              
+                .carousel-content {
+                    display: flex;
+                    gap: 73px;
+                    width: 80%;
+                    overflow: hidden;
+                    /* background-color: yellow; */
+                }
+                .carousel-item{
+                    animation: slide 5s linear alternate infinite;
+
+                }
+
+                .carousel .carousel-item {
+                    flex: 0 0 auto;
+                    background-color: white;
+                    /* width: 80%; */
+                    /* gap: 40px; */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                }
+
+                .card {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    box-sizing: border-box;
+                }
+
+                .card img {
+                    max-width: 100%;
+                    height: auto;
+                    /* display: block; */
+                    
+                }
+
+                .text-center {
+                    margin: 5px 0;
+                    font-size: 1rem;
+                    text-align: center;
+                    color: #000;
+                    text-decoration:none;
+                    /* background-color: pink; */
+                }
+                .text-center a{
+                    text-decoration: none;
+                }
+
+                @keyframes slide {
+                    0% {
+                        transform: translateX(100%);
+                    }
+
+                    100% {
+                        transform: translateX(-100%);
+                    }
+                }
+            </style>
+            <!-- <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carousel = document.querySelector('.carousel');
+
+                    function resetAnimation() {
+
+                        void carousel.offsetWidth;
+                        carousel.style.animation = 'scroll 15s linear infinite';
+                    }
+
+                    setInterval(resetAnimation, 10000);
+                });
+
+            </script> -->
             <div class="new">
                 <h2>Gallery</h2>
                 <div class="image3">
@@ -953,5 +1092,4 @@
         width: 100%;
         height: 1px;
     }
- 
 </style>

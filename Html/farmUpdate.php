@@ -28,6 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $city = $conn->real_escape_string($_POST['city']);
     $postal_code = $conn->real_escape_string($_POST['pincode']);
     $about = $conn->real_escape_string($_POST['about']);
+    $promocode = $conn->real_escape_string($_POST['promocode']);
+    $promodis = $conn->real_escape_string($_POST['promodis']);
+    $extraperson = $conn->real_escape_string($_POST['extraperson']);
 
     $sql = "UPDATE farmhouse SET 
             image_url = ?, 
@@ -37,11 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             address = ?, 
             city = ?, 
             pincode = ?, 
-            about = ? 
+            about = ?,
+            promocode =?,
+            promodis = ?,
+            extraperson =?
         WHERE id = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssi", $image_url, $club_name, $price,$show_time, $address, $city, $postal_code, $about, $id);
+    $stmt->bind_param("sssssssssssi", $image_url, $club_name, $price, $show_time, $address, $city, $postal_code, $about, $promocode, $promodis, $extraperson, $id);
 
     if ($stmt->execute()) {
         echo "<script>
@@ -178,11 +184,22 @@ $conn->close();
                 <label for="club_name">Name:</label>
                 <input type="text" id="club_name" name="name"
                     value="<?php echo $selected_club ? $selected_club['name'] : ''; ?>" required><br><br>
-                
+
                 <label for="club_name">Price:</label>
                 <input type="text" id="price" name="price"
                     value="<?php echo $selected_club ? $selected_club['price'] : ''; ?>"><br><br>
 
+                <label for="postal_code">Promocode For user discount:</label>
+                <input type="text" id="postal_code" name="promocode"
+                    value="<?php echo $selected_club ? $selected_club['promocode'] : ''; ?>"><br><br>
+
+                <label for="postal_code">Promo Discount in %:</label>
+                <input type="text" id="postal_code" name="promodis"
+                    value="<?php echo $selected_club ? $selected_club['promodis'] : ''; ?>"><br><br>
+
+                <label for="postal_code">More than person charges:</label>
+                <input type="text" id="postal_code" name="extraperson"
+                    value="<?php echo $selected_club ? $selected_club['extraperson'] : ''; ?>"><br><br>
                 <label for="show_time">Openaning And Closing Time:</label>
                 <input type="text" id="show_time" name="show_time"
                     value="<?php echo $selected_club ? $selected_club['show_time'] : ''; ?>"><br><br>
@@ -201,7 +218,9 @@ $conn->close();
 
                 <label for="about">About of Clubs :-</label>
                 <textarea type="text" id="book_tkt" name="about" value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
-                            </textarea><br><br>
+                                    </textarea><br><br>
+
+
 
 
                 <input type="submit" name="submit" value="Update Club">

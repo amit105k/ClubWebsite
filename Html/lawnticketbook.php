@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -45,44 +45,17 @@
 
 
     <?php
-    include('db.php');
-
-
-    if (isset($_GET['id'])) {
-        $club_id = $_GET['id'];
-
-        $sql = "SELECT name, price ,promocode,promodis,extraperson FROM farmhouse WHERE id =?";
-        $stmt = $conn->prepare($sql);
-
-        if ($stmt === false) {
-            die("SQL preparation failed: " . $conn->error);
-        }
-
-        $stmt->bind_param("i", $club_id);
-        $stmt->execute();
-        $stmt->bind_result($name, $price, $promocode, $promodis, $extraperson);
-
-        if ($stmt->fetch()) {
-            // coreect
-    
-        } else {
-            echo "Some thing went worng contact to administrator";
-        }
-        $stmt->close();
-    } else {
-        echo "No club ID provided.";
-        $name = $price = '';
-    }
-    $conn->close();
+    $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
+    $price = isset($_GET['price']) ? $_GET['price'] : '';
+    $extraperson = isset($_GET['extraperson']) ? $_GET['extraperson'] : '';
     ?>
 
-    <div class="form-container">
-        <h1>Club Registration Form</h1>
-        <form id="registrationForm" action="submit_form.php" method="POST">
-            <h2 id="club" name="club"><?php echo htmlspecialchars($name); ?></h2>
-
-            <br><br>
-            <input type="text" id="club" name="club" value="<?php echo htmlspecialchars($name); ?>" hidden>
+<div class="form-container">
+    <h1>Club Registration Form</h1>
+    <form id="registrationForm" action="submit_form.php" method="POST">
+        <h2 id="club" name="club"><?php echo htmlspecialchars($club_name); ?></h2>
+        <br><br>
+        <input type="text" id="club" name="club" value="<?php echo htmlspecialchars($club_name); ?>" hidden>
 
 
             <label for="name">Name:</label>
@@ -116,7 +89,7 @@
                     <?php echo htmlspecialchars($extraperson); ?></span> per Person</span>
             <label for="singleEntry">Amount</label>
             <h3 id="amount" name="amount"></h3>
-            <input type="text" name="amount" id="inputamount" value="<?php echo htmlspecialchars($price); ?>" hidden>
+            <input type="text" name="amount" id="inputamount" value="<?php echo htmlspecialchars($price); ?>">
 
             <button type="submit" onclick="validateForm(event)">Submit</button>
         </form>
@@ -184,6 +157,9 @@
 
         calculatePrice(); 
     </script>
+
+
+
 
 
 
@@ -261,25 +237,19 @@
                     Swal.fire({
                         title: 'Booking Confirmed!',
                         text: 'Booking ID is: ' + data.bookingId,
-                        // text: 'Booking ID is: ' + ,
                         icon: 'success',
                         showCancelButton: true,
                         cancelButtonText: 'Proceed for Payment',
                         confirmButtonText: 'Return to Home',
-                        // footer: `<button onclick="window.location.href='http://127.0.0.1:5500/amitclub/Html/index.html'">Go to Home Page</button>`,
                         showDenyButton: true,
                         denyButtonText: 'Create New',
                     }).then(result => {
                         if (result.isConfirmed) {
-                            // Redirect to Home page
                             window.location.href = 'http://localhost/amitclub/Html/index.php';
                         } else if (result.isDenied) {
                             window.location.href = 'http://localhost/amitclub/Html/buyticket.php';
                         } else {
-                            // window.location.href = 'http://localhost/amitclub/Html/razorpay_order.php';
-                            // window.location.href = 'http://localhost/amitclub/Html/razorpay_order.php';
                             payment(data.bookingId);
-                            console.log("this is ticket payment is" + data.bookingId);
                         }
                     });
                 } else {
@@ -297,68 +267,41 @@
 
     // ..............................payment is here...................................
     function payment(bookingId) {
-        console.log("Booking ID:", bookingId);
+    console.log("Booking ID:", bookingId);
 
-        fetch(`http://localhost/amitclub/Html/get_booking_details.php?bookingId=${bookingId}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    alert("Booking not found.");
-                    return;
-                }
+    fetch(`http://localhost/amitclub/Html/get_booking_details.php?bookingId=${bookingId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                alert("Booking not found.");
+                return;
+            }
 
-                var options = {
-                    "key": "rzp_test_EJk4TWdqYcZpEb",
-                    "amount": data.amount * 100,  // Razorpay amount is in paise
-                    "currency": "INR",
-                    "name": data.club,
-                    "description": "Booking for Club Entry",
-                    "image": "../image/new.gif",
-                    "handler": function (response) {
-                        var paymentDetails = {
-                            bookingId: bookingId,
-                            payment_id: response.razorpay_payment_id,
-                            payment_status: "Success"
-                        };
+            var options = {
+                "key": "rzp_test_EJk4TWdqYcZpEb",
+                "amount": data.amount * 100,  
+                "currency": "INR",
+                "name": data.club,
+                "description": "Booking for Club Entry",
+                "image": "../image/new.gif",
+                "handler": function (response) {
+                    var paymentDetails = {
+                        bookingId: bookingId,
+                        payment_id: response.razorpay_payment_id,
+                        payment_status: "Success"
+                    };
 
-                        // Update payment status in the database
-                        fetch('http://localhost/amitclub/Html/update_payment_status.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(paymentDetails)
-                        })
-                            .then(res => res.json())
-                            .then(result => {
-                                if (result.payment_status === 'success') {
+                    fetch('http://localhost/amitclub/Html/update_payment_status.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(paymentDetails)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.payment_status === 'success') {
 
-                                    fetch(`http://localhost/amitclub/Html/fetch_booking_details.php?bookingId=${bookingId}`)
-                                        .then(res => res.json())
-                                        .then(bookingData => {
-                                            showModal({
-                                                clubName: bookingData.club,
-                                                bookingId: bookingData.id,
-                                                payment_id: bookingData.payment_id,
-                                                tokenId: bookingData.token_id,
-                                                paymentStatus: "Success",
-                                                bookingDate: bookingData.date,
-                                                amount: bookingData.amount,
-                                                person: bookingData.count,
-                                                email: bookingData.email
-                                            });
-                                        })
-                                        .catch(error => {
-                                            console.error('Error fetching updated booking details:', error);
-                                        });
-                                } else {
-                                    alert('this is error in buy ticket.php');
-
-                                }
-                            })
-                            .catch(error => {
-                                // console.error('Error updating payment status:', error);
-                                // alert('Something went wrong while updating payment status.');
                                 fetch(`http://localhost/amitclub/Html/fetch_booking_details.php?bookingId=${bookingId}`)
                                     .then(res => res.json())
                                     .then(bookingData => {
@@ -377,30 +320,54 @@
                                     .catch(error => {
                                         console.error('Error fetching updated booking details:', error);
                                     });
-                            });
-                    },
-                    "prefill": {
-                        "name": data.name,
-                        "email": data.email,
-                        "contact": data.mobile
-                    },
-                    "theme": {
-                        "color": "red"
-                    }
-                };
+                            } else {
+                                alert('this is error in buy ticket.php');
+                               
+                            }
+                        })
+                        .catch(error => {
+                            
+                            fetch(`http://localhost/amitclub/Html/fetch_booking_details.php?bookingId=${bookingId}`)
+                                    .then(res => res.json())
+                                    .then(bookingData => {
+                                        showModal({
+                                            clubName: bookingData.club,
+                                            bookingId: bookingData.id,
+                                            payment_id: bookingData.payment_id,
+                                            tokenId: bookingData.token_id,
+                                            paymentStatus: "Success",
+                                            bookingDate: bookingData.date,
+                                            amount: bookingData.amount,
+                                            person: bookingData.count,
+                                            email: bookingData.email
+                                        });
+                                    })
+                                    .catch(error => {
+                                        console.error('Error fetching updated booking details:', error);
+                                    });
+                        });
+                },
+                "prefill": {
+                    "name": data.name,
+                    "email": data.email,
+                    "contact": data.mobile
+                },
+                "theme": {
+                    "color": "red"
+                }
+            };
 
-                var rzp1 = new Razorpay(options);
-                rzp1.open();
-            })
-            .catch(error => {
-                console.error('Error fetching booking details:', error);
-                alert('Error fetching booking details.');
-            });
-    }
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        })
+        .catch(error => {
+            console.error('Error fetching booking details:', error);
+            alert('Error fetching booking details.');
+        });
+}
 
-    // Function to display the modal
-    function showModal(details) {
-        const modalHTML = `
+function showModal(details) {
+    const modalHTML = `
         <div id="paymentModal" style="
             position: fixed; 
             top: 50%; 
@@ -446,18 +413,17 @@
         "></div>
     `;
 
-        // Append modal to the body
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-        // Close modal when backdrop is clicked
-        document.getElementById('modalBackdrop').onclick = () => closeModal();
-    }
+    document.getElementById('modalBackdrop').onclick = () => closeModal();
+}
 
-    // Function to close the modal
-    function closeModal() {
-        document.getElementById('paymentModal').remove();
-        document.getElementById('modalBackdrop').remove();
-    }
+function closeModal() {
+    document.getElementById('paymentModal').remove();
+    document.getElementById('modalBackdrop').remove();
+}
+
+
 
 
 
@@ -470,11 +436,10 @@
 <!-- ......................paymrnt................................. -->
 
 <style>
-    #paragraph {
+    #paragraph{
         margin-top: 10px;
         margin-left: 10%;
     }
-
     #registrationForm h2 {
         text-align: center;
         color: #3a4cab;
@@ -484,22 +449,8 @@
         font-style: normal;
         margin-top: 16px;
     }
-
-    #paragraph {
+    #paragraph{
         margin-top: 10px;
         margin-left: 10%;
-    }
-
-    #promocode {
-        width: 40%;
-    }
-
-    #promo {
-        color: red;
-        cursor: pointer;
-    }
-
-    #duscoun span {
-        color: black;
     }
 </style>

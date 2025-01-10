@@ -163,7 +163,7 @@
     #crosss a {
         text-decoration: none;
         color: white;
-        background-color: red;
+        /* background-color: red; */
         padding: 9px;
         border-radius: 100%;
     }
@@ -328,6 +328,15 @@
                                 echo "<strong>Total Persons:</strong> " . $row['count'] . "<br>";
                                 echo "<strong>Amount:</strong> " . $row['amount'] . "<br><br>";
 
+                                ?>
+                                <script>
+                                    Swal.fire({
+                                        title: "Booking Confirm ",
+                                        text: "Your Booking I'd is <?php echo $row['id']; ?>",
+                                        icon: "success"
+                                    });
+                                </script>
+                                <?php
                             } else if ($row['payment_status'] == "Pending") {
                                 echo "<strong>Club Name:</strong> " . $row['club'] . "<br>";
                                 echo "<strong>Booking Id:</strong> " . $row['id'] . "<br>";
@@ -345,18 +354,18 @@
                                             title: "Your Booking is not confirmed",
                                             text: "Pay your Registration Fee",
                                             icon: "error",
-                                            showCancelButton: true, // Enable a second button
-                                            confirmButtonText: "Pay Now", // Label for the main button
-                                            cancelButtonText: "Cancel", // Label for the cancel button
+                                            showCancelButton: true, 
+                                            confirmButtonText: "Pay Now", 
+                                            cancelButtonText: "Cancel", 
                                         }).then((result) => {
                                             if (result.isConfirmed) {
-                                               
+
                                                 window.location.href = "paynow.php?bookingId=<?php echo $row['id']; ?>";
                                             }
                                         });
                                     </script>
                                 <?php
-        
+
                             }
                         }
                     } else {

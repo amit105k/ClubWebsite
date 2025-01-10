@@ -69,8 +69,11 @@ $result = $conn->query($sql);
                         <th>Address</th>
                         <th>City</th>
                         <th>Pin Code</th>
-                        <th>About</th>
                         <th>Price</th>
+                        <th>PromoCode</th>
+                        <th>Promo Discount</th>
+                        <th>Per Person Charg</th>
+                        <th>About</th>
                         
                     </tr>";
             
@@ -84,8 +87,11 @@ $result = $conn->query($sql);
                         <td>" . $row["address"] . "</td>
                         <td>" . $row["city"] . "</td>
                         <td>" . $row["pincode"] . "</td>
-                        <td> <textarea>" . $row["about"] . "</textarea></td>
                         <td>" . $row["price"] . "</td>
+                        <td>" . $row["promocode"] . "</td>
+                        <td>" . $row["promodis"] . "</td>
+                        <td>" . $row["extraperson"] . "</td>
+                        <td> <textarea>" . $row["about"] . "</textarea></td>
                        
                     </tr>";
             }
