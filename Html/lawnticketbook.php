@@ -48,6 +48,7 @@
     $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
     $price = isset($_GET['price']) ? $_GET['price'] : '';
     $extraperson = isset($_GET['extraperson']) ? $_GET['extraperson'] : '';
+    // $extraperson =200;
     ?>
 
 <div class="form-container">
@@ -85,11 +86,11 @@
             <label for="Persons">Persons:</label>
             <input type="number" name="count" id="person" required value="10"><br>
 
-            <span style="color:red" id="duscoun">Book More than 10 Persons than you will paid <span>&#x20B9;
+            <span style="color:red" id="duscoun">Book More than 5 Persons than you will paid <span>&#x20B9;
                     <?php echo htmlspecialchars($extraperson); ?></span> per Person</span>
             <label for="singleEntry">Amount</label>
             <h3 id="amount" name="amount"></h3>
-            <input type="text" name="amount" id="inputamount" value="<?php echo htmlspecialchars($price); ?>">
+            <input type="text" name="amount" id="inputamount" value="<?php echo htmlspecialchars($price); ?>" hidden>
 
             <button type="submit" onclick="validateForm(event)">Submit</button>
         </form>
@@ -101,10 +102,10 @@
 
     <!-- .............................................new script.............................. -->
     <script>
-        const dbdis = <?php echo json_encode($promodis); ?>;
-        const dbpromo = <?php echo json_encode($promocode); ?>;
+        const dbdis = 10;
+        const dbpromo = "AMIT";
 
-        const initialPersons = 10;
+        const initialPersons = 5;
         const extraChargePerPerson = <?php echo htmlspecialchars($extraperson); ?>;
         const basePrice = <?php echo htmlspecialchars($price); ?>;
 
@@ -452,5 +453,17 @@ function closeModal() {
     #paragraph{
         margin-top: 10px;
         margin-left: 10%;
+    }
+    #promocode {
+        width: 40%;
+    }
+
+    #promo {
+        color: red;
+        cursor: pointer;
+    }
+
+    #duscoun span {
+        color: black;
     }
 </style>

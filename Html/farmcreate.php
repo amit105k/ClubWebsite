@@ -16,11 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $city = $_POST['city'];
     $postal_code = $_POST['pincode'];
     $price = $_POST['price'];
+    $promocode = $_POST['promocode'];
+    $promodis = $_POST['promodis'];
+    $extraperson = $_POST['extraperson'];
 
 
-    $stmt = $conn->prepare("INSERT INTO farmhouse (name, image_url,about,show_time, address, city, pincode,price) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?,?)");
-    $stmt->bind_param("ssssssii", $club_name, $image_url, $about, $show_time, $address, $city, $postal_code, $price);
+    $stmt = $conn->prepare("INSERT INTO farmhouse (name, image_url,about,show_time, address, city, pincode,price,promocode,promodis,extraperson) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?)");
+    $stmt->bind_param("ssssssii", $club_name, $image_url, $about, $show_time, $address, $city, $postal_code, $price,$promocode,$promodis,$extraperson);
 
 
     if ($stmt->execute()) {
@@ -150,6 +153,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <label for="price">Price For Booking:</label>
             <input type="number" id="price" name="price" required>
+
+            <label for="price">Discount in %:</label>
+            <input type="number" id="promodis" name="promodis" required>
+
+            <label for="price">PromoCode for discount:</label>
+            <input type="number" id="promocode" name="promocode" required>
+
+            <label for="price">More than 10 person amount:</label>
+            <input type="number" id="extraperson" name="extraperson" required>
             
             <label for="about">About Of Club :-</label>
             <textarea name="about" id=""></textarea>

@@ -92,57 +92,64 @@
                 </div>
             </div>
             <style>
-                .menu {
-                    font-family: Arial, sans-serif;
-                    text-align: center;
-                    margin: 20px;
-                }
+               
+            </style>
 
-                .menu h1 {
-                    font-size: 36px;
-                    margin-bottom: 20px;
-                }
-
-                .menu-sections {
-                    display: flex;
-                    justify-content: space-around;
-                    gap: 40px;
-                    width: 90%;
-                    margin-left: 5%;
-                    flex-wrap: wrap;
-                    flex-direction: row;
-                }
-
-                .section {
-                    border: 1px solid #ccc;
-                    padding: 10px;
-                    width: 28%;
-                    background-color: #f9f9f9;
-                    border-radius: 5px;
-                }
-
-                .section h4 {
-                    font-size: 24px;
-                    margin-bottom: 10px;
-                }
-
-                .section ul {
-                    list-style: none;
-                    padding: 0;
-                }
-
-                .section ul li {
-                    margin-bottom: 10px;
-                }
-
-                .product-name {
-                    font-weight: bold;
-                }
-
-                .price {
-                    color: green;
-                    font-weight: bold;
-                }
+            <div class="carousel">
+                <div class="carousel-content">
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=lawn&price=5000&extraperson=150">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/FarmHouse.png" loading="lazy">
+                                <h6 class="text-center">Lawn </h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=Family Suite&price=5000&extraperson=250">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Lawn.png" loading="lazy">
+                                <h6 class="text-center">Family Suite </h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=Engagement&price=50000&extraperson=600">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Engagement.png"
+                                    loading="lazy">
+                                <h6 class="text-center">Engagement </h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=Pool Party&price=2500&extraperson=300">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/PoolParty.png" loading="lazy">
+                                <h6 class="text-center">Pool Party </h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body text-center">
+                            <a href="lawnticketbook.php?club_name=BYOB&price=5000&extraperson=300">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/BYOB.png" loading="lazy">
+                                <h6 class="text-center">BYOB </h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card card-body">
+                            <a href="lawnticketbook.php?club_name=Corporate&price=35000&extraperson=300">
+                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Corporate.png" loading="lazy">
+                                <h6 class="text-center">Corporate </h6>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+               
             </style>
             <div class="menu">
                 <h1>MENU BAR</h1>
@@ -443,155 +450,230 @@
                     </div>
                 </div>
             </div>
-            <hr>
-            <hr>
-            <div class="seats">
+           
+            <!-- <div class="seats">
                 this div contain total seats available in the clubs
             </div>
             <hr>
             <div class="music">
                 this div contain music whcich has been in club
-            </div>
-            <hr>
-            <div class="carousel">
-                <div class="carousel-content">
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=lawn&price=500">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/FarmHouse.png" loading="lazy">
-                                <h6 class="text-center">Lawn 1</h6>
-                            </a>
-                        </div>
+            </div> -->
+            <!-- <hr> -->
+            <div class="menu">
+                <h1>Facilities of FarmHouse</h1>
+                <div class="menu-sections">
+                    <div class="section  fac">
+                        <h4><span><i class="fa-solid fa-bath"></i> </span>Bathroom</h4>
+                        <ul>
+                            <li>Toilet paper</li>
+                            <li>Towels</li>
+                            <li>Private bathroom </li>
+                            <li>Toilet </li>
+                            <li>Bathtub </li>
+                            <li>Shower </li>
+                        </ul>
                     </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=Family Suite">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Lawn.png" loading="lazy">
-                                <h6 class="text-center">Family Suite 2</h6>
-                            </a>
-                        </div>
+
+                    <!-- Section 2 -->
+                    <div class="section fac">
+                        <h4><span><i class="fa-solid fa-dungeon"></i></span> Outdoors</h4>
+                        <ul>
+                            <li>Terrace</li>
+                            <li>Balcony</li>
+
+                        </ul>
+                        <h4><span><i class="fa-solid fa-g"></i></span> General</h4>
+                        <ul>
+                            <li>Smoke-free property </li>
+                            <li>Heating</li>
+                            <li>Air conditioning </li>
+
+                        </ul>
                     </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=Engagement">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Engagement.png"
-                                    loading="lazy">
-                                <h6 class="text-center">Engagement 3</h6>
-                            </a>
-                        </div>
+
+                    <!-- Section 3 -->
+                    <div class="section fac">
+                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Internet</h4>
+                        <ul>
+                            <li>internet access available.</li>
+                            <li>Brand Bend are available</li>
+                            <li>LAN cabel are available</li>
+
+                        </ul>
+                        <h4> <span><i class="fa-solid fa-square-parking"></i></span> Parking</h4>
+                        <ul>
+                            <li>Free private parking is available on site (reservation is not needed).</li>
+                        </ul>
                     </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=Pool Party">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/PoolParty.png" loading="lazy">
-                                <h6 class="text-center">Pool Party 4</h6>
-                            </a>
-                        </div>
+                    <div class="section fac">
+                        <h4><span><i class="fa-solid fa-bed"></i></span> Bedroom</h4>
+                        <ul>
+                            <li>Linens</li>
+                            <li>Wardrobe or closet </li>
+
+                        </ul>
+                        <h4><span><i class="fa-solid fa-cloud-sun"></i></span> View</h4>
+                        <ul>
+                            <li>Garden view </li>
+                            <li>View </li>
+                            <li>Sun rise </li>
+
+                        </ul>
                     </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=BYOB">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/BYOB.png" loading="lazy">
-                                <h6 class="text-center">BYOB 5</h6>
-                            </a>
-                        </div>
+                    <div class="section fac">
+                        <h4><span><i class="fa-solid fa-kitchen-set"></i></span> Kitchen</h4>
+                        <ul>
+                            <li>Dining table </li>
+                            <li>Refrigerator</li>
+
+                        </ul>
+                        <h4><span><i class="fa-solid fa-paw"></i></span> Pets</h4>
+                        <ul>
+                            <li>Pets are allowed. No extra charges. </li>
+                            <li>Cabs are also available for pets</li>
+
+                        </ul>
                     </div>
-                    <div class="carousel-item">
-                        <div class="card card-body">
-                            <a href="lawnticketbook.php?club_name=Corporate">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Corporate.png" loading="lazy">
-                                <h6 class="text-center">Corporate 6</h6>
-                            </a>
-                        </div>
+                    <div class="section fac">
+                        <h4><span><i class="fa-solid fa-couch"></i></span> Living Area</h4>
+                        <ul>
+                            <li>Dining area </li>
+
+                        </ul>
+                        <h4><span><i class="fa-solid fa-tv"></i></span> Media & Technology</h4>
+                        <ul>
+                            <li>Flat-screen TV </li>
+
+                        </ul>
+                        <h4><span><i class="fa-solid fa-language"></i></span> Languages Spoken</h4>
+                        <ul>
+                            <li>English </li>
+                            <li>Hindi </li>
+
+                        </ul>
                     </div>
                 </div>
             </div>
-            <style>
-                .carousel {
-                    width: 100%;
-                    background-color: black;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    position: relative;
-                    padding: 10px;
-                    justify-content: center;
-                }
-              
-                .carousel-content {
-                    display: flex;
-                    gap: 73px;
-                    width: 80%;
-                    overflow: hidden;
-                    /* background-color: yellow; */
-                }
-                .carousel-item{
-                    animation: slide 5s linear alternate infinite;
 
-                }
+            <!-- ............................................................... -->
+            <div class="menu rule">
+                <h1>Rules of FarmHouse</h1>
+                <div class="menu-sections rule-section">
+                    <div class="section  fac rule">
+                        <h4><span><i class="fa-solid fa-bath"></i> </span>Check-in</h4>
+                        <ul>
+                            <li>From 3:00 PM to 6:00 PM</li>
+                        </ul>
+                    </div>
 
-                .carousel .carousel-item {
-                    flex: 0 0 auto;
-                    background-color: white;
-                    /* width: 80%; */
-                    /* gap: 40px; */
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-                }
+                    <div class="section fac rule">
+                        <h4><span><i class="fa-solid fa-dungeon"></i></span> Check-out</h4>
+                        <ul>
+                            <li>From 8:00 AM to 11:00 AM </li>
+                        </ul>
+                    </div>
+                    <div class="section fac rule">
+                        <h4><span><i class="fa-solid fa-g"></i></span> Cancellation/ prepayment</h4>
+                        <ul>
+                            <li>Cancellation and prepayment policies vary according to accommodation type. Enter your stay dates
+                                and check the conditions of your selected option.</li>
+                        </ul>
+                    </div>
 
-                .card {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    box-sizing: border-box;
-                }
+                    <div class="section fac rule">
+                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Children & Beds</h4>
+                        <ul>
+                            <li>Child policies Children of all ages are welcome. To see correct prices and occupancy info, add
+                                the number and ages of children in your group to your search.</li>
+                        </ul>
 
-                .card img {
-                    max-width: 100%;
-                    height: auto;
-                    /* display: block; */
+                    </div>
+                    <div class="section fac rule">
+                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Crib and extra bed policies</h4>
+                        <ul>
+                            <li>Cribs and extra beds aren't available at this property.</li>
+                        </ul>
+                    </div>
+                    <div class="section fac rule">
+                        <h4><span><i class="fa-solid fa-bed"></i></span> Pets</h4>
+                        <ul>
+                            <li>Free!Pets are allowed. No extra charges.</li>
+
+                        </ul>
+
+                    </div>
+                    <div class="section fac rule">
+                        <h4><span><i class="fa-solid fa-cloud-sun"></i></span> Smoking</h4>
+                        <ul>
+                            <li>Smoking is not allowed.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+          
+            <!-- ............................................... -->
+
+            <div class="menu">
+                <h1>Area info</h1>
+                <div class="menu-sections area">
+                    <div class="section  fac area-section">
+                        <h4>What's nearby</h4>
+                        <ul>
+                            <li>Aravali Garden -<span>2.2 km</span></li>
+                            <li>Aravali Meadows-Sohna - <span>3.4 km</span></li>
+                            <li>Krishna Mangalam Vatika <span>4.3 km</span> </li>
+                            <li>Central Park - <span>7 km</span> </li>
+                            <li>Crescent Park - <span>8 km</span> </li>
+                            <li>Mondrian Park - <span>9 km</span> </li>
+                            <li>Jagran Park - <span>10 km</span> </li>
+                            <li>Neha Nursery - <span>10 km</span> </li>
+                            <li>Arora Park - <span>11 km</span> </li>
+                            <li>Obstacle Park - <span>11 km</span> </li>
+
+                        </ul>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="section fac area-section">
+                        <h4><span><i class="fa-solid fa-utensils"></i></span> Restaurants & cafes</h4>
+                        <ul>
+                            <li>Apna Dhaba - <span>1 km</span> </li>
+                            <li>China Town - <span>5 km</span> </li>
+                            <li>Mahola - <span>5.1 km</span> </li>
+                            <li>Hotel Amit - <span>7.1 km</span> </li>
+
+                        </ul>
+                        <h4><span><i class="fa-solid fa-train"></i></span> Public transit</h4>
+                        <ul>
+                            <li>M.G Road metro station - <span>7 km</span> </li>
+                            <li>Iffco chowk metro station - <span>9 km</span> </li>
+                            <li>Sector 55 & 56 - <span>14 km</span> </li>
+                            <li>Sector 54 Chowk - <span>19 km</span> </li>
+                            <li>Huda City Centre - <span>17 km</span> </li>
+
+
+                        </ul>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="section fac area-section">
+                        <h4><span><i class="fa-solid fa-plane-departure"></i> </span>Closest Airports</h4>
+                        <ul>
+                            <li>Delhi International Airport - <span>25 km</span> </li>
+                            <li>Hindon Airport - <span>60 km</span> </li>
+                        </ul>
+                    </div>
                     
-                }
+                </div>
+            </div>
 
-                .text-center {
-                    margin: 5px 0;
-                    font-size: 1rem;
-                    text-align: center;
-                    color: #000;
-                    text-decoration:none;
-                    /* background-color: pink; */
-                }
-                .text-center a{
-                    text-decoration: none;
-                }
 
-                @keyframes slide {
-                    0% {
-                        transform: translateX(100%);
-                    }
 
-                    100% {
-                        transform: translateX(-100%);
-                    }
-                }
-            </style>
-            <!-- <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    const carousel = document.querySelector('.carousel');
+            <!-- ............................................... -->
 
-                    function resetAnimation() {
-
-                        void carousel.offsetWidth;
-                        carousel.style.animation = 'scroll 15s linear infinite';
-                    }
-
-                    setInterval(resetAnimation, 10000);
-                });
-
-            </script> -->
+            
             <div class="new">
                 <h2>Gallery</h2>
                 <div class="image3">
@@ -1092,4 +1174,170 @@
         width: 100%;
         height: 1px;
     }
+
+   /* .........................................*/
+   .carousel {
+                    width: 100%;
+                    background-color: black;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    /* padding: 10px; */
+                    justify-content: center;
+                }
+
+                .carousel-content {
+                    display: flex;
+                    gap: 73px;
+                    width: 80%;
+                    overflow: hidden;
+                    /* background-color: yellow; */
+                }
+
+                .carousel-item {
+                    animation: slide 5s linear alternate infinite;
+
+                }
+
+                .carousel .carousel-item {
+                    flex: 0 0 auto;
+                    background-color: white;
+                    /* width: 80%; */
+                    /* gap: 40px; */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                }
+
+                .card {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    box-sizing: border-box;
+                }
+
+                .card img {
+                    max-width: 100%;
+                    height: auto;
+                    /* display: block; */
+
+                }
+
+                .text-center {
+                    margin: 5px 0;
+                    font-size: 1rem;
+                    text-align: center;
+                    color: #000;
+                    text-decoration: none;
+                    /* background-color: pink; */
+                }
+
+                .text-center a {
+                    text-decoration: none;
+                }
+
+                @keyframes slide {
+                    0% {
+                        transform: translateX(100%);
+                    }
+
+                    100% {
+                        transform: translateX(-100%);
+                    }
+                }
+
+
+    /*.......................................................*/
+    .menu {
+                    font-family: Arial, sans-serif;
+                    /* text-align: center; */
+                    /* margin: 20px; */
+                    background-color: black;
+                }
+
+                .menu h1 {
+                    font-size: 36px;
+                    padding-top: 20px;
+                    margin-bottom: 20px;
+                    text-align: center;
+                    color: white;
+                }
+
+                .menu-sections {
+                    display: flex;
+                    justify-content: space-around;
+                    gap: 40px;
+                    width: 90%;
+                    margin-left: 5%;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    padding-bottom: 26px;
+                }
+
+                .section {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    width: 28%;
+                    background-color: #f9f9f9;
+                    border-radius: 5px;
+                }
+
+                .section h4 {
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                }
+
+                .section ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                .section ul li {
+                    margin-bottom: 10px;
+                }
+
+                .product-name {
+                    font-weight: bold;
+                }
+
+                .price {
+                    color: green;
+                    font-weight: bold;
+                }
+
+                /* ..................facilities are available in ............. */
+                .fac ul li {
+                    list-style-type: circle;
+                    list-style-position: inside;
+                    margin-left: 30px;
+
+                }
+
+                .rule-section {
+                    display: block;
+                }
+
+                .rule {
+                    width: auto;
+                }
+
+                .area-section ul {
+                   
+
+                }
+
+                .area-section ul li {
+                  
+                    line-height: 33px;
+
+                }
+                .area-section ul li span {
+                  
+                    float: right;
+
+                }
+
 </style>
