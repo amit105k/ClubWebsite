@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Details</title>
+    <title>FarmHouse Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -156,7 +156,7 @@
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
-                    <div class="section">
+                    <div class="section  menu-hover">
                         <h4>SPECIAL</h4>
                         <ul>
                             <li>
@@ -181,7 +181,7 @@
                     </div>
 
                     <!-- Section 2 -->
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>BEVERAGES</h4>
                         <ul>
                             <li>
@@ -206,7 +206,7 @@
                     </div>
 
                     <!-- Section 3 -->
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -229,7 +229,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -252,7 +252,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -275,7 +275,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -306,7 +306,7 @@
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>SPECIAL</h4>
                         <ul>
                             <li>
@@ -331,7 +331,7 @@
                     </div>
 
                     <!-- Section 2 -->
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>BEVERAGES</h4>
                         <ul>
                             <li>
@@ -356,7 +356,7 @@
                     </div>
 
                     <!-- Section 3 -->
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -379,7 +379,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -402,7 +402,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -425,7 +425,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -559,20 +559,20 @@
             <div class="menu rule">
                 <h1>Rules of FarmHouse</h1>
                 <div class="menu-sections rule-section">
-                    <div class="section  fac rule">
+                    <div class="section  fac rule hover">
                         <h4><span><i class="fa-solid fa-bath"></i> </span>Check-in</h4>
                         <ul>
                             <li>From 3:00 PM to 6:00 PM</li>
                         </ul>
                     </div>
 
-                    <div class="section fac rule">
+                    <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-dungeon"></i></span> Check-out</h4>
                         <ul>
                             <li>From 8:00 AM to 11:00 AM </li>
                         </ul>
                     </div>
-                    <div class="section fac rule">
+                    <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-g"></i></span> Cancellation/ prepayment</h4>
                         <ul>
                             <li>Cancellation and prepayment policies vary according to accommodation type. Enter your stay dates
@@ -580,7 +580,7 @@
                         </ul>
                     </div>
 
-                    <div class="section fac rule">
+                    <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-wifi"></i> </span>Children & Beds</h4>
                         <ul>
                             <li>Child policies Children of all ages are welcome. To see correct prices and occupancy info, add
@@ -588,13 +588,13 @@
                         </ul>
 
                     </div>
-                    <div class="section fac rule">
+                    <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-wifi"></i> </span>Crib and extra bed policies</h4>
                         <ul>
                             <li>Cribs and extra beds aren't available at this property.</li>
                         </ul>
                     </div>
-                    <div class="section fac rule">
+                    <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-bed"></i></span> Pets</h4>
                         <ul>
                             <li>Free!Pets are allowed. No extra charges.</li>
@@ -602,7 +602,7 @@
                         </ul>
 
                     </div>
-                    <div class="section fac rule">
+                    <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-cloud-sun"></i></span> Smoking</h4>
                         <ul>
                             <li>Smoking is not allowed.</li>
@@ -619,7 +619,7 @@
                 <h1>Area info</h1>
                 <div class="menu-sections area">
                     <div class="section  fac area-section">
-                        <h4>What's nearby</h4>
+                        <h4><span><i class="fa-solid fa-person-walking"></i></span> What's nearby</h4>
                         <ul>
                             <li>Aravali Garden -<span>2.2 km</span></li>
                             <li>Aravali Meadows-Sohna - <span>3.4 km</span></li>
@@ -1197,8 +1197,10 @@
 
                 .carousel-item {
                     animation: slide 5s linear alternate infinite;
+                    border-radius: 10%;
 
                 }
+               
 
                 .carousel .carousel-item {
                     flex: 0 0 auto;
@@ -1220,7 +1222,7 @@
                 }
 
                 .card img {
-                    max-width: 100%;
+                    max-width: 60%;
                     height: auto;
                     /* display: block; */
 
@@ -1284,6 +1286,13 @@
                     background-color: #f9f9f9;
                     border-radius: 5px;
                 }
+                .section:hover{
+                    /* color: orange; */
+                }
+                .menu-hover:hover{
+                    /* background-color: red; */
+                    transform: translateY(4%);
+                }
 
                 .section h4 {
                     font-size: 24px;
@@ -1315,6 +1324,10 @@
                     margin-left: 30px;
 
                 }
+                .fac:hover{
+                    /* background-color: red; */
+                    transform: skewX(-4deg);
+                }
 
                 .rule-section {
                     display: block;
@@ -1323,9 +1336,13 @@
                 .rule {
                     width: auto;
                 }
+                .hover:hover{
+                    transform: translateX(1%);
+                }
 
-                .area-section ul {
-                   
+                .area-section:hover{
+                   /* background-color: red; */
+                   transform:translate(3%);
 
                 }
 

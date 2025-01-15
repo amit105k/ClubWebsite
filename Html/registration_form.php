@@ -45,8 +45,40 @@
 
 
     <?php
-    $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
+    // $club_name = isset($_GET['club_name']) ? $_GET['club_name'] : '';
+    
+    include('db.php');
+
+
+    if (isset($_GET['id'])) {
+        $club_id = $_GET['id'];
+
+        $sql = "SELECT club_name, price ,promocode,promodis,extraperson FROM club_overviews WHERE id =?";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt === false) {
+            die("SQL preparation failed: " . $conn->error);
+        }
+
+        $stmt->bind_param("i", $club_id);
+        $stmt->execute();
+        $stmt->bind_result($club_name, $price, $promocode, $promodis, $extraperson);
+
+        if ($stmt->fetch()) {
+            // coreect
+    
+        } else {
+            echo "Some thing went worng contact to administrator";
+        }
+        $stmt->close();
+    } else {
+        echo "No club ID provided.";
+        $name = $price = '';
+    }
+    $conn->close();
     ?>
+
+    
 
 <div class="form-container">
     <h1>Club Registration Form</h1>
@@ -77,17 +109,19 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required><br><br>
 
+            <label for="promocode">PROMOCODE/CUPON CODE:</label>
+            <input type="text" id="promocode" name="promocode" required> <span id="promo" onclick="apply()">Apply
+            </span><br><br>
+
             <label for="Persons">Persons:</label>
-            <input type="number" name="count" id="person" required>
+            <input type="number" name="count" id="person" required value="1"><br>
 
-            <span onclick="calculatePrice()" id="calc" aria-required="true">
-            <i class="fa-solid fa-calculator"></i>
-            </span><br>
-
-            <span style="color:red" id="duscoun">Book More than 1 Ticket And Get 10% Instant Discount</span>
+            <span style="color:red" id="duscoun">Book More than 10 Persons than you will get Flat <span>&#x20B9;
+                10%    <!-- ($extraperson);  -->
+                </span> Discount</span>
             <label for="singleEntry">Amount</label>
             <h3 id="amount" name="amount"></h3>
-            <input type="text" name="amount" id="inputamount" hidden>
+            <input type="text" name="amount" id="inputamount" value="<?php echo htmlspecialchars($price); ?>" hidden>
 
             <button type="submit" onclick="validateForm(event)">Submit</button>
         </form>
@@ -103,43 +137,103 @@
         // }
 
 
-        let priceCalculated = false; 
+//         let priceCalculated = false; 
 
 
-function calculatePrice() {
-    const personCount = document.getElementById('person').value;
-    console.log(personCount);
-    if (personCount === "" || personCount <= 0) {
-        alert("Please enter a valid number of persons.");
-        return;
-    }
-    else if(personCount==1){
-        const calculatedAmount = personCount * 500; 
-    document.getElementById('amount').innerText = calculatedAmount;
-    document.getElementById('inputamount').value = calculatedAmount;
-}
-else if(personCount<5){
-        document.getElementById("duscoun").innerHTML="you will get Rs.50 per Ticket Discount ";
-        discount=personCount*5000/100;
-        const calculatedAmount = personCount * 500; 
-        document.getElementById('amount').innerText = calculatedAmount-discount;
-        document.getElementById('inputamount').value = calculatedAmount-discount;
-    }
-    else{
-        discount=personCount*10000/100;
-        const calculatedAmount = personCount * 500; 
-        document.getElementById('amount').innerText = calculatedAmount-discount;
-        document.getElementById('inputamount').value = calculatedAmount-discount;
-        document.getElementById("duscoun").innerHTML="You will get Rs.100 per Ticket Discount ";
-    }
+// function calculatePrice() {
+//     const personCount = document.getElementById('person').value;
+//     console.log(personCount);
+//     if (personCount === "" || personCount <= 0) {
+//         alert("Please enter a valid number of persons.");
+//         return;
+//     }
+//     else if(personCount==1){
+//         const calculatedAmount = personCount * 500; 
+//     document.getElementById('amount').innerText = calculatedAmount;
+//     document.getElementById('inputamount').value = calculatedAmount;
+// }
+// else if(personCount<5){
+//         document.getElementById("duscoun").innerHTML="you will get Rs.50 per Ticket Discount ";
+//         discount=personCount*5000/100;
+//         const calculatedAmount = personCount * 500; 
+//         document.getElementById('amount').innerText = calculatedAmount-discount;
+//         document.getElementById('inputamount').value = calculatedAmount-discount;
+//     }
+//     else{
+//         discount=personCount*10000/100;
+//         const calculatedAmount = personCount * 500; 
+//         document.getElementById('amount').innerText = calculatedAmount-discount;
+//         document.getElementById('inputamount').value = calculatedAmount-discount;
+//         document.getElementById("duscoun").innerHTML="You will get Rs.100 per Ticket Discount ";
+//     }
     
     
 
-    priceCalculated = true; 
-}
-
+//     priceCalculated = true; 
+// }
+// ........................................................................................
     
-</script>
+
+        const dbdis = <?php echo json_encode($promodis); ?>;
+        const dbpromo = <?php echo json_encode($promocode); ?>;
+
+        const initialPersons = 1;
+        const extraChargePerPerson = <?php echo htmlspecialchars($price); ?>;
+        const basePrice = <?php echo htmlspecialchars($price); ?>;
+
+        const personInput = document.getElementById('person');
+        const amountDisplay = document.getElementById('amount');
+        const inputAmount = document.getElementById('inputamount');
+
+        let isPromoApplied = false;
+
+        personInput.addEventListener('input', calculatePrice);
+
+        function calculatePrice() {
+            const currentPersons = parseInt(personInput.value, 10);
+            const extraPersons = Math.max(currentPersons - initialPersons, 0);
+            let totalAmount = basePrice + (extraPersons * extraChargePerPerson);
+
+            if (isPromoApplied) {
+                const discount = (totalAmount * dbdis) / 100;
+                totalAmount -= discount;
+            }
+
+            amountDisplay.textContent = totalAmount;
+            inputAmount.value = totalAmount;
+        }
+
+        function apply() {
+            const userPromoCode = document.getElementById("promocode").value;
+            const promoUpper = userPromoCode.toUpperCase();
+
+            if (promoUpper === dbpromo) {
+                isPromoApplied = true;
+                Swal.fire({
+                    title: "Congratulations ",
+                    text: "Promo applied! You get "+dbdis+"% off.",
+                    icon: "success"
+                });
+                document.getElementById("promocode").disabled = true;
+                document.getElementById("promo").disabled = true;
+            } else {
+                isPromoApplied = false;
+                Swal.fire({
+                    title: "Sorry We Cannot Find Any Coupon/Promocode !",
+                    text: "Please Enter Correct Coupon/Promocode I'd!",
+                    icon: "error"
+                });
+            }
+
+            calculatePrice();
+        }
+
+        calculatePrice(); 
+    </script>
+
+
+
+
 
 
 
@@ -217,23 +311,18 @@ else if(personCount<5){
                     Swal.fire({
                         title: 'Booking Confirmed!',
                         text: 'Booking ID is: ' + data.bookingId,
-                        // text: 'Booking ID is: ' + ,
                         icon: 'success',
                         showCancelButton: true,
                         cancelButtonText: 'Proceed for Payment',
                         confirmButtonText: 'Return to Home',
-                        // footer: `<button onclick="window.location.href='http://127.0.0.1:5500/amitclub/Html/index.html'">Go to Home Page</button>`,
                         showDenyButton: true,
                         denyButtonText: 'Create New',
                     }).then(result => {
                         if (result.isConfirmed) {
-                            // Redirect to Home page
                             window.location.href = 'http://localhost/amitclub/Html/index.php';
                         } else if (result.isDenied) {
                             window.location.href = 'http://localhost/amitclub/Html/buyticket.php';
                         } else {
-                            // window.location.href = 'http://localhost/amitclub/Html/razorpay_order.php';
-                            // window.location.href = 'http://localhost/amitclub/Html/razorpay_order.php';
                             payment(data.bookingId);
                             console.log("this is ticket payment is" + data.bookingId);
                         }
@@ -265,7 +354,7 @@ else if(personCount<5){
 
             var options = {
                 "key": "rzp_test_EJk4TWdqYcZpEb",
-                "amount": data.amount * 100,  // Razorpay amount is in paise
+                "amount": data.amount * 100,  
                 "currency": "INR",
                 "name": data.club,
                 "description": "Booking for Club Entry",
@@ -277,7 +366,6 @@ else if(personCount<5){
                         payment_status: "Success"
                     };
 
-                    // Update payment status in the database
                     fetch('http://localhost/amitclub/Html/update_payment_status.php', {
                         method: 'POST',
                         headers: {
@@ -820,5 +908,19 @@ function closeModal() {
     #paragraph{
         margin-top: 10px;
         margin-left: 10%;
+    }
+  
+
+    #promocode {
+        width: 40%;
+    }
+
+    #promo {
+        color: red;
+        cursor: pointer;
+    }
+
+    #duscoun span {
+        color: black;
     }
 </style>

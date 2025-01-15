@@ -84,7 +84,7 @@
             </span><br><br>
 
             <label for="Persons">Persons:</label>
-            <input type="number" name="count" id="person" required value="10"><br>
+            <input type="number" name="count" id="person" required value="5"><br>
 
             <span style="color:red" id="duscoun">Book More than 5 Persons than you will paid <span>&#x20B9;
                     <?php echo htmlspecialchars($extraperson); ?></span> per Person</span>

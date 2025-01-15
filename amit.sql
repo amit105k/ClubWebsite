@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2025 at 07:26 AM
+-- Generation Time: Jan 15, 2025 at 12:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -39,20 +39,58 @@ CREATE TABLE `club_overviews` (
   `address` varchar(255) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
-  `book_tkt` varchar(255) NOT NULL
+  `book_tkt` varchar(255) NOT NULL,
+  `price` int(10) NOT NULL,
+  `promocode` varchar(25) NOT NULL,
+  `promodis` int(6) NOT NULL,
+  `extraperson` int(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `club_overviews`
 --
 
-INSERT INTO `club_overviews` (`id`, `image_url`, `image_url1`, `image_url2`, `image_url3`, `about`, `club_name`, `show_time`, `address`, `city`, `postal_code`, `book_tkt`) VALUES
-(1, 'https://i0.wp.com/discotech.me/wp-content/uploads/2016/09/time1-1.jpg?resize=1500%2C630&ssl=1', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUTEhMWFRUXGBcXGBYYFxcVFhcWFRgXGBUaGBUYHSggGBolHRUYITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGxAQGy0lICUtLS0tLS8tLS0tLS0vLS0tLS0tLy0tLS0vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIALcBEwMBEQACEQEDEQH/', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExMWFhUXGB0aFxgYGR0YHxogHSAbHx4fHyEaICghHR8lHR0fIjEhJSkrLjEuHiAzODctNygtLisBCgoKDg0OGxAQGy8mICYvKy0yLS0vLS0wLisvLS0tLS0tLS0tLTItLy8tKy0tLy8rLy0tLS8tLS0tLSsvLS0tLf/AABEIALcBEwMBEQACEQEDEQH/', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUSExIWFRUXGBUWFxgXGBgXFxcVFRcXFhUVFxYYHykgHRolGxYVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy0mICUtLS0tLy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAKgBLAMBEQACEQEDEQH/', 'When it comes to nightlife, Noida is home to several world-class pubs and nightclubs which add the perfect amount of glitz to your evening. From offering a fine dining experience and foot tapping music to a panoramic view of the city from their rooftop setting, these pubs are the best place to enjoy while sipping on your cocktail. Head to these groovy nightclubs and best pubs in Noida that offer an impressive selection of food and drinks, topped with enticing ambiance.', 'Night Club Noida', '09:30 To 11:30', 'Sardha Nand Road', 'New Delhi', '202202', 'http://localhost/amitclub/Html/buyticket.html'),
-(2, 'https://images.unsplash.com/photo-1555086156-e6c7353d283f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2x1YnxlbnwwfHwwfHx8MA%3D%3D', '', '', '', 'This club is giving a swanky makeover to clubbing in delhi. Walk into the lounge and drench your soul in sassy cocktails like white moon and back. I loved the vibe and also the finger food, i ordered sushi and prawns it was yummy , it was spacious and i grooved in the dance floor, there was more crowd but i enjoyed alot.\\r\\nVery good service and music ....above the all very cooperative bouncers and manager....went there last night with a friend and entered as stag ....\\r\\n', 'White Club', '', 'Sardha Nand Road', 'New Delhi', '202202', 'http://localhost/amitclub/html/update_club.php'),
-(3, 'https://miro.medium.com/v2/resize:fit:560/0*39lYV66jL0TBYW6q.jpg', '', '', '', '                s', 'The Rock Club Ghaziabad', '', 'Ghazibad', '', '202202', 'http://localhost/amitclub/Html/selectclub.php'),
-(4, 'https://d4t7t8y8xqo0t.cloudfront.net/resized/750X436/restaurant%2F674070%2Frestaurant220210909103651.jpeg', '', '', '', 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75                ', 'White Club', '', 'Delhi', '', '22222', 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75'),
-(5, 'https://d26dp53kz39178.cloudfront.net/media/uploads/products/Pasha_Nightclub_result-1699078135102.webp', '', '', '', 'hauz khass is situated near in new delhi the distance of captial is near anout 5 km and nearest metro station is \\\"HauzKhass\\\" in mezanda line and yellow line in toward \\\"melinium city gurgoan\\\"', 'Hauz Khass', '', 'New Delhi', 'Delhi', '202021', 'https:www.hauzkkhass.com'),
-(6, 'https://i.cdn.newsbytesapp.com/images/l37520210324131352.jpeg', '', '', '', 'Delhi Club House is inspired by the clubs of colonial India. These institutions were the exclusive domain of their members to catch up with friends & colleagues over a drink or a meal. The food was neither fancy nor gastronomic - It was good, fresh, comfort food, borrowed from each other\\\'s cuisines and satisfied the paletes of the \\\'babus\\\' as well as as the Britishers over a drink. Delhi Club House is a take on the vibe of these old clubs. It reminisces an era gone by, a culture gone by. At DC', 'Delhi Club', '', 'delhi', 'Delhi', '20209', '');
+INSERT INTO `club_overviews` (`id`, `image_url`, `image_url1`, `image_url2`, `image_url3`, `about`, `club_name`, `show_time`, `address`, `city`, `postal_code`, `book_tkt`, `price`, `promocode`, `promodis`, `extraperson`) VALUES
+(1, 'https://i0.wp.com/discotech.me/wp-content/uploads/2016/09/time1-1.jpg?resize=1500%2C630&ssl=1', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUTEhMWFRUXGBcXGBYYFxcVFhcWFRgXGBUaGBUYHSggGBolHRUYITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGxAQGy0lICUtLS0tLS8tLS0tLS0vLS0tLS0tLy0tLS0vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIALcBEwMBEQACEQEDEQH/', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExMWFhUXGB0aFxgYGR0YHxogHSAbHx4fHyEaICghHR8lHR0fIjEhJSkrLjEuHiAzODctNygtLisBCgoKDg0OGxAQGy8mICYvKy0yLS0vLS0wLisvLS0tLS0tLS0tLTItLy8tKy0tLy8rLy0tLS8tLS0tLSsvLS0tLf/AABEIALcBEwMBEQACEQEDEQH/', 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUSExIWFRUXGBUWFxgXGBgXFxcVFRcXFhUVFxYYHykgHRolGxYVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy0mICUtLS0tLy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAKgBLAMBEQACEQEDEQH/', 'When it comes to nightlife, Noida is home to several world-class pubs and nightclubs which add the perfect amount of glitz to your evening. From offering a fine dining experience and foot tapping music to a panoramic view of the city from their rooftop setting, these pubs are the best place to enjoy while sipping on your cocktail. Head to these groovy nightclubs and best pubs in Noida that offer an impressive selection of food and drinks, topped with enticing ambiance.', 'Night Club Noida', '09:30 To 11:30', 'Sardha Nand Road', 'New Delhi', '202202', 'http://localhost/amitclub/Html/buyticket.html', 500, 'NIGHT', 10, 499),
+(2, 'https://images.unsplash.com/photo-1555086156-e6c7353d283f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2x1YnxlbnwwfHwwfHx8MA%3D%3D', 'https://t3.ftcdn.net/jpg/01/20/28/24/360_F_120282465_htIcYKYiSb98hIrhL6X6ilI0z8vn19LY.webp', 'https://t4.ftcdn.net/jpg/10/16/72/33/240_F_1016723375_pxJQ5D7lOKtNSpInmyag9rYZhNZeOjJE.jpg', 'https://t3.ftcdn.net/jpg/01/71/59/82/240_F_171598298_oDdPq07LiXkRRKcYMOheKAvozA0nznyd.jpg', 'This club is giving a swanky makeover to clubbing in delhi. Walk into the lounge and drench your soul in sassy cocktails like white moon and back. I loved the vibe and also the finger food, i ordered sushi and prawns it was yummy , it was spacious and i grooved in the dance floor, there was more crowd but i enjoyed alot.\\r\\nVery good service and music ....above the all very cooperative bouncers and manager....went there last night with a friend and entered as stag ....\\r\\n', 'White Club', '09:30 AM To 12:30AM', 'Sardha Nand Road', 'New Delhi', '202202', 'http://localhost/amitclub/html/update_club.php', 999, 'DELHI', 15, 0),
+(3, 'https://miro.medium.com/v2/resize:fit:560/0*39lYV66jL0TBYW6q.jpg', 'https://t3.ftcdn.net/jpg/05/64/84/58/240_F_564845868_boJfdzOFfMhAq9e8p81bgRt5tB3uQA2C.jpg', 'https://t3.ftcdn.net/jpg/01/16/89/38/240_F_116893829_UmvQiyaTREE0P1ijV6bkLLLxwD3rI0jd.jpg', 'https://t3.ftcdn.net/jpg/01/16/89/38/240_F_116893829_UmvQiyaTREE0P1ijV6bkLLLxwD3rI0jd.jpg', 'These clubs contribute significantly to the social and recreational landscape of Ghaziabad, providing residents with opportunities to engage in various activities and community service Part of the international Lions Clubs organization, focusing on community service and various social initiatives.', 'The Rock Club Ghaziabad', 'full night', 'Ghazibad', 'vishali nagar', '202202', 'http://localhost/amitclub/Html/selectclub.php', 799, 'GZB', 7, 0),
+(4, 'https://d4t7t8y8xqo0t.cloudfront.net/resized/750X436/restaurant%2F674070%2Frestaurant220210909103651.jpeg', 'https://t4.ftcdn.net/jpg/06/29/57/61/240_F_629576172_uLKJIWMlDFUQLQd9uk7u2Ot0IW2RzDKw.jpg', 'https://t3.ftcdn.net/jpg/02/87/35/70/240_F_287357045_Ib0oYOxhotdjOEHi0vkggpZTQCsz0r19.jpg', 'https://t3.ftcdn.net/jpg/03/10/64/98/240_F_310649884_dGXw5heDwDZb5jSpnQ16P9k32PXLtqmM.jpg', 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75                ', 'White Club', '24 hours open', 'Delhi', 'New delhi', '22222', 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75', 1200, 'WHITE', 12, 0),
+(5, 'https://d26dp53kz39178.cloudfront.net/media/uploads/products/Pasha_Nightclub_result-1699078135102.webp', 'https://t4.ftcdn.net/jpg/01/27/82/05/240_F_127820544_6lkdQUUPRZ7ikF3rOzmYiMUd3qZ6PRqL.jpg', 'https://t3.ftcdn.net/jpg/02/53/01/36/240_F_253013633_TDcGVWptIzybwZABAEUE2aUQaIAsolt7.jpg', 'https://t4.ftcdn.net/jpg/01/61/59/73/240_F_161597387_1J5BqmdPp8fOtlk7dSk0iMBRAzAxZMiR.jpg', 'hauz khass is situated near in new delhi the distance of captial is near anout 5 km and nearest metro station is \"HauzKhass\" in mezanda line and yellow line in toward melinium city gurgoan', 'Hauz Khass', '11:30 AM to 01:30 AM', 'Gurgoan', 'Delhi', '202021', 'https:www.hauzkkhass.com', 499, 'HAUZ', 14, 0),
+(6, 'https://i.cdn.newsbytesapp.com/images/l37520210324131352.jpeg', 'https://t3.ftcdn.net/jpg/01/23/22/64/240_F_123226414_fdzRAzNJNKCHkqoEJXPkIlFBBSduLfLq.jpg', 'https://t4.ftcdn.net/jpg/02/78/70/01/240_F_278700194_dyVW7DLEsZuKVeWnPf8mAzAuB3Ocf139.jpg', 'https://t4.ftcdn.net/jpg/06/29/60/35/240_F_629603580_nwAAW6XnRjv31u2dfJ4C2i0gvaN0mPL9.jpg', 'Delhi Club House is inspired by the clubs of colonial India. These institutions were the exclusive domain of their members to catch up with friends & colleagues over a drink or a meal. The food was neither fancy nor gastronomic - It was good, fresh, comfort food, borrowed from each other\\\'s cuisines and satisfied the paletes of the \\\'babus\\\' as well as as the Britishers over a drink. Delhi Club House is a take on the vibe of these old clubs. It reminisces an era gone by, a culture gone by. At DC', 'Delhi Club', '24 hours available for customer', 'delhi', 'Delhi', '20209', '', 1200, 'DELHI', 15, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `farmhouse`
+--
+
+CREATE TABLE `farmhouse` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image_url` varchar(500) NOT NULL,
+  `about` varchar(500) NOT NULL,
+  `show_time` varchar(100) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `pincode` int(6) NOT NULL,
+  `price` int(10) NOT NULL,
+  `promocode` varchar(255) NOT NULL,
+  `promodis` int(5) NOT NULL,
+  `extraperson` int(5) NOT NULL,
+  `image_url1` varchar(1000) NOT NULL,
+  `image_url2` varchar(1000) NOT NULL,
+  `image_url3` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `farmhouse`
+--
+
+INSERT INTO `farmhouse` (`id`, `name`, `image_url`, `about`, `show_time`, `address`, `city`, `pincode`, `price`, `promocode`, `promodis`, `extraperson`, `image_url1`, `image_url2`, `image_url3`) VALUES
+(1, 'Partyvillas Roseville Farm', 'https://r1imghtlak.mmtcdn.com/0139a021-975d-4797-8a26-c813366d30cf.jpg?&output-quality=75&downsize=520:350&crop=520:350;2,0&output-format=jpg&downsize=480:336&crop=480:336', 'Blessings farms and resort fe...  24 Hours and customer requriement  33 km from WorldMark  Gurgaon  274401                                                                                                                                                                                            ', 'as per coustomer requirement', '3 km from WorldMark', ' Gurgaon', 202020, 49999, 'AMIT', 10, 500, 'https://ik.imagekit.io/pu0hxo64d/uploads/gallery/tr:e-sharpen,w-450,h-250/theme-party-at-farmhouse-199-429.jpeg', 'https://ik.imagekit.io/pu0hxo64d/uploads/gallery/tr:e-sharpen,w-450,h-250/terrace-party-at-farmhouse-808-527.jpeg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBdwfFfK_Ymnj17tMzlBEioel5T0c6KBGI4A&s'),
+(2, 'Royal FarmHouse', 'https://d24l7ypac8dw56.cloudfront.net/MenuImages/030_Noida_Farm_1-87838-87978.jpg', 'this is second farmhouse in which they can reach with us we can prove 7BHK room with misky mouse swimming pool in winter we will prove hot water in swimming pook                                                        ', 'morning up to 09:30 per to 11:30 pm', '064 Farm House', 'with pool in Noida', 222222, 20000, 'ROYAL', 10, 500, 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/29/00/14/walk-jog-or-bike-the.jpg?w=500&h=500&s=1', 'https://ik.imagekit.io/pu0hxo64d/uploads/gallery/tr:e-sharpen,q-90,w-450,h-250/terrace-party-at-farmhouse-808-527.jpeg', 'https://content.jdmagicbox.com/comp/faridabad/r9/011pxx11.xx11.211121164509.t4r9/catalogue/the-farm-house-party-badshahpur-gurgaon-faridabad-uecx1rnoyc.jpg'),
+(3, 'Holiday rentals', 'https://a0.muscache.com/im/pictures/81dca5d6-5a86-49bc-8eca-4a8610a07d27.jpg?im_w=1440', '8 MANDI HILLS BOUTIQUE FARMSTAY | POOL | DELHI\\r\\n\\r\\nNestled away in South West Delhi is 8 Mandi Hills, a place which promises to teleport you to an extremely serene and private get away experience without having to leave the city.                                     ', '24*7 as per customer requirement', 'delhi', 'new delhi', 202020, 25000, 'HOLI', 15, 250, 'https://ik.imagekit.io/pu0hxo64d/uploads/gallery/birthday-party-at-farm-7701-chattarpur-392.jpeg', 'https://pix10.agoda.net/hotelImages/226/2260619/2260619_17062713410054089003.jpg?ca=6&ce=1&s=414x232&ar=16x9', 'https://content.jdmagicbox.com/v2/comp/mumbai/w6/022pxx22.xx22.240413151259.v2w6/catalogue/red-forest-farmhouse-wada-palghar-farm-house-on-rent-ldyarth19z.jpg'),
+(4, 'Om sai maharaja farms', 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/624119316.jpg?k=66107ecb362499e4e6bd8cb41e4893cbed1606189965714fbd0c898119b13518&o=', 'Om sai maharaja farms is located in Gurgaon, just 5.4 miles from WorldMark Gurgaon and 12 miles from MG Road. This property offers access to a terrace and free private parking. Rashtrapati Bhavan is 26 miles from the farm stay and Gandhi Smriti is 26 miles away.\\\\r\\\\n\\\\r\\\\nTowels and bed linen are available in the farm stay. The accommodation offers an air conditioning, a heating, and a private bathroom.\\\\r\\\\n\\\\r\\\\nQutub Minar is 19 miles from the farm stay, while Tughlaqabad Fort is 24 miles fr', '24 Hours and customer requriement', 'Gurgaon', 'Sohna Road,  Gurgaon, India', 122102, 38000, 'OMSAI', 12, 120, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEj2np3iepWDZ9qcP2FNQBHttya9SGTKrYkg&s', 'https://im.whatshot.in/img/2020/May/header-725x420-delhi-6311-c-1590825927.jpg', 'https://content.jdmagicbox.com/comp/durg/t2/9999px788.x788.200303114554.c9t2/catalogue/koya-farms-party-space-dagania-durg-p4fx5xy9kd.jpg');
 
 -- --------------------------------------------------------
 
@@ -207,7 +245,7 @@ INSERT INTO `registrations` (`id`, `club`, `name`, `gender`, `date`, `mobile`, `
 (103, 'The Rock Club Ghaziabad', 'gzb', 'Male', '2024-12-20T03:32', '7007649202', 'amitpss239@gmail.com', 2, 900, 'Pending', '', '39ce66c274', '2024-12-30 07:25:26.000000'),
 (104, 'The Rock Club Ghaziabad', 'gzb', 'Male', '2024-12-20T03:32', '7007649202', 'amitpss239@gmail.com', 1, 500, 'Pending', '', 'a5cabb39a3', '2024-12-30 07:28:12.000000'),
 (105, 'The Rock Club Ghaziabad', 'gzb', 'Male', '2024-12-20T03:32', '7007649202', 'amitpss239@gmail.com', 1, 500, 'Pending', '', '57ddcf3d39', '2024-12-30 07:28:52.000000'),
-(106, 'Hauz Khass', 'hauz', 'Male', '2024-12-21T17:04', '7007649202', 'amitpss239@gmail.com', 3, 1350, 'Pending', '', '3efe041e40', '2024-12-30 07:30:20.000000'),
+(106, 'Hauz Khass', 'hauz', 'Male', '2024-12-21T17:04', '7007649202', 'amitpss239@gmail.com', 3, 1350, 'Success', 'pay_PgvHmhLysCXbNM', '3efe041e40', '2025-01-08 10:53:21.990718'),
 (107, 'Hauz Khas', 'white', 'Male', '2024-12-18T11:01', '1111111111', 'sdfadsfafd@gmail.com', 1, 500, 'Success', 'pay_PdJ4pkzhTfeVTe', 'abb4daa605', '2024-12-30 07:33:44.111253'),
 (108, 'Hauz Khas', 'white', 'Male', '2024-12-18T11:01', '1111111111', 'sdfadsfafd@gmail.com', 2, 900, 'Success', 'pay_PdJCUbnvqBEdjl', 'a03382cfb3', '2024-12-30 07:40:57.758252'),
 (109, 'Hauz Khas', 'white', 'Male', '2024-12-18T11:01', '1111111111', 'sdfadsfafd@gmail.com', 3, 1350, 'Success', 'pay_PdJLRoJVPFJ3YQ', '5cefc486f5', '2024-12-30 07:49:26.915053'),
@@ -249,7 +287,18 @@ INSERT INTO `registrations` (`id`, `club`, `name`, `gender`, `date`, `mobile`, `
 (145, 'Hauz Khas', 'Amit k', 'Male', '2025-01-16T10:31', '8768768762', 'dfsdkfljadskflj@gmail.com', 2, 900, 'Success', 'pay_PerfRJSWsCSO15', 'ffd23b25b3', '2025-01-03 06:02:59.498051'),
 (146, 'Hauz Khas', 'Amit k', 'Male', '2025-01-16T10:31', '8768768762', 'dfsdkfljadskflj@gmail.com', 3, 1350, 'Success', 'pay_PernYoPDilorzO', '061cc228fb', '2025-01-03 06:10:40.321223'),
 (147, 'Hauz Khas', 'Amit k', 'Male', '2025-01-16T10:31', '8768768762', 'dfsdkfljadskflj@gmail.com', 2, 900, 'Success', 'pay_PerooUZ5ycOkPh', '6a759f18bc', '2025-01-03 06:11:51.262095'),
-(148, 'The Rock Club Ghaziabad', 'the rock', 'Male', '2025-01-30T11:01', '5555555555', 'asd@gmail.com', 1, 500, 'Success', 'pay_PerqAggRZM9gv2', '1ad53dd295', '2025-01-03 06:13:15.532459');
+(148, 'The Rock Club Ghaziabad', 'the rock', 'Male', '2025-01-30T11:01', '5555555555', 'asd@gmail.com', 1, 500, 'Success', 'pay_PerqAggRZM9gv2', '1ad53dd295', '2025-01-03 06:13:15.532459'),
+(149, 'Hauz Khas', 'hauz', 'Male', '2025-01-23T11:01', '8768768762', 'dfsdkfljadskflj@gmail.com', 4, 1800, 'Success', 'pay_Pgv8oWu1Mb5606', '91faa918da', '2025-01-08 10:44:52.017542'),
+(150, 'Night Club Noida', 'sandip', 'Male', '2025-03-06T12:30', '9628575994', 'sk962857@gmail.com', 2, 900, 'Success', 'pay_PhE6hnvaEqpHHD', '2500a68c1a', '2025-01-09 05:18:03.266091'),
+(151, 'Royal FarmHouse', 'royal farm', 'Male', '2025-01-11T12:22', '8768768762', 'dfsdkfljadskflj@gmail.com', 14, 20800, 'Success', 'pay_PhIPtJWDLv37TC', 'a2f13603bf', '2025-01-09 09:31:01.101330'),
+(152, 'Royal FarmHouse', 'amit kumar maurya', 'Male', '2025-01-09T16:48', '3333333333', 'amitpss239@gmail.com', 12, 18900, 'Success', 'pay_PhKAdMPV4rJtzZ', 'e7cda83851', '2025-01-09 11:13:57.327101'),
+(153, 'Delhi Club', 'vijay patel', 'Male', '2025-01-10T09:30', '7703081188', 'vijaypatel770308@gmail.com', 5, 2000, 'Pending', '', '40763d305d', '2025-01-10 10:43:03.000000'),
+(154, 'Delhi Club', 'vijay patel', 'Male', '2025-01-10T09:30', '7703081188', 'vijaypatel770308@gmail.com', 5, 2000, 'Pending', '', '916c2f86cf', '2025-01-10 10:43:20.000000'),
+(155, 'Delhi Club', 'vijay patel', 'Male', '2025-01-10T09:30', '7703081188', 'vijaypatel770308@gmail.com', 5, 2000, 'Pending', '', '1aa8fb6c89', '2025-01-10 10:43:29.000000'),
+(156, 'White Club', 'Amit k', 'Male', '2025-01-17T11:01', '8768768763', 'dfsdkfljadskflj@gmail.com', 5, 2000, 'Success', 'pay_PjhCgWejP5cVCn', '90d9a5b70a', '2025-01-15 11:03:52.113532'),
+(157, 'Delhi Club', 'vijay patel', 'Male', '2025-01-10T09:30', '7703081188', 'vijaypatel770308@gmail.com', 5, 2000, 'Success', 'pay_PhiELrk2VTdj8k', '0cf19a0061', '2025-01-10 10:46:08.054719'),
+(158, 'Royal FarmHouse', 'Amit', 'Male', '2025-01-24T12:30', '2222222222', 'jhfh@gmail.com', 11, 18450, 'Success', 'pay_PjD65VMIkbClc2', 'd50499a577', '2025-01-14 05:36:48.990113'),
+(159, 'Royal FarmHouse', 'royal', 'Male', '2025-01-16T12:22', '1111111111', 'sdafdsafasd@gmail.com', 11, 18450, 'Success', 'pay_PjhAhb9zANN1Zp', '5b37bf2185', '2025-01-15 11:01:57.641655');
 
 --
 -- Indexes for dumped tables
@@ -259,6 +308,12 @@ INSERT INTO `registrations` (`id`, `club`, `name`, `gender`, `date`, `mobile`, `
 -- Indexes for table `club_overviews`
 --
 ALTER TABLE `club_overviews`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `farmhouse`
+--
+ALTER TABLE `farmhouse`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -284,6 +339,12 @@ ALTER TABLE `club_overviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
+-- AUTO_INCREMENT for table `farmhouse`
+--
+ALTER TABLE `farmhouse`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `msg`
 --
 ALTER TABLE `msg`
@@ -293,7 +354,7 @@ ALTER TABLE `msg`
 -- AUTO_INCREMENT for table `registrations`
 --
 ALTER TABLE `registrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

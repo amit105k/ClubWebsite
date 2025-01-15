@@ -84,7 +84,7 @@
                                     <pi id="hhh"><?php echo $row['address']; ?></pi><br>
 
                                     <!-- <a href="<?php echo $row['book_tkt']; ?>" class="btn">Buy Tickets</a> -->
-                                    <a href="registration_form.php?club_name=<?php echo urlencode($row['club_name']); ?>"
+                                    <a href="registration_form.php?id=<?php echo urlencode($row['id']); ?>"
                                         class="btn">Buy
                                         Tickets</a>
                         </div>
@@ -95,8 +95,8 @@
             <style>
                 .menu {
                     font-family: Arial, sans-serif;
-                    text-align: center;
-                    margin: 20px;
+                    /* text-align: center; */
+                    /* margin: 20px; */
                 }
 
                 .menu h1 {
@@ -144,13 +144,119 @@
                     color: green;
                     font-weight: bold;
                 }
+
+                .menu {
+                    font-family: Arial, sans-serif;
+                    /* text-align: center; */
+                    /* margin: 20px; */
+                    background-color: black;
+                }
+
+                .menu h1 {
+                    font-size: 36px;
+                    padding-top: 20px;
+                    margin-bottom: 20px;
+                    text-align: center;
+                    color: white;
+                }
+
+                .menu-sections {
+                    display: flex;
+                    justify-content: space-around;
+                    gap: 40px;
+                    width: 90%;
+                    margin-left: 5%;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    padding-bottom: 26px;
+                }
+
+                .section {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    width: 28%;
+                    background-color: #f9f9f9;
+                    border-radius: 5px;
+                }
+                .section:hover{
+                    /* color: orange; */
+                }
+                .menu-hover:hover{
+                    /* background-color: red; */
+                    transform: translateY(4%);
+                    background: #f4eeee;
+                }
+
+                .section h4 {
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                }
+
+                .section ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                .section ul li {
+                    margin-bottom: 10px;
+                }
+
+                .product-name {
+                    font-weight: bold;
+                }
+
+                .price {
+                    color: green;
+                    font-weight: bold;
+                }
+
+                /* ..................facilities are available in ............. */
+                .fac ul li {
+                    list-style-type: circle;
+                    list-style-position: inside;
+                    margin-left: 30px;
+
+                }
+                .fac:hover{
+                    /* background-color: red; */
+                    transform: skewX(-4deg);
+                }
+
+                .rule-section {
+                    display: block;
+                }
+
+                .rule {
+                    width: auto;
+                }
+                .hover:hover{
+                    transform: translateX(1%);
+                }
+
+                .area-section:hover{
+                   /* background-color: red; */
+                   transform:translate(3%);
+
+                }
+
+                .area-section ul li {
+                  
+                    line-height: 33px;
+
+                }
+                .area-section ul li span {
+                  
+                    float: right;
+
+                }
+
             </style>
             <div class="menu">
             <h1>MENU BAR</h1>
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>SPECIAL</h4>
                         <ul>
                             <li>
@@ -175,7 +281,7 @@
                     </div>
 
                     <!-- Section 2 -->
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>BEVERAGES</h4>
                         <ul>
                             <li>
@@ -223,7 +329,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -246,7 +352,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -269,7 +375,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -300,7 +406,7 @@
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
-                    <div class="section">
+                    <div class="section  menu-hover">
                         <h4>SPECIAL</h4>
                         <ul>
                             <li>
@@ -325,7 +431,7 @@
                     </div>
 
                     <!-- Section 2 -->
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>BEVERAGES</h4>
                         <ul>
                             <li>
@@ -350,7 +456,7 @@
                     </div>
 
                     <!-- Section 3 -->
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -373,7 +479,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -396,7 +502,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -419,7 +525,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="section">
+                    <div class="section menu-hover">
                         <h4>DESSERTS</h4>
                         <ul>
                             <li>
@@ -445,14 +551,125 @@
                 </div>
             </div>
             <hr>
-            <hr>
-            <div class="seats">
+            <div class="menu rule">
+                <h1>Club Rules</h1>
+                <div class="menu-sections rule-section">
+                    <div class="section  fac rule hover">
+                        <h4><span><i class="fa-solid fa-bath"></i> </span>Check-in</h4>
+                        <ul>
+                            <li>From 3:00 PM to 6:00 PM</li>
+                        </ul>
+                    </div>
+
+                    <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-dungeon"></i></span> Check-out</h4>
+                        <ul>
+                            <li>From 8:00 AM to 11:00 AM </li>
+                        </ul>
+                    </div>
+                    <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-g"></i></span> Cancellation/ prepayment</h4>
+                        <ul>
+                            <li>Cancellation and prepayment policies vary according to accommodation type. Enter your stay dates
+                                and check the conditions of your selected option.</li>
+                        </ul>
+                    </div>
+
+                    <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Children & Beds</h4>
+                        <ul>
+                            <li>Child policies Children of all ages are welcome. To see correct prices and occupancy info, add
+                                the number and ages of children in your group to your search.</li>
+                        </ul>
+
+                    </div>
+                    <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Crib and extra bed policies</h4>
+                        <ul>
+                            <li>Cribs and extra beds aren't available at this property.</li>
+                        </ul>
+                    </div>
+                    <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-bed"></i></span> Pets</h4>
+                        <ul>
+                            <li>Free!Pets are allowed. No extra charges.</li>
+
+                        </ul>
+
+                    </div>
+                    <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-cloud-sun"></i></span> Smoking</h4>
+                        <ul>
+                            <li>Smoking is not allowed.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+          
+            <!-- ............................................... -->
+
+            <div class="menu">
+                <h1>Area info</h1>
+                <div class="menu-sections area">
+                    <div class="section  fac area-section">
+                        <h4><span><i class="fa-solid fa-person-walking"></i></span> What's nearby</h4>
+                        <ul>
+                            <li>Aravali Garden -<span>2.2 km</span></li>
+                            <li>Aravali Meadows-Sohna - <span>3.4 km</span></li>
+                            <li>Krishna Mangalam Vatika <span>4.3 km</span> </li>
+                            <li>Central Park - <span>7 km</span> </li>
+                            <li>Crescent Park - <span>8 km</span> </li>
+                            <li>Mondrian Park - <span>9 km</span> </li>
+                            <li>Jagran Park - <span>10 km</span> </li>
+                            <li>Neha Nursery - <span>10 km</span> </li>
+                            <li>Arora Park - <span>11 km</span> </li>
+                            <li>Obstacle Park - <span>11 km</span> </li>
+
+                        </ul>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="section fac area-section">
+                        <h4><span><i class="fa-solid fa-utensils"></i></span> Restaurants & cafes</h4>
+                        <ul>
+                            <li>Apna Dhaba - <span>1 km</span> </li>
+                            <li>China Town - <span>5 km</span> </li>
+                            <li>Mahola - <span>5.1 km</span> </li>
+                            <li>Hotel Amit - <span>7.1 km</span> </li>
+
+                        </ul>
+                        <h4><span><i class="fa-solid fa-train"></i></span> Public transit</h4>
+                        <ul>
+                            <li>M.G Road metro station - <span>7 km</span> </li>
+                            <li>Iffco chowk metro station - <span>9 km</span> </li>
+                            <li>Sector 55 & 56 - <span>14 km</span> </li>
+                            <li>Sector 54 Chowk - <span>19 km</span> </li>
+                            <li>Huda City Centre - <span>17 km</span> </li>
+
+
+                        </ul>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="section fac area-section">
+                        <h4><span><i class="fa-solid fa-plane-departure"></i> </span>Closest Airports</h4>
+                        <ul>
+                            <li>Delhi International Airport - <span>25 km</span> </li>
+                            <li>Hindon Airport - <span>60 km</span> </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- <div class="seats">
                 this div contain total seats available in the clubs
             </div>
             <hr>
             <div class="music">
                 this div contain music whcich has been in club
-            </div>
+            </div> -->
             <div class="new">
                 <h2>Gallery</h2>
                 <div class="image3">
