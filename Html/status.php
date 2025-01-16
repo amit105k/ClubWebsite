@@ -196,12 +196,14 @@
         <h4>The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <a href="service.php">Services</a>
+        <!-- <a href="service.php">Services</a> -->
         <!-- <a href="#clubs">Clubs</a>
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="#" id="admin">Admin</a>
+        <!-- <a href="status.php" id="status">Booking Status</a> -->
+
         <!-- <a href="#" id="status">Booking Status</a> -->
         <!-- <h3>+91 70076000000</h3> -->
 

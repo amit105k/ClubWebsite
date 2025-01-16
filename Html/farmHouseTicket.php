@@ -82,7 +82,7 @@
             <h2 id="club" name="club"><?php echo htmlspecialchars($name); ?></h2>
 
             <br><br>
-            <input type="text" id="club" name="club" value="<?php echo htmlspecialchars($name); ?>" hidden>
+            <input type="text" id="club" name="clubb" value="<?php echo htmlspecialchars($name); ?>" hidden>
 
 
             <label for="name">Name:</label>
@@ -106,7 +106,7 @@
             <input type="email" id="email" name="email" required><br><br>
 
             <label for="promocode">PROMOCODE/CUPON CODE:</label>
-            <input type="text" id="promocode" name="promocode" required> <span id="promo" onclick="apply()">Apply
+            <input type="text" id="promocode" name="promocode"> <span id="promo" onclick="apply()">Apply
             </span><br><br>
 
             <label for="Persons">Persons:</label>

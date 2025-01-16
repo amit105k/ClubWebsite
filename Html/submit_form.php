@@ -2,7 +2,7 @@
 include("db.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $club = $_POST['club'];
+    $club = $_POST['clubb'];
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $date = $_POST['date'];

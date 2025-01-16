@@ -355,7 +355,7 @@ footer p {
         <h4>The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <a href="service.php">Services</a>
+        <!-- <a href="service.php">Services</a> -->
         <!-- <a href="#clubs">Clubs</a>
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>

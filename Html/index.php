@@ -173,7 +173,7 @@
         <h4>The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <a href="service.php">Services</a>
+        <!-- <a href="service.php">Services</a> -->
         <!-- <a href="#clubs">Clubs</a>
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
@@ -342,27 +342,27 @@
     <div class="slider-container">
         <div class="slider">
             <div class="slide">
-                <a href="http://localhost/amitclub/html/registration_form.php?club_name=Hauz+Khass">
+                <a href="http://localhost/amitclub/html/registration_form.php?id=5">
                     <img src="../image/slider1.jpg" alt="Slide first image">
                 </a>
             </div>
             <div class="slide">
-                <a href="http://localhost/amitclub/html/registration_form.php?club_name=Delhi+Club">
+                <a href="http://localhost/amitclub/html/registration_form.php?id=6">
                     <img src="../image/slider2.jpg" alt="Image 2">
                 </a>
             </div>
             <div class="slide">
-                <a href="http://localhost/amitclub/html/registration_form.php?club_name=Noida+Club">
+                <a href="http://localhost/amitclub/html/registration_form.php?id=1">
                     <img src="../image/slider3.jpg" alt="Image 3">
                 </a>
             </div>
             <div class="slide">
-                <a href="http://localhost/amitclub/html/registration_form.php?club_name=The+Rock+Club+Ghaziabad">
+                <a href="http://localhost/amitclub/html/registration_form.php?id=4">
                     <img src="../image/slider4.jpg" alt="Image 4">
                 </a>
             </div>
             <div class="slide">
-                <a href="http://localhost/amitclub/html/registration_form.php?club_name=White+Club">
+                <a href="http://localhost/amitclub/html/registration_form.php?id=4">
                     <img src="../image/slider5.jpg" alt="Image 5">
                 </a>
             </div>

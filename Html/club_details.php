@@ -257,7 +257,7 @@
                     <!-- Section 1 -->
 
                     <div class="section menu-hover">
-                        <h4>SPECIAL</h4>
+                        <h4>Red Wine</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dish Name</span> -
@@ -282,7 +282,7 @@
 
                     <!-- Section 2 -->
                     <div class="section menu-hover">
-                        <h4>BEVERAGES</h4>
+                        <h4>Magic Moment</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Drink Name</span> -
@@ -307,7 +307,7 @@
 
                     <!-- Section 3 -->
                     <div class="section">
-                        <h4>DESSERTS</h4>
+                        <h4>Whiskey</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -330,7 +330,7 @@
                         </ul>
                     </div>
                     <div class="section menu-hover">
-                        <h4>DESSERTS</h4>
+                        <h4>RUM</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -353,7 +353,7 @@
                         </ul>
                     </div>
                     <div class="section menu-hover">
-                        <h4>DESSERTS</h4>
+                        <h4>Russian Standard</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -376,7 +376,7 @@
                         </ul>
                     </div>
                     <div class="section menu-hover">
-                        <h4>DESSERTS</h4>
+                        <h4>Absolut Vodka</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -402,12 +402,12 @@
             </div>
             <hr>
             <div class="menu">
-            <h1>Selection of HUKKA</h1>
+            <h1>Hookas flavors</h1>
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
                     <div class="section  menu-hover">
-                        <h4>SPECIAL</h4>
+                        <h4>Puff Smart</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dish Name</span> -
@@ -432,7 +432,7 @@
 
                     <!-- Section 2 -->
                     <div class="section menu-hover">
-                        <h4>BEVERAGES</h4>
+                        <h4>SCORIA</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Drink Name</span> -
@@ -457,7 +457,7 @@
 
                     <!-- Section 3 -->
                     <div class="section menu-hover">
-                        <h4>DESSERTS</h4>
+                        <h4>WEARKNOTS</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -480,7 +480,7 @@
                         </ul>
                     </div>
                     <div class="section menu-hover">
-                        <h4>DESSERTS</h4>
+                        <h4>Lovme</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -503,7 +503,7 @@
                         </ul>
                     </div>
                     <div class="section menu-hover">
-                        <h4>DESSERTS</h4>
+                        <h4>Cocosmok</h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -526,7 +526,7 @@
                         </ul>
                     </div>
                     <div class="section menu-hover">
-                        <h4>DESSERTS</h4>
+                        <h4>Habibis Hukkaups </h4>
                         <ul>
                             <li>
                                 <span class="product-name">Dessert Name</span> -
@@ -576,10 +576,9 @@
                     </div>
 
                     <div class="section fac rule hover">
-                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Children & Beds</h4>
+                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Age Policy</h4>
                         <ul>
-                            <li>Child policies Children of all ages are welcome. To see correct prices and occupancy info, add
-                                the number and ages of children in your group to your search.</li>
+                            <li>Must be grater than 18+ years are allow to enter this club any other children are not allowed as per government policies</li>
                         </ul>
 
                     </div>
@@ -590,9 +589,10 @@
                         </ul>
                     </div>
                     <div class="section fac rule hover">
-                        <h4><span><i class="fa-solid fa-bed"></i></span> Pets</h4>
+                        <h4><span><i class="fa-solid fa-bed"></i></span> Without Ticket</h4>
                         <ul>
-                            <li>Free!Pets are allowed. No extra charges.</li>
+                            <li>Only couples are avail free entery on some days</li>
+                            <li>Any person which found without ticket than get strict action against it</li>
 
                         </ul>
 
@@ -600,7 +600,16 @@
                     <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-cloud-sun"></i></span> Smoking</h4>
                         <ul>
-                            <li>Smoking is not allowed.</li>
+                            <li>Smoking is allowed.</li>
+                        </ul>
+                    </div>
+
+                    <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-wifi"></i></span> Internet</h4>
+                        <ul>
+                            <li>Internet are available in the club</li>
+                            <li>club WI-FI are available for all customers</li>
+                            <li>LAN are also available for PC/Laptop and mobile</li>
                         </ul>
                     </div>
 
@@ -701,26 +710,26 @@
             <div class="slide">
                 <img src="https://i0.wp.com/pixahive.com/wp-content/uploads/2021/02/An-Indian-boy-375075-pixahive.jpg?fit=1702%2C2560&ssl=1"
                     alt="Customer 1">
-                <p>"Great service and amazing quality!" - Customer 1</p>
+                <p>"Great service and amazing quality!" - Shradha khap</p>
             </div>
             <div class="slide">
                 <img src="https://i.pinimg.com/236x/12/8d/12/128d126fb0632643ca1aa0938f7bcc66.jpg" alt="Customer 2">
-                <p>"Absolutely love this!" - Customer 2</p>
+                <p>"Absolutely love this!" -Mohan daljeet</p>
             </div>
             <div class="slide">
                 <img src="https://static.toiimg.com/thumb/imgsize-23456,msid-105800390,width-600,resizemode-4/105800390.jpg"
                     alt="Customer 3">
-                <p>"Exceptional experience every time." - Customer 3</p>
+                <p>"Exceptional experience every time." - Rajkumar shoni</p>
             </div>
             <div class="slide">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Ranbir_Kapoor_promoting_Brahmastra.jpg"
                     alt="Customer 4">
-                <p>"Highly recommend this product." - Customer 4</p>
+                <p>"Highly recommend this product." - Amit Kushwaha</p>
             </div>
             <div class="slide">
                 <img src="https://m.media-amazon.com/images/M/MV5BOGJkMzRiYmQtOTVjNy00MWU3LTg5YjctNjcwMmZlNGIwMjhmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
                     alt="Customer 5">
-                <p>"Five stars! Will buy again." - Customer 5</p>
+                <p>"Five stars! Will buy again." - RajKUmar Sahu</p>
             </div>
         </div>
     </div>
