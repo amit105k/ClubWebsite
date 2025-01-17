@@ -9,14 +9,16 @@ if ($result->num_rows > 0) {
     echo '<h2>FarmHouse Party</h2>';
     echo '<div class="image-containerr">';
     while ($row = $result->fetch_assoc()) {
-        echo '<div class="fade">';
+        echo '<a href="farmhouseDetails.php?id='.$row['id'].'"
+         class="fade">';
+        echo '<div class="fadee">';
         echo '<img src="' . $row['image_url'] . '" alt="Club Image" class="image">';
         echo '<div class="overlay">';
         echo '<div class="text">';
 
        
         if ($row['name']) {
-            echo '<a href="farmhouseDetails.php?id=' . $row['id'] . '">' . $row['name'] .  '</a>';
+            echo '<h3>' .$row['name'] .'</h3>';
         }
 
        
@@ -38,6 +40,7 @@ if ($result->num_rows > 0) {
         echo '</div>';
         echo '</div>';
         echo '</div>';
+        echo '</a>';
     }
 
     echo '</div>';

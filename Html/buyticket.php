@@ -111,7 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="datetime-local" id="date" name="date" required><br><br>
 
         <label for="mobile">Mobile:</label>
-        <input type="text" id="mobile" name="mobile" required maxlength="10" minlength="10"><br><br>
+        <!-- <input type="text" id="mobile" name="mobile" required maxlength="10" minlength="10"><br><br> -->
+        <input type="text" id="mobile" name="mobile" required placeholder="Enter your Phone" minlength="10" maxlength="10" 
+oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter a valid 10-digit phone number">
+
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>

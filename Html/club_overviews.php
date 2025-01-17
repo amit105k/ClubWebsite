@@ -9,14 +9,15 @@ if ($result->num_rows > 0) {
     echo '<h2>Overviews of the Clubs</h2>';
     echo '<div class="image-containerr">';
     while ($row = $result->fetch_assoc()) {
-        echo '<div class="fade">';
+        echo '<a href="club_details.php?id=' . $row['id'] . '" class="fade">'; 
+        echo '<div class="fadee">';
         echo '<img src="' . $row['image_url'] . '" alt="Club Image" class="image">';
         echo '<div class="overlay">';
         echo '<div class="text">';
 
        
         if ($row['club_name']) {
-            echo '<a href="club_details.php?id=' . $row['id'] . '">' . $row['club_name'] .  '</a>';
+            echo '<h3>' . $row['club_name'] .  '</h3>';
         }
 
        
@@ -38,6 +39,7 @@ if ($result->num_rows > 0) {
         echo '</div>';
         echo '</div>';
         echo '</div>';
+        echo '</a>';
     }
 
     echo '</div>';
@@ -134,5 +136,11 @@ $conn->close();
     font-weight: bold;
     font-size: 30px;
    
+}
+.fadee{
+    
+  /* border: 12px solid white; */
+  /* width: 27%; */
+ height: 100%;
 }
 </style>

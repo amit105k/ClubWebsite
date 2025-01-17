@@ -307,7 +307,7 @@
                     <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-cloud-sun"></i></span> Smoking</h4>
                         <ul>
-                            <li>Smoking is not allowed.</li>
+                            <li>Smoking is allowed.</li>
                         </ul>
                     </div>
 

@@ -25,7 +25,7 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
@@ -267,13 +267,20 @@
                 <input type="text" id="name" name="name" required placeholder="Enter your name" required>
 
                 <label for="phone">Your Phone</label>
-                <input type="number" id="email" name="phone" required placeholder="Enter your Phone" maxlength="10" required>
+                <!-- <input type="text" id="phone" name="phone" required placeholder="Enter your Phone" minlength="10"  -->
+
+                <!-- <input type="tel" id="phone" name="phone" required placeholder="Enter your Phone" minlength="10" maxlength="10" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number"> -->
+                <input type="text" id="phone" name="phone" required placeholder="Enter your Phone" minlength="10"
+                    maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                    title="Please enter a valid 10-digit phone number">
+
 
                 <label for="email">Your Email</label>
                 <input type="email" id="email" name="email" required placeholder="Enter your email" required>
 
                 <label for="message">Your Message</label>
-                <textarea id="message" name="message" placeholder="Write your message here max 150 word" rows="5" maxlength="150"></textarea>
+                <textarea id="message" name="message" placeholder="Write your message here max 150 word" rows="5"
+                    maxlength="150"></textarea>
 
                 <!-- <span id="msg">hh</span> -->
                 <button name="submit" type="submit" required value="Send" id="submit">Submit</button>
@@ -333,9 +340,10 @@
 
 </html>
 <script>
+
+
     jQuery('#form').on('submit', function (e) {
         console.log("click");
-        // console.log(e);
         jQuery('#msg').html('');
         jQuery('#submit').html('Please wait');
         jQuery('#submit').attr('disabled', true);
