@@ -554,7 +554,7 @@
             <div class="menu rule">
                 <h1>Club Rules</h1>
                 <div class="menu-sections rule-section">
-                    <div class="section  fac rule hover">
+                    <!-- <div class="section  fac rule hover">
                         <h4><span><i class="fa-solid fa-bath"></i> </span>Check-in</h4>
                         <ul>
                             <li>From 3:00 PM to 6:00 PM</li>
@@ -566,7 +566,7 @@
                         <ul>
                             <li>From 8:00 AM to 11:00 AM </li>
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-g"></i></span> Cancellation/ prepayment</h4>
                         <ul>

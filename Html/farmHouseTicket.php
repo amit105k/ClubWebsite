@@ -77,7 +77,7 @@
     ?>
 
     <div class="form-container">
-        <h1>Club Registration Form</h1>
+        <h1>FarmHouse Registration Form</h1>
         <form id="registrationForm" action="submit_form.php" method="POST">
             <h2 id="club" name="club"><?php echo htmlspecialchars($name); ?></h2>
 
@@ -128,6 +128,11 @@
 
     <!-- .............................................new script.............................. -->
     <script>
+
+    
+
+
+
         const dbdis = <?php echo json_encode($promodis); ?>;
         const dbpromo = <?php echo json_encode($promocode); ?>;
 
@@ -140,6 +145,19 @@
         const inputAmount = document.getElementById('inputamount');
 
         let isPromoApplied = false;
+
+        personInput.addEventListener('input', () => {
+    if (personInput.value === '' || personInput.value < 1) {
+        Swal.fire({
+            title: "Invalid Input",
+            text: "Please enter a valid number of persons (at least 1).",
+            icon: "error"
+        });
+        personInput.value = 1; // Reset to minimum valid value
+    }
+    calculatePrice();
+});
+       
 
         personInput.addEventListener('input', calculatePrice);
 
@@ -165,7 +183,7 @@
                 isPromoApplied = true;
                 Swal.fire({
                     title: "Congratulations ",
-                    text: "Promo applied! You get "+dbdis+"% off.",
+                    text: "Promo applied! You get " + dbdis + "% off.",
                     icon: "success"
                 });
                 document.getElementById("promocode").disabled = true;

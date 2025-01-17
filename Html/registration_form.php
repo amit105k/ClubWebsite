@@ -186,6 +186,17 @@
         const inputAmount = document.getElementById('inputamount');
 
         let isPromoApplied = false;
+        personInput.addEventListener('input', () => {
+    if (personInput.value === '' || personInput.value < 1) {
+        Swal.fire({
+            title: "Invalid Input",
+            text: "Please enter a valid number of persons (at least 1).",
+            icon: "error"
+        });
+        personInput.value = 1; 
+    }
+    calculatePrice();
+});
 
         personInput.addEventListener('input', calculatePrice);
 

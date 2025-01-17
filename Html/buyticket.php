@@ -96,11 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
         </select><br><br>
         <input type="text" name="clubb" value="<?php echo htmlspecialchars($club_name); ?>" hidden>
-<!-- 
-        <h4>Club Price: <span id="priceDisplay">₹<?php echo htmlspecialchars($price); ?></span></h4>
-        <h4>Promocode: <span id="priceDisplay"><?php echo htmlspecialchars($promocode); ?></span></h4>
-        <h4>Discount: <span id="priceDisplay"><?php echo htmlspecialchars($promodis); ?></span></h4>
-        <h4>Club name: <span id="priceDisplay"></span><?php echo htmlspecialchars($club_name); ?></h4> -->
 
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
@@ -132,7 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="singleEntry">Amount</label>
         <h3 id="amount" name="amount"></h3>
         <input type="text" name="amount" id="inputamount" value="" hidden>
-
         <button type="submit">Submit</button>
     </form>
 </div>
@@ -141,60 +135,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conn->close();
 ?>
 
+<script>
+const dbdis = <?php echo json_encode($promodis); ?>;
+const dbpromo = <?php echo json_encode($promocode); ?>;
 
-    <!-- ..........................................................withot database....................... -->
-    <!-- <div class="form-container">
-        <h1>Club Registration Form</h1>
-        <form id="registrationForm" action="submit_form.php" method="POST">
-            <label for="club">Select Club:</label>
-            <select id="club" name="club">
-                <option value="Hauz Khas">Hauz Khas</option>
-                <option value="Delhi Club">Delhi Club</option>
-                <option value="Night Club Noida">Night Club Noida</option>
-                <option value="The Rock Club Ghaziabad">The Rock Club Ghaziabad</option>
-                <option value="White Club">White Club</option>
-            </select><br><br>
+const initialPersons = 1;
+const extraChargePerPerson = <?php echo htmlspecialchars($price); ?>;
+const basePrice = <?php echo htmlspecialchars($price); ?>;
 
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
+const personInput = document.getElementById('person');
+const amountDisplay = document.getElementById('amount');
+const inputAmount = document.getElementById('inputamount');
+const promocodeInput = document.getElementById('promocode');
+const promoButton = document.getElementById('promo');
 
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="" selected>Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select><br><br>
-
-            <label for="date">Date & Time:</label>
-            <input type="datetime-local" id="date" name="date" required><br><br>
+let isPromoApplied = false;
 
 
-            <label for="mobile">Mobile:</label>
-            <input type="text" id="mobile" name="mobile" required maxlength="10" minlength="10"><br><br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-
-            <label for="promocode">PROMOCODE/CUPON CODE:</label>
-            <input type="text" id="promocode" name="promocode" required> <span id="promo" onclick="apply()">Apply
-            </span><br><br>
-
-            <label for="Persons">Persons:</label>
-            <input type="number" name="count" id="person" required value="1"><br>
-
-            <span style="color:red" id="duscoun">Book More than 10 Persons than you will get Flat <span>&#x20B9;
-                10%    ($extraperson);  
-                </span> Discount</span>
-            <label for="singleEntry">Amount</label>
-            <h3 id="amount" name="amount"></h3>
-            <input type="text" name="amount" id="inputamount" value="---echo htmlspecialchars($price);-- " hidden>
-
-            <button type="submit" onclick="validateForm(event)">Submit</button>
-        </form>
-    </div> -->
+personInput.addEventListener('input', () => {
+    if (personInput.value === '' || personInput.value < 1) {
+        Swal.fire({
+            title: "Invalid Input",
+            text: "Please enter a valid number of persons (at least 1).",
+            icon: "error"
+        });
+        personInput.value = 1; 
+    }
+    calculatePrice();
+});
 
 
-    <script>
+function calculatePrice() {
+    const currentPersons = parseInt(personInput.value, 10) || 1; 
+    const extraPersons = Math.max(currentPersons - initialPersons, 0);
+    let totalAmount = basePrice + (extraPersons * extraChargePerPerson);
+
+    if (isPromoApplied) {
+        const discount = (totalAmount * dbdis) / 100;
+        totalAmount -= discount;
+    }
+
+    amountDisplay.textContent = totalAmount;
+    inputAmount.value = totalAmount;
+}
+
+function apply() {
+    const userPromoCode = promocodeInput.value.trim().toUpperCase(); 
+    const validPromoCode = dbpromo.toUpperCase(); 
+
+    if (userPromoCode === validPromoCode) {
+        isPromoApplied = true;
+        Swal.fire({
+            title: "Congratulations!",
+            text: `Promo applied! You get ${dbdis}% off.`,
+            icon: "success"
+        });
+        promocodeInput.disabled = true; 
+        // promoButton.style.pointerEvents = "none"; 
+
+    } else {
+        isPromoApplied = false;
+        Swal.fire({
+            title: "Invalid Promo Code",
+            text: "Please enter a valid promo code.",
+            icon: "error"
+        });
+    }
+
+    calculatePrice(); 
+}
+
+calculatePrice();
+
+promoButton.addEventListener('click', apply);
+
+
+
+
+
+
+
+
+        
+// ..........................less thanone condition is here...........................
+
         // function person() {
         //     var per = document.getElementById("person").value;
         //     document.getElementById("amount").innerText = per * 500;
@@ -240,61 +264,7 @@ $conn->close();
 // ........................................................................................
     
 
-        const dbdis = <?php echo json_encode($promodis); ?>;
-        const dbpromo = <?php echo json_encode($promocode); ?>;
-
-        const initialPersons = 1;
-        const extraChargePerPerson = <?php echo htmlspecialchars($price); ?>;
-        const basePrice = <?php echo htmlspecialchars($price); ?>;
-
-        const personInput = document.getElementById('person');
-        const amountDisplay = document.getElementById('amount');
-        const inputAmount = document.getElementById('inputamount');
-
-        let isPromoApplied = false;
-
-        personInput.addEventListener('input', calculatePrice);
-
-        function calculatePrice() {
-            const currentPersons = parseInt(personInput.value, 10);
-            const extraPersons = Math.max(currentPersons - initialPersons, 0);
-            let totalAmount = basePrice + (extraPersons * extraChargePerPerson);
-
-            if (isPromoApplied) {
-                const discount = (totalAmount * dbdis) / 100;
-                totalAmount -= discount;
-            }
-
-            amountDisplay.textContent = totalAmount;
-            inputAmount.value = totalAmount;
-        }
-
-        function apply() {
-            const userPromoCode = document.getElementById("promocode").value;
-            const promoUpper = userPromoCode.toUpperCase();
-
-            if (promoUpper === dbpromo) {
-                isPromoApplied = true;
-                Swal.fire({
-                    title: "Congratulations ",
-                    text: "Promo applied! You get "+dbdis+"% off.",
-                    icon: "success"
-                });
-                document.getElementById("promocode").disabled = true;
-                document.getElementById("promo").disabled = true;
-            } else {
-                isPromoApplied = false;
-                Swal.fire({
-                    title: "Sorry We Cannot Find Any Coupon/Promocode !",
-                    text: "Please Enter Correct Coupon/Promocode I'd!",
-                    icon: "error"
-                });
-            }
-
-            calculatePrice();
-        }
-
-        calculatePrice(); 
+       
     </script>
 
 
@@ -947,6 +917,61 @@ function closeModal() {
 // if (window.location.pathname.includes('http://localhost/amitclub/Html/index.php')) {
 //     showModalOnHomepage();
 // }
+
+
+
+
+// ........................................purana wala input.................................
+    //   <div class="form-container">
+    //     <h1>Club Registration Form</h1>
+    //     <form id="registrationForm" action="submit_form.php" method="POST">
+    //         <label for="club">Select Club:</label>
+    //         <select id="club" name="club">
+    //             <option value="Hauz Khas">Hauz Khas</option>
+    //             <option value="Delhi Club">Delhi Club</option>
+    //             <option value="Night Club Noida">Night Club Noida</option>
+    //             <option value="The Rock Club Ghaziabad">The Rock Club Ghaziabad</option>
+    //             <option value="White Club">White Club</option>
+    //         </select><br><br>
+
+    //         <label for="name">Name:</label>
+    //         <input type="text" id="name" name="name" required><br><br>
+
+    //         <label for="gender">Gender:</label>
+    //         <select id="gender" name="gender" required>
+    //             <option value="" selected>Select</option>
+    //             <option value="Male">Male</option>
+    //             <option value="Female">Female</option>
+    //         </select><br><br>
+
+    //         <label for="date">Date & Time:</label>
+    //         <input type="datetime-local" id="date" name="date" required><br><br>
+
+
+    //         <label for="mobile">Mobile:</label>
+    //         <input type="text" id="mobile" name="mobile" required maxlength="10" minlength="10"><br><br>
+
+    //         <label for="email">Email:</label>
+    //         <input type="email" id="email" name="email" required><br><br>
+
+    //         <label for="promocode">PROMOCODE/CUPON CODE:</label>
+    //         <input type="text" id="promocode" name="promocode" required> <span id="promo" onclick="apply()">Apply
+    //         </span><br><br>
+
+    //         <label for="Persons">Persons:</label>
+    //         <input type="number" name="count" id="person" required value="1"><br>
+
+    //         <span style="color:red" id="duscoun">Book More than 10 Persons than you will get Flat <span>&#x20B9;
+    //             10%    ($extraperson);  
+    //             </span> Discount</span>
+    //         <label for="singleEntry">Amount</label>
+    //         <h3 id="amount" name="amount"></h3>
+    //         <input type="text" name="amount" id="inputamount" value="---echo htmlspecialchars($price);-- " hidden>
+
+    //         <button type="submit" onclick="validateForm(event)">Submit</button>
+    //     </form>
+    // </div> -->
+
 
 </script>
 

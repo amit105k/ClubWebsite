@@ -267,13 +267,13 @@
                 <input type="text" id="name" name="name" required placeholder="Enter your name" required>
 
                 <label for="phone">Your Phone</label>
-                <input type="text" id="email" name="phone" required placeholder="Enter your Phone" maxlength="10" required>
+                <input type="number" id="email" name="phone" required placeholder="Enter your Phone" maxlength="10" required>
 
                 <label for="email">Your Email</label>
                 <input type="email" id="email" name="email" required placeholder="Enter your email" required>
 
                 <label for="message">Your Message</label>
-                <textarea id="message" name="message" placeholder="Write your message here" rows="5"></textarea>
+                <textarea id="message" name="message" placeholder="Write your message here max 150 word" rows="5" maxlength="150"></textarea>
 
                 <!-- <span id="msg">hh</span> -->
                 <button name="submit" type="submit" required value="Send" id="submit">Submit</button>

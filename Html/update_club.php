@@ -1,7 +1,6 @@
 <?php
 include('db.php');
 
-// Fetch the list of clubs to display in the dropdown
 $sql = "SELECT id, club_name FROM club_overviews";
 $result = $conn->query($sql);
 $clubs = [];
@@ -73,20 +72,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-$sql = "SELECT id, club_name FROM club_overviews";
-$result = $conn->query($sql);
-$clubs = [];
-while ($row = $result->fetch_assoc()) {
-    $clubs[] = $row;
-}
+// $sql = "SELECT id, club_name FROM club_overviews";
+// $result = $conn->query($sql);
+// $clubs = [];
+// while ($row = $result->fetch_assoc()) {
+//     $clubs[] = $row;
+// }
 
-$selected_club = null;
-if (isset($_GET['id']) && $_GET['id'] != 'new') {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM club_overviews WHERE id = $id";
-    $selected_club_result = $conn->query($sql);
-    $selected_club = $selected_club_result->fetch_assoc();
-}
+// $selected_club = null;
+// if (isset($_GET['id']) && $_GET['id'] != 'new') {
+//     $id = $_GET['id'];
+//     $sql = "SELECT * FROM club_overviews WHERE id = $id";
+//     $selected_club_result = $conn->query($sql);
+//     $selected_club = $selected_club_result->fetch_assoc();
+// }
 
 $conn->close();
 ?>
