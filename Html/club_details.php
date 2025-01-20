@@ -568,7 +568,7 @@
                         </ul>
                     </div> -->
                     <div class="section fac rule hover">
-                        <h4><span><i class="fa-solid fa-g"></i></span> Cancellation/ prepayment</h4>
+                        <h4><span><i class="fa-solid fa-ticket"></i> </span> Cancellation/ prepayment</h4>
                         <ul>
                             <li>Cancellation and prepayment policies vary according to accommodation type. Enter your stay dates
                                 and check the conditions of your selected option.</li>
@@ -576,18 +576,18 @@
                     </div>
 
                     <div class="section fac rule hover">
-                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Age Policy</h4>
+                        <h4><span><i class="fas fa-ban"></i> </span>Age Policy</h4>
                         <ul>
                             <li>Must be grater than 18+ years are allow to enter this club any other children are not allowed as per government policies</li>
                         </ul>
 
                     </div>
-                    <div class="section fac rule hover">
-                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Crib and extra bed policies</h4>
+                    <!-- <div class="section fac rule hover">
+                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Ticket Vlidity Time </h4>
                         <ul>
                             <li>Cribs and extra beds aren't available at this property.</li>
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-bed"></i></span> Without Ticket</h4>
                         <ul>

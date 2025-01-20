@@ -69,8 +69,11 @@
                 <option value="Female">Female</option>
             </select><br><br>
 
-            <label for="date">Date & Time:</label>
+            <label for="date">Check-in Date & Time:</label>
             <input type="datetime-local" id="date" name="date" required><br><br>
+            <label for="date">Check-Out Date & Time:</label>
+            <input type="datetime-local" id="date" name="checkout" required><br><br>
+
 
             <label for="mobile">Mobile:</label>
             <input type="text" id="mobile" name="mobile" required placeholder="Enter your Phone" minlength="10" maxlength="10"oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter a valid 10-digit phone number">

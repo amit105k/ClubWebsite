@@ -271,7 +271,7 @@
                 </tr>";
 
         while ($row = $result->fetch_assoc()) {
-            // Determine row color based on payment_status
+            if (empty($row["checkout"])) {
             if ($row["payment_status"] === "Success") {
                 $rowStyle = "background-color: #c9d4c9; color: black;";
             } elseif ($row["payment_status"] === "Pending") {
@@ -295,7 +295,7 @@
                     <td>" . $row["token_id"] . "</td>
                     <td>" . $row["bdate"] . "</td>
                 </tr>";
-        }
+        }}
         echo "</table>";
     } else {
         echo "<p>No club bookings found in the database.</p>";

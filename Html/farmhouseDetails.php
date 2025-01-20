@@ -60,11 +60,6 @@
 
             </nav>
 
-
-
-
-
-
             <div class="overviews">
                 <h2><span>Welcome To</span> <?php echo $row['name']; ?></h2>
                 <div class="image-containerr">
@@ -91,76 +86,70 @@
                     </div>
                 </div>
             </div>
-            <style>
-               
-            </style>
 
-            <div class="carousel">
-                <div class="carousel-content">
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=lawn&price=5000&extraperson=150">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/FarmHouse.png" loading="lazy">
-                                <h6 class="text-center">Lawn </h6>
-                            </a>
+
+            <!--...................................lawn are here ......................-->
+            <div class="c-customer-reviews lawn">
+                <h2>Customer Reviews</h2>
+                <div class="c-slider-container lawn1">
+                    <div class="c-slider lawn2">
+                        <div class="c-slide lawn3">
+                            <div class="card card-body text-center lawn4">
+                                <a href="lawnticketbook.php?club_name=lawn&price=5000&extraperson=150">
+                                    <img class="img-fluid" src="https://evafarms.in/img/carousel-head/FarmHouse.png"
+                                        loading="lazy">
+                                    <h6 class="text-center">Lawn </h6>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=Family Suite&price=5000&extraperson=250">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Lawn.png" loading="lazy">
-                                <h6 class="text-center">Family Suite </h6>
-                            </a>
+                        <div class="c-slide lawn3">
+                            <div class="card card-body text-center">
+                                <a href="lawnticketbook.php?club_name=Family Suite&price=5000&extraperson=250">
+                                    <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Lawn.png" loading="lazy">
+                                    <h6 class="text-center">Family Suite </h6>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=Engagement&price=35000&extraperson=600">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Engagement.png"
-                                    loading="lazy">
-                                <h6 class="text-center">Engagement </h6>
-                            </a>
+                        <div class="c-slide lawn3">
+                            <div class="card card-body text-center">
+                                <a href="lawnticketbook.php?club_name=Engagement&price=35000&extraperson=600">
+                                    <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Engagement.png"
+                                        loading="lazy">
+                                    <h6 class="text-center">Engagement </h6>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=Pool Party&price=2500&extraperson=300">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/PoolParty.png" loading="lazy">
-                                <h6 class="text-center">Pool Party </h6>
-                            </a>
+                        <div class="c-slide lawn3">
+                            <div class="card card-body text-center">
+                                <a href="lawnticketbook.php?club_name=Pool Party&price=2500&extraperson=300">
+                                    <img class="img-fluid" src="https://evafarms.in/img/carousel-head/PoolParty.png"
+                                        loading="lazy">
+                                    <h6 class="text-center">Pool Party </h6>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-body text-center">
-                            <a href="lawnticketbook.php?club_name=BYOB&price=5000&extraperson=300">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/BYOB.png" loading="lazy">
-                                <h6 class="text-center">BYOB </h6>
-                            </a>
+                        <div class="c-slide lawn3">
+                            <div class="card card-body text-center">
+                                <a href="lawnticketbook.php?club_name=BYOB&price=5000&extraperson=300">
+                                    <img class="img-fluid" src="https://evafarms.in/img/carousel-head/BYOB.png" loading="lazy">
+                                    <h6 class="text-center">BYOB </h6>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card card-body">
-                            <a href="lawnticketbook.php?club_name=Corporate&price=35000&extraperson=300">
-                                <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Corporate.png" loading="lazy">
-                                <h6 class="text-center">Corporate </h6>
-                            </a>
+                        <div class="c-slide lawn3">
+                            <div class="card card-body text-center">
+                                <a href="lawnticketbook.php?club_name=Corporate&price=35000&extraperson=300">
+                                    <img class="img-fluid" src="https://evafarms.in/img/carousel-head/Corporate.png"
+                                        loading="lazy">
+                                    <h6 class="text-center">Corporate </h6>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <style>
-               
-            </style>
-            
-           
-            <!-- <div class="seats">
-                this div contain total seats available in the clubs
-            </div>
-            <hr>
-            <div class="music">
-                this div contain music whcich has been in club
-            </div> -->
-            <!-- <hr> -->
+
+            <!--................menu bar is here....................-->
             <div class="menu">
                 <h1>Facilities of FarmHouse</h1>
                 <div class="menu-sections">
@@ -257,12 +246,12 @@
                 </div>
             </div>
 
-            <!-- ............................................................... -->
+            <!-- ..........................FarmHouse Rules and Regulation.......................... -->
             <div class="menu rule">
                 <h1>Rules of FarmHouse</h1>
                 <div class="menu-sections rule-section">
                     <div class="section  fac rule hover">
-                        <h4><span><i class="fa-solid fa-bath"></i> </span>Check-in</h4>
+                        <h4><span><i class="fa-solid fa-check"></i> </span>Check-in</h4>
                         <ul>
                             <li>From 3:00 PM to 6:00 PM</li>
                         </ul>
@@ -314,8 +303,8 @@
                 </div>
             </div>
 
-          
-            <!-- ............................................... -->
+
+            <!-- .....................areda info are here.......................... -->
 
             <div class="menu">
                 <h1>Area info</h1>
@@ -367,15 +356,15 @@
                             <li>Hindon Airport - <span>60 km</span> </li>
                         </ul>
                     </div>
-                    
+
                 </div>
             </div>
 
 
 
-            <!-- ............................................... -->
+            <!-- ......................farmHouse image has been deployed......................... -->
 
-            
+
             <div class="new">
                 <h2>Gallery</h2>
                 <div class="image3">
@@ -402,34 +391,162 @@
     $conn->close();
     ?>
 
-    <div class="slider-container">
-        <div class="slider">
-            <div class="slide">
-                <img src="https://i0.wp.com/pixahive.com/wp-content/uploads/2021/02/An-Indian-boy-375075-pixahive.jpg?fit=1702%2C2560&ssl=1"
-                    alt="Customer 1">
-                <p>"Great service and amazing quality!" - Customer 1</p>
-            </div>
-            <div class="slide">
-                <img src="https://i.pinimg.com/236x/12/8d/12/128d126fb0632643ca1aa0938f7bcc66.jpg" alt="Customer 2">
-                <p>"Absolutely love this!" - Customer 2</p>
-            </div>
-            <div class="slide">
-                <img src="https://static.toiimg.com/thumb/imgsize-23456,msid-105800390,width-600,resizemode-4/105800390.jpg"
-                    alt="Customer 3">
-                <p>"Exceptional experience every time." - Customer 3</p>
-            </div>
-            <div class="slide">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Ranbir_Kapoor_promoting_Brahmastra.jpg"
-                    alt="Customer 4">
-                <p>"Highly recommend this product." - Customer 4</p>
-            </div>
-            <div class="slide">
-                <img src="https://m.media-amazon.com/images/M/MV5BOGJkMzRiYmQtOTVjNy00MWU3LTg5YjctNjcwMmZlNGIwMjhmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
-                    alt="Customer 5">
-                <p>"Five stars! Will buy again." - Customer 5</p>
+
+
+    <!-- .....................customer reviews..................................................... -->
+    <div class="c-customer-reviews">
+        <h2>Customer Reviews</h2>
+
+        <!-- Slider Container -->
+        <div class="c-slider-container">
+            <div class="c-slider">
+                <!-- Slide 1 -->
+                <div class="c-slide">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61xwV7YcxzGy_rDKq67YVijcDaYEoZyF7uQ&s"
+                        alt="Customer 1">
+                    <div class="c-content">
+                        <h4>Rashmika Mandanna</h4>
+                        <p>This product is amazing! It exceeded my expectations.</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="c-slide">
+                    <img src="https://cdn.pixabay.com/photo/2022/12/13/08/42/free-smart-boy-handsome-images-7652808_1280.jpg"
+                        alt="Customer 2">
+                    <div class="c-content">
+                        <h4>Jane Smith</h4>
+                        <p>Great value for the price. Would buy again. from noida club</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="c-slide">
+                    <img src="https://media.licdn.com/dms/image/v2/D5635AQH2ggyUOJLbSg/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1730032881426?e=1737792000&v=beta&t=cvkKOIS26kHcvJOdUaKr1YR73Ka98ZxgfFwxTQ0Kyqw"
+                        alt="Customer 3">
+                    <div class="c-content">
+                        <h4>Rupal Singh</h4>
+                        <p>Very satisfied with my purchase. Highly recommended!</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="c-slide">
+                    <img src="https://i.pinimg.com/564x/a6/91/38/a69138a0e0de3cd51b980fe3d21a11da.jpg" alt="Customer 4">
+                    <div class="c-content">
+                        <h4>Michael Brown</h4>
+                        <p>The quality is great, but shipping took a bit long.</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="c-slide">
+                    <img src="https://i.pinimg.com/originals/1d/27/bd/1d27bdd5618fd06c26e7eab218a44711.jpg"
+                        alt="Customer 5">
+                    <div class="c-content">
+                        <h4>Amy Adams</h4>
+                        <p>Good product, but could be improved in certain areas.</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 6 -->
+                <div class="c-slide">
+                    <img src="https://i.pinimg.com/564x/25/a7/f6/25a7f6e52f7d373e7db6d63c4bdb38d1.jpg" alt="Customer 6">
+                    <div class="c-content">
+                        <h4>Daniel Harris</h4>
+                        <p>Exactly what I was looking for. Excellent experience!</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 7 -->
+                <div class="c-slide">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqh7HjgdrRxRFY0-ectwdBuWLJhntXGnU0Jg&s"
+                        alt="Customer 7">
+                    <div class="c-content">
+                        <h4>Sarah Miller</h4>
+                        <p>Fantastic! I’m very happy with this product. white club delhi </p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 8 -->
+                <div class="c-slide">
+                    <img src="https://i.pinimg.com/736x/b2/c1/14/b2c114970d1473b26ae3e9433fd656e2.jpg" alt="Customer 8">
+                    <div class="c-content">
+                        <h4>Chris Wilson</h4>
+                        <p>Good quality, but a little more affordable options would be great.</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 9 -->
+                <div class="c-slide">
+                    <img src="https://www.dpzone.in/wp-content/uploads/1/55861489.jpg" alt="Customer 9">
+                    <div class="c-content">
+                        <h4>Kelly Davis</h4>
+                        <p>Not bad, but I had some issues with the product.</p>
+                        <div class="c-star-rating">
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                            <span class="c-star filled">★</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+
+    <!-- ..............................footer is here................................. -->
+
 
     <div class="footer">
         <div class="fleft">
@@ -474,23 +591,23 @@
 
 </html>
 <script>
-    const slider = document.querySelector('.slider');
-    const slides = document.querySelectorAll('.slide');
-    let currentIndex = 0;
-    let direction = 1; // 1 for right, -1 for left
+    // const slider = document.querySelector('.slider');
+    // const slides = document.querySelectorAll('.slide');
+    // let currentIndex = 0;
+    // let direction = 1; // 1 for right, -1 for left
 
-    function slideShow() {
-        currentIndex += direction;
+    // function slideShow() {
+    //     currentIndex += direction;
 
-        if (currentIndex >= slides.length || currentIndex < 0) {
-            direction *= -1; // Reverse direction
-            currentIndex += direction;
-        }
+    //     if (currentIndex >= slides.length || currentIndex < 0) {
+    //         direction *= -1; // Reverse direction
+    //         currentIndex += direction;
+    //     }
 
-        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
+    //     slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    // }
 
-    setInterval(slideShow, 3000); // Change slide every 3 seconds
+    // setInterval(slideShow, 3000); 
 </script>
 
 <style>
@@ -801,6 +918,150 @@
         font-style: normal;
     }
 
+    /* /*...................customer revirw stylels............................... */
+
+
+    .c-customer-reviews {
+        width: 100%;
+        background-color: black;
+        text-align: center;
+        color: white;
+        /* padding-bottom: 30px; */
+    }
+
+    .c-customer-reviews h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .c-slider-container {
+        position: relative;
+        overflow: hidden;
+        /* overflow-x: scroll; */
+        width: 90%;
+        margin-left: 5%;
+        background-color: white;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        /* animation: amit 3s infinite alternate linear; */
+
+    }
+
+    /* @keyframes amit{
+        0%{margin-left: 0px;}
+        10%{margin-left: 50px;}
+        20%{margin-left: 100px;}
+        30%{margin-left: 150px;}
+        40%{margin-left: 200px;}
+        50%{margin-left: 250px;}
+        60%{margin-left: 300px;}
+        70%{margin-left: 350px;}
+        80%{margin-left: 400px;}
+        90%{margin-left: 450px;}
+        100%{margin-left: 500px;}
+    } */
+
+    .c-slider {
+        display: flex;
+        /* transition: transform 0.5s ease-in-out; */
+        animation: amit 32s linear infinite alternate;
+        width: 100%;
+    }
+
+    @keyframes amit {
+        0% {
+            margin-left: 0%;
+        }
+
+        100% {
+            margin-left: -100%;
+        }
+
+    }
+
+    .c-slide {
+        min-width: 33.33%;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    .c-slide img {
+        width: 34%;
+        /* border-radius: 8px; */
+        height: 95px;
+        border-radius: 100%;
+        border: 5px solid black;
+    }
+
+
+    .c-slide .c-content {
+        text-align: left;
+        padding: 10px;
+        background-color: rgb(44, 41, 41);
+        z-index: 2;
+        position: relative;
+        height: 113px;
+        text-align: center;
+    }
+
+    .c-content {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .c-slide .c-content p {
+        margin: 10px 0;
+    }
+
+    .c-star-rating {
+        /* display: flex; */
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .c-star-rating .c-star {
+        font-size: 20px;
+        color: gold;
+        margin-right: 5px;
+    }
+
+    .c-star-rating::-webkit-scrollbar {
+
+        cursor: move;
+    }
+
+    .c-star-rating::-webkit-scrollbar-thumb {
+
+        background: #888;
+        border-radius: 3px;
+    }
+
+    .c-star-rating::-webkit-scrollbar-thumb:hover {
+
+        background: #555;
+    }
+
+    .c-star-rating {
+        /* display: flex; */
+        justify-content: flex-start;
+        padding-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .c-star-rating .c-star {
+        font-size: 20px;
+        margin-right: 5px;
+        color: lightgray;
+        /* Default color for unfilled stars */
+    }
+
+    .c-star-rating .filled {
+        color: gold;
+        /* Filled stars color */
+    }
+
 
     /* ..............footer..................... */
 
@@ -877,189 +1138,294 @@
         height: 1px;
     }
 
-   /* .........................................*/
-   .carousel {
-                    width: 100%;
-                    background-color: black;
-                    overflow: hidden;
-                    display: flex;
+    /* .........................................*/
+    .carousel {
+        width: 100%;
+        background-color: red;
+        overflow: hidden;
+        /* display: flex;
                     align-items: center;
                     position: relative;
-                    /* padding: 10px; */
-                    justify-content: center;
-                }
+                    /* padding: 10px;
+                    justify-content: center; */
+    }
 
-                .carousel-content {
-                    display: flex;
-                    gap: 73px;
-                    width: 80%;
-                    overflow: hidden;
-                    /* background-color: yellow; */
-                }
+    .carousel-content {
+        position: relative;
+        display: flex;
+        gap: 22px;
+    }
 
-                .carousel-item {
-                    animation: slide 5s linear alternate infinite;
-                    border-radius: 10%;
+    .carousel-item {
+        border-radius: 10%;
+        width: 13%;
 
-                }
-                .carousel-item:hover {
-                    background-color: red;
+    }
 
-                }
+    @keyframes slide {
+        0% {
+            background-color: ;
+            margin-left: 20%;
+        }
 
-                .carousel .carousel-item {
-                    flex: 0 0 auto;
-                    background-color: white;
-                    /* width: 80%; */
-                    /* gap: 40px; */
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    position: relative;
-                }
+        100% {
+            background-color: ;
+            margin-left: 80%;
+        }
+    }
 
-                .card {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    box-sizing: border-box;
-                }
 
-                .card img {
-                    max-width: 60%;
-                    height: auto;
-                    /* display: block; */
+    .carousel-item:hover {
+        background-color: red;
 
-                }
+    }
 
-                .text-center {
-                    margin: 5px 0;
-                    font-size: 1rem;
-                    text-align: center;
-                    color: #000;
-                    text-decoration: none;
-                    /* background-color: pink; */
-                }
+    .carousel .carousel-item {
+        flex: 0 0 auto;
+        background-color: white;
+        /* width: 80%; */
+        /* gap: 40px; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
 
-                .text-center a {
-                    text-decoration: none;
-                }
+    .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
 
-                @keyframes slide {
-                    0% {
-                        transform: translateX(100%);
-                    }
+    .card img {
+        max-width: 60%;
+        height: auto;
+        /* display: block; */
 
-                    100% {
-                        transform: translateX(-100%);
-                    }
-                }
+    }
+
+    .text-center {
+        margin: 5px 0;
+        font-size: 1rem;
+        text-align: center;
+        /* color: #000; */
+        text-decoration: none;
+        /* background-color: pink; */
+    }
+
+    .text-center a {
+        text-decoration: none;
+        background: #f9f9f9;
+    }
+
 
 
     /*.......................................................*/
     .menu {
-                    font-family: Arial, sans-serif;
-                    /* text-align: center; */
-                    /* margin: 20px; */
-                    background-color: black;
-                }
+        font-family: Arial, sans-serif;
+        /* text-align: center; */
+        /* margin: 20px; */
+        background-color: black;
+    }
 
-                .menu h1 {
-                    font-size: 36px;
-                    padding-top: 20px;
-                    margin-bottom: 20px;
-                    text-align: center;
-                    color: white;
-                }
+    .menu h1 {
+        font-size: 36px;
+        padding-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: white;
+    }
 
-                .menu-sections {
-                    display: flex;
-                    justify-content: space-around;
-                    gap: 40px;
-                    width: 90%;
-                    margin-left: 5%;
-                    flex-wrap: wrap;
-                    flex-direction: row;
-                    padding-bottom: 26px;
-                }
+    .menu-sections {
+        display: flex;
+        justify-content: space-around;
+        gap: 40px;
+        width: 90%;
+        margin-left: 5%;
+        flex-wrap: wrap;
+        flex-direction: row;
+        padding-bottom: 26px;
+    }
 
-                .section {
-                    border: 1px solid #ccc;
-                    padding: 10px;
-                    width: 28%;
-                    background-color: #f9f9f9;
-                    border-radius: 5px;
-                }
-                .section:hover{
-                    /* color: orange; */
-                }
-                .menu-hover:hover{
-                    /* background-color: red; */
-                    transform: translateY(4%);
-                }
+    .section {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 28%;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+    }
 
-                .section h4 {
-                    font-size: 24px;
-                    margin-bottom: 10px;
-                }
+    .section:hover {
+        /* color: orange; */
+    }
 
-                .section ul {
-                    list-style: none;
-                    padding: 0;
-                }
+    .menu-hover:hover {
+        /* background-color: red; */
+        transform: translateY(4%);
+    }
 
-                .section ul li {
-                    margin-bottom: 10px;
-                }
+    .section h4 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
 
-                .product-name {
-                    font-weight: bold;
-                }
+    .section ul {
+        list-style: none;
+        padding: 0;
+    }
 
-                .price {
-                    color: green;
-                    font-weight: bold;
-                }
+    .section ul li {
+        margin-bottom: 10px;
+    }
 
-                /* ..................facilities are available in ............. */
-                .fac ul li {
-                    list-style-type: circle;
-                    list-style-position: inside;
-                    margin-left: 30px;
+    .product-name {
+        font-weight: bold;
+    }
 
-                }
-                .fac:hover{
-                    /* background-color: red; */
-                    transform: skewX(-4deg);
-                }
+    .price {
+        color: green;
+        font-weight: bold;
+    }
 
-                .rule-section {
-                    display: block;
-                }
+    /* ..................facilities are available in ............. */
+    .fac ul li {
+        list-style-type: circle;
+        list-style-position: inside;
+        margin-left: 30px;
 
-                .rule {
-                    width: auto;
-                }
-                .hover:hover{
-                    transform: translateX(1%);
-                }
+    }
 
-                .area-section:hover{
-                   /* background-color: red; */
-                   transform:translate(3%);
+    .fac:hover {
+        /* background-color: red; */
+        transform: skewX(-4deg);
+    }
 
-                }
+    .rule-section {
+        display: block;
+    }
 
-                .area-section ul li {
-                  
-                    line-height: 33px;
+    .rule {
+        width: auto;
+    }
 
-                }
-                .area-section ul li span {
-                  
-                    float: right;
+    .hover:hover {
+        transform: translateX(1%);
+    }
 
-                }
+    .area-section:hover {
+        /* background-color: red; */
+        transform: translate(3%);
+
+    }
+
+    .area-section ul li {
+
+        line-height: 33px;
+
+    }
+
+    .area-section ul li span {
+
+        float: right;
+
+    }
+
+
+    /**..................lawn syle is here  */
+
+    .lawn1 {
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
+    .lawn3 {
+        min-width: 16.33%;
+    }
+
+    .lawn2 {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        animation: amitt 2s linear infinite alternate;
+        /* width: 100%; */
+        /* background: red */
+    }
+
+    @keyframes amitt {
+        0% {
+            margin-left: -1.8%;
+        }
+
+        /* 50%{margin-left: -5%;} */
+
+        100% {
+            margin-left: 3.8%;
+        }
+
+    }
+
+    .card img {
+            width: 39%;
+            border-radius: 8px;
+            /* height: 95px; */
+            /* border-radius: 100%; */
+            border: none;
+    }
+    .card a{
+        border: 2px dotted black;
+        border-radius: 5px;
+    }
+    .card a:hover{
+        background: black;
+        color: white;
+    }
 
 </style>
+<!-- .....................this is custmer review................................ -->
+
+
+<script>
+    //let currentSlideIndexx = 0;
+    //let directionn = 1;
+    //const slidess = document.querySelectorAll('.c-slide');
+    //const totalSlidess = slidess.length - 2;
+    //const sliderr = document.querySelector('.c-slider');
+
+
+    // function moveToNextSlide() {
+    //     currentSlideIndexx += directionn;
+
+    //     if (currentSlideIndexx >= totalSlidess || currentSlideIndexx < 0) {
+    //         direction *= -1;
+    //         currentSlideIndexx += directionn;
+    //     }
+
+    //     const offset = -(currentSlideIndexx * 33.33);
+    //     sliderr.style.transform = `translateX(${offset}%)`;
+    // }
+
+
+    // setInterval(moveToNextSlide, 3000);
+
+
+    document.querySelectorAll('.c-star-rating').forEach(starRating => {
+        starRating.addEventListener('click', function (e) {
+            let stars = Array.from(starRating.children);
+            let index = stars.indexOf(e.target);
+            if (index !== -1) {
+
+                stars.forEach((star, i) => {
+                    if (i <= index) {
+                        star.classList.add('filled');
+                        star.classList.remove('empty');
+                    } else {
+                        star.classList.remove('filled');
+                        star.classList.add('empty');
+                    }
+                });
+                starRating.setAttribute('data-rating', index + 1);
+            }
+        });
+    });
+</script>

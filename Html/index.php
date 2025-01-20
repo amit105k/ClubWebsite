@@ -554,10 +554,10 @@
             <div class="c-slider">
                 <!-- Slide 1 -->
                 <div class="c-slide">
-                    <img src="https://e1.pxfuel.com/desktop-wallpaper/145/450/desktop-wallpaper-stylish-boys-whatsapp-dp-profile-pics-whatsapp-dp-boys-thumbnail.jpg"
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61xwV7YcxzGy_rDKq67YVijcDaYEoZyF7uQ&s"
                         alt="Customer 1">
                     <div class="c-content">
-                        <h4>John Doe</h4>
+                        <h4>Rashmika Mandanna</h4>
                         <p>This product is amazing! It exceeded my expectations.</p>
                         <div class="c-star-rating">
                             <span class="c-star filled">★</span>
@@ -586,10 +586,10 @@
                 </div>
                 <!-- Slide 3 -->
                 <div class="c-slide">
-                    <img src="https://e0.pxfuel.com/wallpapers/644/42/desktop-wallpaper-boy-silhouette-sunset-sky-pc-and-mac-boy-pic.jpg"
+                    <img src="https://media.licdn.com/dms/image/v2/D5635AQH2ggyUOJLbSg/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1730032881426?e=1737792000&v=beta&t=cvkKOIS26kHcvJOdUaKr1YR73Ka98ZxgfFwxTQ0Kyqw"
                         alt="Customer 3">
                     <div class="c-content">
-                        <h4>Emily Lee</h4>
+                        <h4>Rupal Singh</h4>
                         <p>Very satisfied with my purchase. Highly recommended!</p>
                         <div class="c-star-rating">
                             <span class="c-star filled">★</span>

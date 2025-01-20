@@ -81,7 +81,7 @@
         /* Navbar Styles */
         /* ......................nav bar is here............................. */
         nav {
-            
+
             background-color: black;
             padding: 10px;
             text-align: center;
@@ -103,7 +103,7 @@
             text-decoration: none;
             text-transform: uppercase;
         }
-       
+
         nav a:hover {
             color: orange;
         }
@@ -117,10 +117,11 @@
             font-optical-sizing: auto;
             font-style: normal;
         }
-        nav a i{
+
+        nav a i {
             font-size: 20px;
         }
-       
+
         nav h3 {
             font-size: 22px;
             color: white;
@@ -240,7 +241,7 @@
 <body>
     <nav>
         <a href="javascript:void(0);" id="toggleSidebar" onclick="toggleSidebar()"><i class="fa-solid fa-list"></i></a>
-        
+
         <h4>The Noida Clubs</h4>
         <a href="../Html/index.php">Home</a>
         <a href="../about.php">About</a>
@@ -252,10 +253,15 @@
 
     <div id="main-content">
         <div id="sidebar">
+            <a href="farmHouseBookings.php" id="listList">Bookings</a>
+
             <a href="javascript:void(0);" id="listList" onclick="loadContent('farmHouseList.php')">FarmHouse List</a>
-            <a href="javascript:void(0);" id="createLink" onclick="loadContent('farmcreate.php')" class="hidden">Create New</a>
-            <a href="javascript:void(0);" id="updateLink" onclick="loadContent('farmUpdate.php')" class="hidden">Update Details</a>
-            <a href="javascript:void(0);" id="deleteLink" onclick="loadContent('farmDelete.php')" class="hidden">Delete</a>
+            <a href="javascript:void(0);" id="createLink" onclick="loadContent('farmcreate.php')" class="hidden">Create
+                New</a>
+            <a href="javascript:void(0);" id="updateLink" onclick="loadContent('farmUpdate.php')" class="hidden">Update
+                Details</a>
+            <a href="javascript:void(0);" id="deleteLink" onclick="loadContent('farmDelete.php')"
+                class="hidden">Delete</a>
             <a href="admin.php" id="listList">Return to Club</a>
 
         </div>
@@ -270,22 +276,22 @@
             var sidebar = document.getElementById('sidebar');
             var content = document.getElementById('content');
             var toggleButton = document.getElementById('toggleSidebar');
-            
-            
+
+
             if (sidebar.style.display === 'none') {
                 sidebar.style.display = 'flex';
                 content.style.width = '75%';
-                content.style.marginRight = '5%'; 
-                content.style.border='10px double white';
+                content.style.marginRight = '5%';
+                content.style.border = '10px double white';
             } else {
-                sidebar.style.display = 'none'; 
+                sidebar.style.display = 'none';
                 content.style.width = '100%';
                 content.style.margin = '0px';
-                content.style.border='none';
+                content.style.border = 'none';
             }
         }
 
-      
+
     </script>
 
 

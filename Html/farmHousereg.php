@@ -6,8 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $date = $_POST['date'];
-    // $checkout = $_POST['checkout'] : null;
-    $checkout = isset($_POST['checkout']) ? $_POST['checkout'] : null;
     $mobile = $_POST['mobile'];
     $email = $_POST['email'];
     $count = $_POST['count'];
@@ -17,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token_id = bin2hex(random_bytes(5)); 
 
     // Insert the registration data into the database
-    $query = "INSERT INTO registrations (club, name, gender, date,checkout, mobile, email, count, amount, payment_status, token_id, bdate) 
-              VALUES ('$club', '$name', '$gender', '$date', '$checkout','$mobile', '$email', '$count', '$amount', '$payment_status', '$token_id', NOW())";
+    $query = "INSERT INTO registrations (club, name, gender, date, mobile, email, count, amount, payment_status, token_id, bdate) 
+              VALUES ('$club', '$name', '$gender', '$date', '$mobile', '$email', '$count', '$amount', '$payment_status', '$token_id', NOW())";
 
     if (mysqli_query($conn, $query)) {
         $bookingId = mysqli_insert_id($conn);
