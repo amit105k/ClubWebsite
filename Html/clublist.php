@@ -69,9 +69,7 @@ $result = $conn->query($sql);
         <h2 style="text-align:center">All Clubs</h2>
 
         <?php
-        // Check if there are any records to display
         if ($result->num_rows > 0) {
-            // Start the table
             echo "<table>
                     <tr>
                         <th>ID</th>
@@ -80,14 +78,16 @@ $result = $conn->query($sql);
                         <th>Address</th>
                         <th>City</th>
                         <th>Postal Code</th>
-                        <th>Booking Link</th>
+                        <th>Price</th>
+                        <th>PromoCode</th>
+                        <th>Promo Discount</th>
+                        <th>About</th>
                         <th>Image URL</th>
                         <th>Image URL 1</th>
                         <th>Image URL 2</th>
                         <th>Image URL 3</th>
                     </tr>";
             
-            // Output each row of data
             while($row = $result->fetch_assoc()) {
                 echo "<tr>
                         <td>" . $row["id"] . "</td>
@@ -96,7 +96,10 @@ $result = $conn->query($sql);
                         <td>" . $row["address"] . "</td>
                         <td>" . $row["city"] . "</td>
                         <td>" . $row["postal_code"] . "</td>
-                        <td><a href='" . $row["book_tkt"] . "' target='_blank'>Book Now</a></td>
+                        <td>" . $row["price"] . "</td>
+                        <td>" . $row["promocode"] . "</td>
+                        <td>" . $row["promodis"] . "</td>
+                        <td> <textarea readonly>" . $row["about"] . "</textarea></td>
                         <td>" . $row["image_url"] . "</td>
                         <td>" . $row["image_url1"] . "</td>
                         <td>" . $row["image_url2"] . "</td>

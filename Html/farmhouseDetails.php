@@ -679,7 +679,7 @@
     .new h2 {
         font-size: 30px;
         padding: 0;
-        color: #66b8cb;
+        /* color: #66b8cb; */
     }
 
     .paragraphh {

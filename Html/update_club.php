@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $city = $conn->real_escape_string($_POST['city']);
     $postal_code = $conn->real_escape_string($_POST['postal_code']);
     $about = $conn->real_escape_string($_POST['about']);
-    $book_tkt = $conn->real_escape_string($_POST['book_tkt']);
 
     $sql = "UPDATE club_overviews SET 
                 image_url = ?, 
@@ -36,11 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 address = ?, 
                 city = ?, 
                 postal_code = ?, 
-                about = ?, 
-                book_tkt = ? 
+                about = ?
+                 
             WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssi", $image_url, $club_name, $show_time, $address, $city, $postal_code, $about, $book_tkt, $id);
+    $stmt->bind_param("sssssssi", $image_url, $club_name, $show_time, $address, $city, $postal_code, $about, $id);
 
     if ($stmt->execute()) {
         echo "<script>
@@ -194,7 +193,7 @@ $conn->close();
                     value="<?php echo $selected_club ? $selected_club['club_name'] : ''; ?>" required><br><br>
 
                 <label for="show_time">Show Time:</label>
-                <input type="datetime-local" id="show_time" name="show_time"
+                <input type="text" id="show_time" name="show_time"
                     value="<?php echo $selected_club ? $selected_club['show_time'] : ''; ?>"><br><br>
 
                 <label for="address">Address:</label>
@@ -214,9 +213,9 @@ $conn->close();
                     value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
                 </textarea><br><br>
 
-                <label for="book_tkt">Link for Booking:</label>
+                <!-- <label for="book_tkt">Link for Booking:</label>
                 <input type="text" id="book_tkt" name="book_tkt"
-                    value="<?php echo $selected_club ? $selected_club['book_tkt'] : ''; ?>"><br><br>
+                    value="<?php echo $selected_club ? $selected_club['book_tkt'] : ''; ?>"><br><br> -->
 
                 <input type="submit" name="submit" value="Update Club">
             </form>

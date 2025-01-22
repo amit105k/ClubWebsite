@@ -37,6 +37,7 @@
     form {
         display: flex;
         flex-direction: column;
+        margin-top: 30px;
     }
 
     input[type="text"],
@@ -66,9 +67,11 @@
         padding: 10px;
         position: absolute;
         top: 130px;
-        z-index: 2;
+        z-index: 9;
         border-radius: 10px;
         display: none;
+        text-align: center;
+        color: white;
 
     }
 
@@ -142,7 +145,14 @@
         background-color: inherit;
         border-radius: 100%;
         cursor: pointer;
+    
     }
+    #cross a{
+        color: white;
+        text-decoration: none;
+
+    }
+
 
     #crosss {
         width: 6%;
@@ -285,7 +295,7 @@
                 <button type="submit">Login</button>
             </form>
 
-            <div id="cross">X</div>
+            <div id="cross"><a href="index.php">X</a></div>
         </div>
     </div>
 

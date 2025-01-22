@@ -91,7 +91,7 @@ $result = $conn->query($sql);
                         <td>" . $row["promocode"] . "</td>
                         <td>" . $row["promodis"] . "</td>
                         <td>" . $row["extraperson"] . "</td>
-                        <td> <textarea>" . $row["about"] . "</textarea></td>
+                        <td> <textarea readonly>" . $row["about"] . "</textarea></td>
                        
                     </tr>";
             }

@@ -36,6 +36,13 @@
 
         }
 
+        .container h1,
+        .container p {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
 
         /* Navbar Styles */
         nav {
@@ -238,6 +245,52 @@
         .map {
             border: 10px solid white;
         }
+
+
+        /**....social media slider css is header */
+        .social {
+            width: 150px;
+            height: 50px;
+            display: flex;
+            background: lightblue;
+            position: fixed;
+            right: -98px;
+            cursor: pointer;
+            top: 30%;
+            transition-duration: 3s;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .social:hover {
+            right: 0px;
+            transition-duration: 2s;
+        }
+
+        .social section {
+            display: flex;
+        }
+
+        .social i {
+            /* width: 40px; */
+            /* width: 30%;
+            margin-top: 6px;
+            margin-left: 8px; */
+            font-size: 30px;
+            color: blue;
+        }
+
+        .social :last-child {
+            flex: 3;
+        }
+
+        .social a {
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            margin-top: 15px;
+            margin-left: 18px;
+        }
     </style>
 </head>
 
@@ -254,12 +307,9 @@
         <!-- <a href="../Html/admin.php">Admin</a> -->
     </nav>
 
-    <header>
+    <div class="container">
         <h1>Contact Us</h1>
         <p>We're here to help. Get in touch with us today!</p>
-    </header>
-
-    <div class="container">
         <div class="contact-form">
             <h2>Send Us a Message</h2>
             <form action="connect.php" method="POST" id="form">
@@ -294,6 +344,11 @@
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7003.981074858048!2d77.36991447770998!3d28.63004570000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ceff8864e0cf1%3A0xa20290bf75099ebd!2sBSI%20Business%20Park%20H15!5e0!3m2!1sen!2sin!4v1733815437100!5m2!1sen!2sin"
             width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <!-- small slider for social media-->
+    <div class="social">
+        <section><i class="fa-brands fa-facebook"></i><a href="www.facebook.com" target="_blank">Facebook</a></section>
     </div>
 
     <div class="footer">
