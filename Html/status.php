@@ -202,8 +202,8 @@
 
 <body>
 
-    <nav>
-        <h4>The Noida Clubs</h4>
+<nav>
+        <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
         <!-- <a href="service.php">Services</a> -->
@@ -211,14 +211,30 @@
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
-        <a href="#" id="admin">Admin</a>
         <!-- <a href="status.php" id="status">Booking Status</a> -->
-
-        <!-- <a href="#" id="status">Booking Status</a> -->
-        <!-- <h3>+91 70076000000</h3> -->
+        <a href="#" id="admin">Admin</a>
+        <!--..................drop down is here-->
+        <div class="dropdown">
+            <button>REGISTER / LOGIN</button>
+            <div class="dropdown-content">
+                <div class="sub-dropdown">
+                    <a href="#">Register</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./VenderReg.php">Vendor Register</a>
+                        <a href="http://localhost/amitclub/html/CustomerReg">Customer Register</a>
+                    </div>
+                </div>
+                <div class="sub-dropdown">
+                    <a href="#">Login</a>
+                    <div class="sub-dropdown-content">
+                        <a href="http://localhost/amitclub/html/VenderLogin">Vendor Login</a>
+                        <a href="http://localhost/amitclub/html/CustomeLogin">Customer Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </nav>
-
     <!-- Video Section -->
     <section>
         <video id="slider" autoplay muted loop>
@@ -308,8 +324,10 @@
             <h2>Booking Status</h2>
             <form action="" method="post">
                 <label for="searchInput">Enter Booking ID / Mobile Number</label>
-                <input type="text" name="searchInput" id="searchInput" required>
+                <!-- <input type="text" name="searchInput" id="searchInput" required> -->
                 <!-- <input type="submit" value="Search"> -->
+                <input type="text" id="searchInput" name="searchInput" required placeholder="Enter your Booking I'd OR Mobile no" minlength="1" maxlength="10" 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter a valid Booking I'd OR Mobile no">
                 <button>Search</button>
             </form>
             <div class="search">

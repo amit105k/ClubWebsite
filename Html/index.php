@@ -95,22 +95,34 @@
         padding: 10px;
         cursor: pointer;
     }
-   #paynow a{
-      color: black;
-      background-color: #4CAF50;
-      text-decoration: none;
-      color: orange;
+
+    #paynow a {
+        color: black;
+        background-color: #4CAF50;
+        text-decoration: none;
+        color: orange;
     }
-    #paynow{
-      background-color: #4CAF50;
-      position:absolute;
-      margin-top: -170px;
-      right: 20px;
-      animation: pay 3s infinite alternate linear;
+
+    #paynow {
+        background-color: #4CAF50;
+        position: absolute;
+        margin-top: -170px;
+        right: 20px;
+        animation: pay 3s infinite alternate linear;
     }
-    @keyframes pay{
-       0%{margin-top: -170px;};
-       100%{margin-top: -110px;};
+
+    @keyframes pay {
+        0% {
+            margin-top: -170px;
+        }
+
+        ;
+
+        100% {
+            margin-top: -110px;
+        }
+
+        ;
     }
 
     #cross {
@@ -167,10 +179,12 @@
     }
 </style>
 
+
 <body>
 
-    <nav>
-        <h4>The Noida Clubs</h4>
+
+<nav>
+        <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
         <!-- <a href="service.php">Services</a> -->
@@ -180,7 +194,26 @@
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
         <a href="#" id="admin">Admin</a>
-        <!-- <h3>+91 70076000000</h3> -->
+        <!--..................drop down is here-->
+        <div class="dropdown">
+            <a href="">REGISTER / LOGIN</a>
+            <div class="dropdown-content">
+                <div class="sub-dropdown">
+                    <a href="#">Register</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./VenderReg.php">Vendor Register</a>
+                        <a href="./CustomerReg.php">Customer Register</a>
+                    </div>
+                </div>
+                <div class="sub-dropdown">
+                    <a href="#">Login</a>
+                    <div class="sub-dropdown-content">
+                        <a href="http://localhost/amitclub/html/VenderLogin">Vendor Login</a>
+                        <a href="http://localhost/amitclub/html/CustomeLogin">Customer Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </nav>
 
@@ -777,7 +810,7 @@
                     <label for="searchInput">Enter Booking ID / Mobile Number</label>
                     <input type="text" name="searchInput" id="searchInput" required>
                     <!-- <input type="submit" value="Search"> -->
-                     <button>Search</button>
+                    <button>Search</button>
                 </form>
                 <div class="search">
                     <?php
@@ -806,8 +839,7 @@
                                     echo "<strong>Total Persons:</strong> " . $row['count'] . "<br>";
                                     echo "<strong>Amount:</strong> " . $row['amount'] . "<br><br>";
 
-                                }
-                                else if ($row['payment_status'] == "Pending") {
+                                } else if ($row['payment_status'] == "Pending") {
                                     echo "<strong>Club Name:</strong> " . $row['club'] . "<br>";
                                     echo "<strong>Booking Id:</strong> " . $row['id'] . "<br>";
                                     echo "<strong>Name:</strong> " . $row['name'] . "<br>";
@@ -915,7 +947,7 @@
 
         </script>
 
-       
+
 
 
         <!-- ..............................slider......................... -->

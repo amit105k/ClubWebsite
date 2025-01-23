@@ -5,16 +5,23 @@
 
 /* Navbar Styles */
 nav {
-    /* background-color: hsl(202, 75%, 47%); */
     background-color: black;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
-    height: 75px;
+    /* height: 75px; */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    
+    }/*
+nav {
+    background-color: black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 
-}
+    padding: 10px 20px;
+}background-color: hsl(202, 75%, 47%);*/
 
 nav img {
     margin-top: -15px;
@@ -32,17 +39,19 @@ nav a:hover {
     color: orange;
 }
 
-nav h4 {
+#thenoida{
     font-size: 28px;
     color: white;
-    position: absolute;
-    left: 10px;
+    /* position: absolute; */
+    /* left: 10px; */
     font-family: "Dancing Script", cursive;
     font-optical-sizing: auto;
     font-style: normal;
+    font-weight: revert-layer;
+
 }
 
-nav h3 {
+/* nav h3 {
     font-size: 22px;
     color: white;
     position: absolute;
@@ -50,7 +59,8 @@ nav h3 {
     font-family: "Dancing Script", cursive;
     font-optical-sizing: auto;
     font-style: normal;
-}
+} */
+
 /* Club Chart Section Styles */
 .club-chart {
     display: flex;
@@ -88,7 +98,8 @@ footer {
     width: 100%;
     bottom: 0;
 }
-        /* Video Section Styles */
+
+/* Video Section Styles */
 .video-section {
     text-align: center;
     margin-top: 20px;
@@ -135,7 +146,7 @@ section .navigation {
     align-items: center;
     height: 100px;
     width: 150px;
-    
+
 }
 
 .leftt {
@@ -212,7 +223,7 @@ ul.right-side li img {
 .slide img {
     width: 100%;
     display: block;
-    
+
 
 }
 
@@ -266,9 +277,10 @@ button:hover {
 /* ...........................fade in fade out.......................... */
 /* Ensure the images are displayed in a row */
 
-.overviews{
+.overviews {
     margin-top: 47px;
 }
+
 .overviews h2 {
     text-align: center;
     padding: 20px;
@@ -330,10 +342,14 @@ button:hover {
     transform: translate(-50%, -50%);
     width: 100%;
 }
-.text h4,h5,p{
+
+.text h4,
+h5,
+p {
     padding: 3px;
 }
-.text h2{
+
+.text h2 {
     padding: 5px;
     margin-top: 10px;
 }
@@ -350,7 +366,7 @@ button:hover {
     display: flex;
     margin-top: 50px;
     box-shadow: 0 0 6px 5px rgba(58, 138, 208, 0.57);
-  
+
 }
 
 .fleft {
@@ -359,7 +375,8 @@ button:hover {
     margin-left: 5%;
     padding: 20px;
 }
-.fleft p{
+
+.fleft p {
     padding: 5px;
     text-align: justify;
 }
@@ -405,6 +422,7 @@ button:hover {
 .fa-brands:hover {
     background-color: #4CAF50;
 }
+
 .ftext {
     text-align: center;
     /* background-color: white; */
@@ -446,7 +464,7 @@ button:hover {
     background-color: #19190c;
     padding: 20px;
     padding-left: 10%;
-    margin-right:2%;
+    margin-right: 2%;
 
 }
 
@@ -478,23 +496,26 @@ button:hover {
     padding: 20px;
     font-size: 22px;
 }
-.clip{
+
+.clip {
     background-color: red;
     position: absolute;
     height: 90px;
     width: 90px;
     margin-top: -220px;
-    margin-left:245px;
+    margin-left: 245px;
     text-align: center;
     border-radius: 100%;
     transition-duration: 2s;
 
 }
-.clip p{
+
+.clip p {
     padding: 15px;
-    font-size:18px;
+    font-size: 18px;
 }
-.clip:hover{
+
+.clip:hover {
     height: 100px;
     width: 110px;
     padding-top: 20px;
@@ -507,20 +528,23 @@ button:hover {
 
 .dright {
     width: 50%;
-    margin-left:2%;
+    margin-left: 2%;
 }
-.dleft,.dright{
+
+.dleft,
+.dright {
     border: 8px double white;
     margin-bottom: 30px;
 
 }
+
 .dright {
     width: 50%;
     /* flex: 1; */
     background-color: #19190c;
     padding: 20px;
     padding-left: 10%;
-    margin-left:2%;
+    margin-left: 2%;
 
 }
 
@@ -555,15 +579,18 @@ button:hover {
 
 .dright a:hover {
     color: #4CAF50;
-    
+
 }
-.dright a i{
+
+.dright a i {
     visibility: hidden;
-    animation: 1s infinite alternate linear ;
+    animation: 1s infinite alternate linear;
 }
-.dright a:hover i{
+
+.dright a:hover i {
     visibility: visible;
 }
+
 .club-info h2 {
     color: white;
     padding: 15px;
@@ -574,14 +601,15 @@ button:hover {
     margin-left: 281px;
     margin-top: -219px;
 }
-.rclip p{
+
+.rclip p {
     margin-top: 15px;
 }
 
 /* .............................shows timmings......................................... */
 .schedule-section {
     /* background-image: url('../image/nainoa-shizuru-unsplash-blur.jpg'); */
-  
+
     height: 100%;
     background-color: black;
     background-repeat: no-repeat;
@@ -590,13 +618,15 @@ button:hover {
     /* display: flex; */
     align-items: center;
     justify-content: center;
-  }
-  .container{
-      margin-left: 5%;
-      margin-right: 5%;
-      /* background-color: blue; */
-  }
-  .row {
+}
+
+.container {
+    margin-left: 5%;
+    margin-right: 5%;
+    /* background-color: blue; */
+}
+
+.row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
     display: flex;
@@ -604,31 +634,36 @@ button:hover {
     margin-top: calc(-1 * var(--bs-gutter-y));
     margin-right: calc(-.5 * var(--bs-gutter-x));
     margin-left: calc(-.5 * var(--bs-gutter-x));
-  }
-  .text-center {
+}
+
+.text-center {
     text-align: center !important;
-  }
-  .col-12 {
+}
+
+.col-12 {
     flex: 0 0 auto;
     width: 100%;
     /* box-shadow: 2px 2px 23px 5px white; */
     margin-bottom: 16px;
-  }
-  .text-white {
+}
+
+.text-white {
     --bs-text-opacity: 1;
     color: white;
     font-size: 32px;
     margin-bottom: 25px;
     margin-top: 16px;
-  }
-  .table-responsive {
-      filter: drop-shadow(2px 2px 4px #606060);
-      /* overflow-x: auto; */
-      /* width: 80%; */
-      box-shadow: 2px 2px 23px 5px white;
-  border-radius: 17px;
-  }
-  .table-dark {
+}
+
+.table-responsive {
+    filter: drop-shadow(2px 2px 4px #606060);
+    /* overflow-x: auto; */
+    /* width: 80%; */
+    box-shadow: 2px 2px 23px 5px white;
+    border-radius: 17px;
+}
+
+.table-dark {
     --bs-table-color: #fff;
     --bs-table-bg: #212529;
     --bs-table-border-color: #373b3e;
@@ -641,8 +676,9 @@ button:hover {
     color: var(--bs-table-color);
     border-color: var(--bs-table-border-color);
     /* width: 80%; */
-  }
-  .table {
+}
+
+.table {
     --bs-table-color: var(--bs-body-color);
     --bs-table-bg: transparent;
     --bs-table-border-color: var(--bs-border-color);
@@ -658,111 +694,186 @@ button:hover {
     color: var(--bs-table-color);
     vertical-align: top;
     border-color: var(--bs-table-border-color);
-  }
-  
-  .table > thead {
+}
+
+.table>thead {
     vertical-align: bottom;
-  }
-  tbody, td, tfoot, th, thead, tr {
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
     border-color: inherit;
     border-style: solid;
     border-width: 0;
-  }
-  .table > thead {
+}
+
+.table>thead {
     vertical-align: bottom;
-  }
-  
-  .schedule-table {
-    border-radius:20px;
+}
+
+.schedule-table {
+    border-radius: 20px;
     position: relative;
     overflow: hidden;
-  }
-  
-  .schedule-table .bg-warning {
+}
+
+.schedule-table .bg-warning {
     background: #f0a5a5 !important;
-  }
-  
-  
-  .schedule-table th,
-  .schedule-table tr,
-  .schedule-table td {
+}
+
+
+.schedule-table th,
+.schedule-table tr,
+.schedule-table td {
     border-bottom-color: #EE5007;
     padding: 30px;
-    background-color:#EE5007;
-  
-  }
-  
-  .schedule-table tr:last-child th,
-  .schedule-table tr:last-child td {
+    background-color: #EE5007;
+
+}
+
+.schedule-table tr:last-child th,
+.schedule-table tr:last-child td {
     border-bottom-color: transparent;
-  }
-  
-  .schedule-table thead th {
+}
+
+.schedule-table thead th {
     /* border-right: 1px solid #c7460a; */
     border-bottom-color: transparent;
-    background-color:#EE5007;
-  
-  }
-  
-  .schedule-table th + td {
+    background-color: #EE5007;
+
+}
+
+.schedule-table th+td {
     border-bottom: 0;
-  }
-  
-  .schedule-table thead th:last-child {
+}
+
+.schedule-table thead th:last-child {
     border-right-color: transparent;
-  }
-  
-  .schedule-table .pop-background-image {
+}
+
+.schedule-table .pop-background-image {
     background-image: url('https://w0.peakpx.com/wallpaper/97/713/HD-wallpaper-arjith-singh-bollywood-singer.jpg');
     background-position: top;
-  }
-  
-  .schedule-table .rock-background-image {
+}
+
+.schedule-table .rock-background-image {
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS_MxzO8ig4RBpdPw7D-Vb5lAeOWMHTXEQbA&s');
     background-position: top;
-  }
-  
-  .schedule-table .country-background-image {
+}
+
+.schedule-table .country-background-image {
     background-image: url('https://static.wixstatic.com/media/fd4e75_995aec3e6ba244529d3305024f599e57~mv2.png/v1/fill/w_1480,h_812,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/fd4e75_995aec3e6ba244529d3305024f599e57~mv2.png');
     background-position: top;
-  }
-  .free-background-image{
-      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQURShIxC-AKOg7-CdPHlGXQfZJtX9ItMKpCg&s');
-  }
-  .djnight-background-image{
-      background: url(https://www.blackagroup.com/wp-content/uploads/2020/06/club-sound.jpg);
-  }
-  .table-background-image-wrap {
+}
+
+.free-background-image {
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQURShIxC-AKOg7-CdPHlGXQfZJtX9ItMKpCg&s');
+}
+
+.djnight-background-image {
+    background: url(https://www.blackagroup.com/wp-content/uploads/2020/06/club-sound.jpg);
+}
+
+.table-background-image-wrap {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     box-shadow: none;
     position: relative;
-  }
-  
-  .schedule-table h3,
-  .schedule-table p {
-    color:white;
+}
+
+.schedule-table h3,
+.schedule-table p {
+    color: white;
     position: relative;
     z-index: 2;
-  }
-  .schedule-table h3{
-      font-size: 32px;
-  }
-  .schedule-table p{
-      font-weight: 300;
-      font-size: 18px;
-  }
+}
+
+.schedule-table h3 {
+    font-size: 32px;
+}
+
+.schedule-table p {
+    font-weight: 300;
+    font-size: 18px;
+}
+
+/*.....................drop down style are herea-*/
+body {
+    font-family: Arial, sans-serif;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-transform: lowercase;
+}
+
+.dropdown button {
+    background-color: black;
+    color: white;
+}
+
+.dropdown button:hover {
+    color: orange;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 200px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content .sub-dropdown {
+    position: relative;
+}
+
+.dropdown-content .sub-dropdown-content {
+    display: none;
+    position: absolute;
+    left: -97%;
+    top: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 200px;
+}
+
+.dropdown-content .sub-dropdown:hover .sub-dropdown-content {
+    display: block;
+}
+
+.sub-dropdown a {
+    text-transform: none;
+}
 
 
 
-  /* .....................................cusomer sli?der.............................................. */
+/* .....................................cusomer sli?der.............................................. */
 
 
-  
 
 
-  /*================================================= admin login css==============================*/
 
-
-  
+/*================================================= admin login css==============================*/

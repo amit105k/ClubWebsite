@@ -1,0 +1,215 @@
+<?php
+include("db.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $businessName = $_POST['businessName'];
+    $clientName = $_POST['clientName'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $contactNo = $_POST['contactNo'];
+    $gstNo = $_POST['gstNo'];
+    $address = $_POST['address'];
+
+    // Check database connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Check if email already exists
+    $checkEmail = "SELECT email FROM vender WHERE email = '$email'";
+    $result = $conn->query($checkEmail);
+
+    if ($result->num_rows > 0) {
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+            Swal.fire({
+                title: 'Error!',
+                text: 'Email already registered with us.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        </script>";
+    } else {
+        // Insert data into database
+        $sql = "INSERT INTO vender (business_name, client_name, email, password, contact_no, gst_no, address)
+                VALUES ('$businessName', '$clientName', '$email', '$password', '$contactNo', '$gstNo', '$address')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Vendor Registration Success.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = 'VenderReg.php';
+                });
+            </script>";
+        } else {
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Something went wrong. Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            </script>";
+        }
+    }
+
+    $conn->close();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Registration</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../css/index.css">
+
+    <style>
+        body {
+            /* font-family: Arial, sans-serif; */
+            /* margin: 20px; */
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        #vender{
+            text-align: center;
+            padding: 10px;
+        }
+        #vendorForm{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+        <h4 id="thenoida">The Noida Clubs</h4>
+        <a href="index.php">Home</a>
+        <a href="about.php">About</a>
+        <!-- <a href="service.php">Services</a> -->
+        <!-- <a href="#clubs">Clubs</a>
+        <a href="#clubs">Gallery</a> -->
+        <a href="contact.php">Contact Us</a>
+        <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
+        <a href="status.php" id="status">Booking Status</a>
+        <a href="#" id="admin">Admin</a>
+        <!--..................drop down is here-->
+        <div class="dropdown">
+        <a href="">REGISTER / LOGIN</a>
+        <div class="dropdown-content">
+                <div class="sub-dropdown">
+                    <a href="#">Register</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./VenderReg.php">Vendor Register</a>
+                        <a href="./CustomerReg.php">Customer Register</a>
+                    </div>
+                </div>
+                <div class="sub-dropdown">
+                    <a href="#">Login</a>
+                    <div class="sub-dropdown-content">
+                        <a href="http://localhost/amitclub/html/VenderLogin">Vendor Login</a>
+                        <a href="http://localhost/amitclub/html/CustomeLogin">Customer Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+    <form id="vendorForm" method="POST" action="">
+        <h2 id="vender">Vendor Registration</h2>
+        <label for="businessName">Business Name</label>
+        <input type="text" id="businessName" name="businessName" required>
+
+        <label for="clientName">Client Name</label>
+        <input type="text" id="clientName" name="clientName" required>
+
+        <label for="email">Email ID</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <label for="contactNo">Contact No</label>
+        <input type="text" id="contactNo" name="contactNo" required minlength="10" maxlength="10"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter a valid Mobile Number">
+
+        <label for="gstNo">GST No</label>
+        <input type="text" id="gstNo" name="gstNo" placeholder="Optional">
+
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" required>
+
+        <div id="passwordError" style="color: red; display: none;">Passwords do not match.</div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('vendorForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const passwordError = document.getElementById('passwordError');
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                passwordError.style.display = 'block';
+            } else {
+                passwordError.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
