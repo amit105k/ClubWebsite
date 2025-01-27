@@ -208,8 +208,8 @@
                 <div class="sub-dropdown">
                     <a href="#">Login</a>
                     <div class="sub-dropdown-content">
-                        <a href="http://localhost/amitclub/html/VenderLogin">Vendor Login</a>
-                        <a href="http://localhost/amitclub/html/CustomeLogin">Customer Login</a>
+                        <a href="./VenderLogin.php">Vendor Login</a>
+                        <a href="./CustomeLogin.php">Customer Login</a>
                     </div>
                 </div>
             </div>
