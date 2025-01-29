@@ -220,7 +220,7 @@
     <!-- Video Section -->
     <section>
         <video id="slider" autoplay muted loop>
-            <source src="../image/7722221-uhd_3840_2160_25fps.mp4" type="video/mp4">
+            <source src="../image/video9.mp4" type="video/mp4">
         </video>
         <div class="image-container">
             <ul class="left-side">
@@ -242,19 +242,19 @@
                 </li>
             </ul>
             <ul class="right-side">
-                <li onclick="videoselector('../image/video1.mp4')">
+                <li onclick="videoselector('../image/video5.mp4')">
                     <img src="https://res.cloudinary.com/electronic-beats/c_fit,q_auto,f_auto,w_606/stage/uploads/2020/02/traumabarundkino_84502241_546662359532113_5913643950639171790_n-1.jpg"
                         height="100px" width="150px">
                 </li>
-                <li onclick="videoselector('../image/video2.mp4')">
+                <li onclick="videoselector('../image/video6.mp4')">
                     <img src="https://st.depositphotos.com/1004739/1570/i/450/depositphotos_15700515-stock-photo-stage-lights.jpg"
                         height="100px" width="150px">
                 </li>
-                <li onclick="videoselector('../image/video3.mp4')">
+                <li onclick="videoselector('../image/video7.mp4')">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6vzdgFP0Z0k-ff_X79IIvxpSmOY8LGuTWRA&s"
                         height="100px" width="150px">
                 </li>
-                <li onclick="videoselector('../image/video4.mp4')">
+                <li onclick="videoselector('../image/video8.mp4')">
                     <img src="https://static.vecteezy.com/system/resources/previews/029/197/075/non_2x/interior-of-a-night-club-with-neon-lights-3d-rendering-colorful-interior-of-bright-and-beautiful-night-club-with-dark-seats-and-glowing-lights-ai-generated-free-photo.jpg"
                         height="100px" width="150px">
                 </li>
@@ -619,7 +619,7 @@
                 </div>
                 <!-- Slide 3 -->
                 <div class="c-slide">
-                    <img src="https://media.licdn.com/dms/image/v2/D5635AQH2ggyUOJLbSg/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1730032881426?e=1737792000&v=beta&t=cvkKOIS26kHcvJOdUaKr1YR73Ka98ZxgfFwxTQ0Kyqw"
+                    <img src="https://media.licdn.com/dms/image/v2/D5635AQH2ggyUOJLbSg/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1730032881425?e=1738580400&v=beta&t=cAaLNjfVLr8dz1sb9HxnWqsnQH4TlhdvTgudCEA7gJ8"
                         alt="Customer 3">
                     <div class="c-content">
                         <h4>Rupal Singh</h4>
@@ -727,7 +727,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
 
 
 

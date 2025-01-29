@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -295,16 +296,38 @@
 </head>
 
 <body>
-    <nav>
-        <h4>The Noida Clubs</h4>
+<nav>
+        <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
+        <!-- <a href="service.php">Services</a> -->
         <!-- <a href="#clubs">Clubs</a>
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
-        <!-- <a href="../Html/admin.php">Admin</a> -->
+        <a href="#" id="admin">Admin</a>
+        <!--..................drop down is here-->
+        <div class="dropdown">
+            <a href="">REGISTER / LOGIN</a>
+            <div class="dropdown-content">
+                <div class="sub-dropdown">
+                    <a href="#">Register</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./VenderReg.php">Vendor Register</a>
+                        <a href="./CustomerReg.php">Customer Register</a>
+                    </div>
+                </div>
+                <div class="sub-dropdown">
+                    <a href="#">Login</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./VenderLogin.php">Vendor Login</a>
+                        <a href="./CustomeLogin.php">Customer Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </nav>
 
     <div class="container">

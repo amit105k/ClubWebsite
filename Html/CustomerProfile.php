@@ -19,10 +19,12 @@ $user = $_SESSION['user'];
     <link
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
 
 <body>
-<nav>
+    <nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
@@ -33,30 +35,83 @@ $user = $_SESSION['user'];
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
         <a href="logout.php">Logout</a>
-        
+
 
     </nav>
 
 
-            <!-- ...this is profile details..-->
+    <!-- ...this is profile details..-->
     <h2>Customer Profile</h2>
-    <div class="details">
-    <p><strong>ID:</strong> <?php echo htmlspecialchars($user['Sr']); ?></p>
-    <p><sname>Business Name:</strong> <?php echo htmlspecialchars($user['Customer_Name']); ?></p>
-    <p><strong>Contact No:</strong> <?php echo htmlspecialchars($user['Contact_No']); ?></p>
-    <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-    <p><strong>Address:</strong> <?php echo htmlspecialchars($user['Address']); ?></p>
+    <div class="profile">
+        <div class="profile-left">
+            <div class="logo">
+                <img src="" alt="image">
+            </div>
+            <ul>
+                <li><a href="">Booking Ticket</a></li>
+                <li><a href="">Booking History</a></li>
+                <li><a href="">Update Profile</a></li>
+            </ul>
+
+        </div>
+        <div class="details">
+            <p><strong>ID:</strong> <?php echo htmlspecialchars($user['Sr']); ?></p></br>
+            <p><strong>Name:</strong> <?php echo htmlspecialchars($user['Customer_Name']); ?>
+            </p></br>
+            <p><strong>Contact No:</strong> <?php echo htmlspecialchars($user['Contact_No']); ?></p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+            <p><strong>Address:</strong> <?php echo htmlspecialchars($user['Address']); ?></p>
+
+        </div>
 
     </div>
-    <?php
-    // header("Location: VenderLogin.php");
-    // exit();
-    session_destroy(); ?>
+    <!--.........................footer is here-->
+
+    <div class="footer">
+        <div class="fleft">
+            <h4>The Noida Clubs</h4>
+            <p>Noida hosts a number of premium, exclusive clubs that attract professionals and those looking for a
+                high-end experience. Clubs like The Club at Jaypee Greens and The Grand Venice offer </p>
+            <p>For younger crowds and those seeking nightlife, Noida's Sector 18 area, known for its malls and
+                commercial spots, has some good options. Clubs like The Vault Café, Sky Bar, and The Noida </p>
+        </div>
+        <div class="fright">
+            <ul>
+                <span>Links</span>
+                <li>Home</li>
+                <li>About Us</li>
+                <li>Clubs</li>
+                <li>Pricing</li>
+                <li>Contact</li>
+            </ul>
+            <ul>
+                <span>Contact US</span>
+                <li><b>Address</b> - Noida Sector 58 </li>
+                <li>Delhi - Noida Expressway </li>
+                <li><b>Phone :</b> +91,700760000</li>
+                <li><b>Email I'd :-</b>amitpss239@gmail.com</li>
+            </ul>
+            <ul>
+                <span>Social Links</span>
+                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero asperiores es</li>
+                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hr"></div>
+    <div class="ftext">
+        <p>© 2024 Transportio. All Rights Reserved by PSS Tech noida </p>
+    </div>
+
 </body>
 
 </html>
 
- <style>
+<style>
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -80,88 +135,63 @@ $user = $_SESSION['user'];
         font-size: 24px;
         margin-bottom: 20px;
     }
+    .details{
+        text-align: center;
+        display: inline-flex;
+    }
 
-    p {
+   .details p {
         font-size: 18px;
         margin: 10px 0;
         line-height: 1.6;
+        display: grid;
     }
 
-    p strong {
+    .details strong {
         color: #555;
     }
-
-    /* a {
-        display: inline-block;
-        text-align: center;
-        background-color: #007bff;
-        color: #fff;
-        text-decoration: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 16px;
-        margin-top: 20px;
-        transition: background-color 0.3s;
-    }
-
-    a:hover {
-        background-color: #0056b3;
-    } */
 
     .logout-container {
         text-align: center;
         margin-top: 30px;
     }
-    .details{
-        /* background-color: white; */
+
+  
+
+    .ftext {
         text-align: center;
+        background-color: black;
+        color: white;
+        padding: 10px;
+        font-size: 15px;
+        box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
+    }
+
+    /** profile deatails are here */
+    .profile-left {
+        background-color: red;
+        /* padding: 10px; */
+        width: 15%;
+    }
+    .profile-left ul li{
+        /* line-height: 50px; */
+        list-style-type: none;
+        /* padding: 20px; */
+        align-items: center;
+        /* justify-content: center; */
+        display: flex;
+        margin-top: 5px;
+    }
+    .profile-left ul li a{
+        /* background-color: pink; */
+        text-decoration: none;
+        /* padding: 10px; */
+        height: 100%;
+        height: 100%;
+        line-height: 50px;
+    }
+    .profile{
+        background-color: yellow;
+        display: flex;
     }
 </style>
-
-
-
-
-
-
-
-
-<!-- <
-session_start();
-
-if (!isset($_SESSION['user'])) {
-    echo "Please log in first.";
-    exit();
-}
-
-// Get the user data from the session
-$user_data = $_SESSION['user'];
-
-// Display user profile data in a table
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Profile</title>
-</head>
-<body>
-    <h2>Customer Profile</h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Address</th>
-        </tr>
-        <tr>
-            <td><?php echo htmlspecialchars($user_data['id']); ?></td>
-            <td><?php echo htmlspecialchars($user_data['name']); ?></td>
-            <td><?php echo htmlspecialchars($user_data['mobile']); ?></td>
-            <td><?php echo htmlspecialchars($user_data['email']); ?></td>
-            <td><?php echo htmlspecialchars($user_data['address']); ?></td>
-        </tr>
-    </table>
-</body>
-</html> -->

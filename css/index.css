@@ -365,8 +365,9 @@ p {
     background-color: black;
     color: white;
     display: flex;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     box-shadow: 0 0 6px 5px rgba(58, 138, 208, 0.57);
+    /* padding: 20px; */
 
 }
 
@@ -426,10 +427,10 @@ p {
 
 .ftext {
     text-align: center;
-    /* background-color: white; */
+    background-color: black;
     color: white;
     padding: 10px;
-    /* box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57); */
+    box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
 }
 
 .hr {

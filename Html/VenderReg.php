@@ -5,57 +5,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $businessName = $_POST['businessName'];
     $clientName = $_POST['clientName'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password'];
     $contactNo = $_POST['contactNo'];
     $gstNo = $_POST['gstNo'];
     $address = $_POST['address'];
 
-    // Check database connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Check if email already exists
     $checkEmail = "SELECT email FROM vender WHERE email = '$email'";
     $result = $conn->query($checkEmail);
 
     if ($result->num_rows > 0) {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-            Swal.fire({
-                title: 'Error!',
-                text: 'Email already registered with us.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        </script>";
+       echo"email is already presend try to login";
     } else {
-        // Insert data into database
         $sql = "INSERT INTO vender (business_name, client_name, email, password, contact_no, gst_no, address)
                 VALUES ('$businessName', '$clientName', '$email', '$password', '$contactNo', '$gstNo', '$address')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-            echo "<script>
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Vendor Registration Success.',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    window.location.href = 'VenderReg.php';
-                });
-            </script>";
+           echo"Vender registrarion sucess";
         } else {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-            echo "<script>
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Something went wrong. Please try again later.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            </script>";
+           echo"some thing wont wrong please conect to admin";
         }
     }
 
@@ -76,14 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <style>
-        body {
-            /* font-family: Arial, sans-serif; */
-            /* margin: 20px; */
-        }
-
         form {
             max-width: 400px;
             margin: auto;
@@ -140,6 +107,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         color: white;
         padding: 10px;
         box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
+    }
+    .fas{
+        color: red;
+        font-size: 5px;
+        position: relative;
     }
     </style>
 </head>
@@ -198,8 +170,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="contactNo" name="contactNo" required minlength="10" maxlength="10"
             oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter a valid Mobile Number">
 
-        <label for="gstNo">GST No</label>
-        <input type="text" id="gstNo" name="gstNo" placeholder="Optional">
+        <label for="gstNo">GST No <i class="fas fa-star required"></i></label>
+        <input type="text" id="gstNo" name="gstNo" required>
 
         <label for="address">Address</label>
         <input type="text" id="address" name="address" required>
