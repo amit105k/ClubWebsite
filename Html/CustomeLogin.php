@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $userEmail = $_POST['user'];
     $userPassword = $_POST['password'];
 
-    $query = "SELECT Sr,Customer_Name, email,Contact_No,Password,Address,password FROM customerreg WHERE email = ? AND password = ?";
+    $query = "SELECT Sr,Customer_Name, email,mobile,Password,Address,password FROM customerreg WHERE email = ? AND password = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $userEmail, $userPassword);
     $stmt->execute();

@@ -1,4 +1,5 @@
 <?php
+include("db.php");
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -6,6 +7,16 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 $user = $_SESSION['user'];
+if ($conn->connect_error) {
+    die("connection error" . $conn->connect_error);
+}
+$sql = "SELECT * FROM registrations where email=?";
+$stmt=$conn->prepare($sql);
+$stmt->bind_param("s",$user['email']);
+$stmt->execute();
+$result = $stmt->get_result();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -41,15 +52,15 @@ $user = $_SESSION['user'];
 
 
     <!-- ...this is profile details..-->
-    <h2 id="h2">Customer Profile</h2>
+    <h2 id="h2">Booking History</h2>
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
                 <img src="../image/amit.png" alt="image">
             </div>
             <ul>
-                <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
-                <li><a href="CustomerBookingHistory.php">Booking History</a></li>
+                <li><a href="CustomerProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a></li>
+                <li><a href="">Booking Ticket</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Passw</a></li>
 
@@ -57,15 +68,49 @@ $user = $_SESSION['user'];
 
         </div>
         <div class="details">
-            <div class="first">
-                <p><strong>ID:</strong> <?php echo htmlspecialchars($user['Sr']); ?></p>
-                <p><strong>Name:</strong> <?php echo htmlspecialchars($user['Customer_Name']); ?></p>
-                <p><strong>Address:</strong> <?php echo htmlspecialchars($user['Address']); ?></p>
-            </div>
-            <div class="second">
-                <p><strong>Contact No:</strong> <?php echo htmlspecialchars($user['mobile']); ?></p>
-                <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-            </div>
+
+            <?php
+            if ($result->num_rows > 0) {
+                echo "<table border='1' style='width:100%; border-collapse:collapse'>
+            <tr>
+                <th>ID</th>
+                <th>Club Name</th>
+                <th>Name</th>
+                <th>Date And Time</th>
+                <th>Mobile</th>
+                <th>No Of Persons</th>
+                <th>Amount</th>
+                <th>Payment Status</th>
+                <th>Payment id</th>
+                <th>Token id</th>
+                <th>Booking Date</th>
+            </tr>";
+
+                while ($row = $result->fetch_assoc()) {
+                 
+                echo "<tr'>
+                <td>" . $row["id"] . "</td>
+                <td>" . $row["club"] . "</td>
+                <td>" . $row["name"] . "</td>
+                <td>" . $row["date"] . "</td>
+                <td>" . $row["mobile"] . "</td>
+                <td>" . $row["count"] . "</td>
+                <td>" . $row["amount"] . "</td>
+                <td>" . $row["payment_status"] . "</td>
+                <td>" . $row["payment_id"] . "</td>
+                <td>" . $row["token_id"] . "</td>
+                <td>" . $row["bdate"] . "</td>
+            </tr>";
+                    }
+                
+                echo "</table>";
+            } else {
+                echo "<p>No  bookings found in these details.</p>";
+            }
+
+            $conn->close();
+            ?>
+
         </div>
 
 
@@ -142,35 +187,19 @@ $user = $_SESSION['user'];
     }
 
     .details {
-        display: flex;
-        justify-content: space-between;
+        /* display: flex; */
+        /* justify-content: space-between; */
         margin-bottom: 10px;
         width: 85%;
         justify-content: center;
         align-items: center;
     }
-
-    .first,
-    .second {
-        width: 50%;
-        text-align: center;
+    th,td{
+        border-width: thin;
+        padding: 2px;
     }
 
-    .first p,
-    .second p {
-        margin: 19px 0;
-        font-size: 18px;
-    }
-
-    .address {
-        margin-top: 20px;
-        padding-top: 10px;
-    }
-
-    .details strong {
-        color: #555;
-    }
-
+    
     .logout-container {
         text-align: center;
         margin-top: 30px;
@@ -204,7 +233,6 @@ $user = $_SESSION['user'];
         margin-top: 5px;
     }
 
-
     .profile-left ul li a {
         /* background-color: pink; */
         text-decoration: none;
@@ -218,10 +246,12 @@ $user = $_SESSION['user'];
         color: orange;
     }
 
+
     .profile {
         /* background-color: yellow; */
         display: flex;
     }
+
     .logo{
         height: 13%;
         position: absolute;

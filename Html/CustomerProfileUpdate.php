@@ -1,4 +1,5 @@
 <?php
+include("db.php");
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -6,6 +7,68 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 $user = $_SESSION['user'];
+if ($conn->connect_error) {
+    die("connection error" . $conn->connect_error);
+}
+$sql = "SELECT * FROM customerreg where email=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user['email']);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    $userDetails = $result->fetch_assoc();
+} else {
+    echo "Some thing went wrong";
+}
+
+
+
+// update data are here 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+    $address = $_POST['address'];
+
+    $sql = "UPDATE customerreg SET Customer_Name = ?, email = ?, mobile = ?, Address = ? WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssiss", $name, $email, $mobile, $address, $email);
+    // if ($stmt->execute()) {
+    //     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.min.js'></script>
+    //         Swal.fire({
+    //             title: 'Update Success',
+    //             text: 'Your details have been updated! Kindely re-login',
+    //             icon: 'success',
+    //             confirmButtonText: 'OK'
+    //         }).then(function() {
+    //             window.location.href = 'CustomeLogin.php'; 
+    //         });
+    //       </script>";
+
+    // } else {
+    //     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.min.js'></script>
+    //     Swal.fire({
+    //         title: 'Something Went Wrong!',
+    //         text: 'Unable to update your details.',
+    //         icon: 'error',
+    //         confirmButtonText: 'Try Again'
+    //     });
+    //   </script>";
+    // }
+
+    if ($stmt->execute()) {
+        $_SESSION['update_status'] = 'success';
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    } else {
+        $_SESSION['update_status'] = 'error';
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    }
+    $stmt->close();
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +78,9 @@ $user = $_SESSION['user'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.min.js"></script>
+
     <link rel="stylesheet" href="../css/index.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
@@ -41,32 +107,66 @@ $user = $_SESSION['user'];
 
 
     <!-- ...this is profile details..-->
-    <h2 id="h2">Customer Profile</h2>
+    <h2 id="h2">Customer Profile Update</h2>
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
                 <img src="../image/amit.png" alt="image">
             </div>
             <ul>
-                <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
-                <li><a href="CustomerBookingHistory.php">Booking History</a></li>
+                <li><a href="CustomerProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a></li>
+                <li><a href="">Booking Ticket</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Passw</a></li>
-
             </ul>
 
         </div>
         <div class="details">
-            <div class="first">
-                <p><strong>ID:</strong> <?php echo htmlspecialchars($user['Sr']); ?></p>
-                <p><strong>Name:</strong> <?php echo htmlspecialchars($user['Customer_Name']); ?></p>
-                <p><strong>Address:</strong> <?php echo htmlspecialchars($user['Address']); ?></p>
-            </div>
-            <div class="second">
-                <p><strong>Contact No:</strong> <?php echo htmlspecialchars($user['mobile']); ?></p>
-                <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-            </div>
+            <form action="" method="POST">
+                <label for="">Name</label>
+                <input type="text" name="name" value="<?php echo htmlspecialchars($userDetails['Customer_Name']); ?>">
+
+                <h3> </h3>
+                <label for="">Email</label>
+                <input type="email" name="email" value="<?php echo htmlspecialchars($userDetails['email']); ?>">
+
+                <label for="">Mobile Number</label>
+                <!-- <input type="text" name="mobile" value="<?php echo htmlspecialchars($userDetails['mobile']); ?>"> -->
+                <input type="text" id="mobile" name="mobile" required placeholder="Enter your Phone" minlength="10"
+                    maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="<?php echo htmlspecialchars($userDetails['mobile']); ?>">
+
+                <label for="">Address</label>
+                <input type="text" name="address" value="<?php echo htmlspecialchars($userDetails['Address']); ?>">
+
+                <input type="submit" Value="Update Details">
+            </form>
         </div>
+        <?php
+        if (isset($_SESSION['update_status'])) {
+            if ($_SESSION['update_status'] == 'success') {
+                echo "<script type='text/javascript'>
+                Swal.fire({
+                    title: 'Update Success',
+                    text: 'Your details have been updated! Kindly re-login.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(function() {
+                    window.location.href = 'CustomeLogin.php'; 
+                });
+              </script>";
+            } elseif ($_SESSION['update_status'] == 'error') {
+                echo "<script type='text/javascript'>
+                Swal.fire({
+                    title: 'Something Went Wrong!',
+                    text: 'Unable to update your details.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                });
+              </script>";
+            }
+            unset($_SESSION['update_status']);
+        }
+        ?>
 
 
     </div>
@@ -143,33 +243,13 @@ $user = $_SESSION['user'];
 
     .details {
         display: flex;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         margin-bottom: 10px;
         width: 85%;
         justify-content: center;
         align-items: center;
     }
 
-    .first,
-    .second {
-        width: 50%;
-        text-align: center;
-    }
-
-    .first p,
-    .second p {
-        margin: 19px 0;
-        font-size: 18px;
-    }
-
-    .address {
-        margin-top: 20px;
-        padding-top: 10px;
-    }
-
-    .details strong {
-        color: #555;
-    }
 
     .logout-container {
         text-align: center;
@@ -204,7 +284,6 @@ $user = $_SESSION['user'];
         margin-top: 5px;
     }
 
-
     .profile-left ul li a {
         /* background-color: pink; */
         text-decoration: none;
@@ -214,15 +293,18 @@ $user = $_SESSION['user'];
         color: white;
         line-height: 50px;
     }
+
     .profile-left ul li a:hover {
         color: orange;
     }
+
 
     .profile {
         /* background-color: yellow; */
         display: flex;
     }
-    .logo{
+
+    .logo {
         height: 13%;
         position: absolute;
         margin-top: -70px;
@@ -230,11 +312,54 @@ $user = $_SESSION['user'];
         background-color: black;
         width: 15%;
     }
-    .logo img{
+
+    .logo img {
         width: 36%;
         border-radius: 100%;
         /* width: 100%; */
         height: 90%;
         margin-left: 28%;
+    }
+
+    /**profile sow and updatae here .container
+     */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 80%;
+        /* align-items: center; */
+        /* justify-content: center; */
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    textarea {
+        padding: 0;
+        width: 99%;
+        height: auto;
+        margin: 0;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
     }
 </style>
