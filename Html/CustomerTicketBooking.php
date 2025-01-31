@@ -123,6 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($namee); ?>" ><br><br>
         <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($namee); ?>" required>
+        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($namee ?? ''); ?>" required>
+
 
         <label for="gender">Gender:</label>
         <select id="gender" name="gender" required>

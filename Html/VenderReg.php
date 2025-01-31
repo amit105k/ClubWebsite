@@ -1,5 +1,8 @@
 <?php
 include("db.php");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $businessName = $_POST['businessName'];
@@ -10,32 +13,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gstNo = $_POST['gstNo'];
     $address = $_POST['address'];
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+  
+      $stmt = $conn->prepare("INSERT INTO vender (business_name, client_name, email, password, contact_no, gst_no, address) VALUES (?, ?, ?, ?, ?,?,?)");
+      $stmt->bind_param("sssssss", $businessName, $clientName, $email,$password, $contactNo,$gstNo,$address);
+    if ($stmt->execute()) {
+        echo json_encode(['success' => true, 'message' => 'Kindely Login']);
+    } else if ($stmt->errno == 1062) {
+        echo json_encode(['success' => false, 'message' => 'Email has been already present With us']);
 
-    $checkEmail = "SELECT email FROM vender WHERE email = '$email'";
-    $result = $conn->query($checkEmail);
-
-    if ($result->num_rows > 0) {
-       echo"email is already presend try to login";
     } else {
-        $sql = "INSERT INTO vender (business_name, client_name, email, password, contact_no, gst_no, address)
-                VALUES ('$businessName', '$clientName', '$email', '$password', '$contactNo', '$gstNo', '$address')";
-
-        if ($conn->query($sql) === TRUE) {
-           echo"Vender registrarion sucess";
-        } else {
-           echo"some thing wont wrong please conect to admin";
-        }
+        echo json_encode(['success' => false, 'message' => $stmt->error]);
     }
 
+    $stmt->close();
     $conn->close();
+    exit;
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <style>
@@ -94,29 +92,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 0.9em;
             margin-bottom: 15px;
         }
-        #vender{
+
+        #vender {
             text-align: center;
             padding: 10px;
         }
-        #vendorForm{
+
+        #vendorForm {
             margin-top: 30px;
         }
+
         .ftext {
-        text-align: center;
-        background-color: black;
-        color: white;
-        padding: 10px;
-        box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
-    }
-    .fas{
-        color: red;
-        font-size: 5px;
-        position: relative;
-    }
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
+        }
+
+        .fas {
+            color: red;
+            font-size: 5px;
+            position: relative;
+        }
     </style>
 </head>
+
 <body>
-<nav>
+    <nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
@@ -129,8 +132,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="#" id="admin">Admin</a>
         <!--..................drop down is here-->
         <div class="dropdown">
-        <a href="">REGISTER / LOGIN</a>
-        <div class="dropdown-content">
+            <a href="">REGISTER / LOGIN</a>
+            <div class="dropdown-content">
                 <div class="sub-dropdown">
                     <a href="#">Register</a>
                     <div class="sub-dropdown-content">
@@ -181,6 +184,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit">Submit</button>
     </form>
 
+    <!-- <script>
+        document.getElementById('vendorForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const passwordError = document.getElementById('passwordError');
+
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                passwordError.style.display = 'block';
+            } else {
+                passwordError.style.display = 'none';
+            }
+        });
+    </script> -->
+
     <script>
         document.getElementById('vendorForm').addEventListener('submit', function (event) {
             const password = document.getElementById('password').value;
@@ -194,11 +212,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 passwordError.style.display = 'none';
             }
         });
+
+        document.getElementById("vendorForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                return;
+            }
+
+            const formData = new FormData(this);
+
+            fetch('', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Vender Registration Success',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "http://localhost/amitclub/html/VenderLogin.php";
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Kindly Login',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "http://localhost/amitclub/html/VenderLogin.php";
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'There was an error while submitting the form.',
+                        confirmButtonText: 'OK'
+                    });
+                });
+        });
+
     </script>
 
 
-  <!---,.............footer is eher-->
-  <div class="footer">
+
+    <!---,.............footer is eher-->
+    <div class="footer">
         <div class="fleft">
             <h4>The Noida Clubs</h4>
             <p>Noida hosts a number of premium, exclusive clubs that attract professionals and those looking for a
@@ -239,4 +311,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 </body>
+
 </html>

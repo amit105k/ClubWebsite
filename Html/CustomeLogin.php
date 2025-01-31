@@ -61,7 +61,7 @@ $conn->close();
 </head>
 
 <body>
-    <nav>
+<nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
@@ -73,7 +73,25 @@ $conn->close();
         <a href="status.php" id="status">Booking Status</a>
         <a href="#" id="admin">Admin</a>
         <!--..................drop down is here-->
-       
+        <div class="dropdown">
+            <a href="">REGISTER / LOGIN</a>
+            <div class="dropdown-content">
+                <div class="sub-dropdown">
+                    <a href="#">Register</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./VenderReg.php">Vendor Register</a>
+                        <a href="./CustomerReg.php">Customer Register</a>
+                    </div>
+                </div>
+                <div class="sub-dropdown">
+                    <a href="#">Login</a>
+                    <div class="sub-dropdown-content">
+                        <a href="./VenderLogin.php">Vendor Login</a>
+                        <a href="./CustomeLogin.php">Customer Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </nav>
     <form id="venderLogin" method="POST" action="">
