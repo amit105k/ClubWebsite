@@ -51,7 +51,7 @@ $user = $_SESSION['user'];
                 <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
                 <li><a href="CustomerBookingHistory.php">Booking History</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
-                <li><a href="CustomerProfileUpdate.php">Update Passw</a></li>
+                <li><a href="CustomerPasswordUpdate.php">Update Passw</a></li>
 
             </ul>
 
