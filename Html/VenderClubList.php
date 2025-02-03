@@ -1,11 +1,19 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['vender'])) {
     header("Location: VenderLogin.php");
     exit();
 }
-$user = $_SESSION['user'];
+$vender = $_SESSION['vender'];
+
+include("db.php");
+
+$sql = "SELECT * FROM club_overviews where email=?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $vender['email']);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -14,13 +22,12 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Profile</title>
+    <title>Vendor Club List</title>
     <link rel="stylesheet" href="../css/index.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
 </head>
 
 <body>
@@ -32,46 +39,82 @@ $user = $_SESSION['user'];
         <!-- <a href="#clubs">Clubs</a>
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
-        <a href="CustomerTicketBooking.php">Buy Tickets</a><img src="../image/new.gif" alt="">
+        <!-- <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> -->
         <a href="status.php" id="status">Booking Status</a>
-        <a href="logoutCustomer.php">Logout</a>
+        <a href="logout.php">Logout</a>
+        <!--..................drop down is here-->
 
 
     </nav>
 
 
     <!-- ...this is profile details..-->
-    <h2 id="h2">Customer Profile</h2>
+
+
+
+    <h2 id="h2">Club List</h2>
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
                 <img src="../image/amit.png" alt="image">
             </div>
             <ul>
-                <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
-                <li><a href="CustomerBookingHistory.php">Booking History</a></li>
-                <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
-                <li><a href="CustomerPasswordUpdate.php">Update Passw</a></li>
+                <li><a href="VenderClubList.php">Show Club Details</a></li>
+                <li><a href="VenderClubCreate.php">Create New Club</a></li>
+                <li><a href="VenderClubUpdate.php">Update Club</a></li>
+                <li><a href="VenderClubDelete.php">Delete Club</a></li>
+                <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
+                <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
 
             </ul>
 
+
         </div>
         <div class="details">
-            <div class="first">
-                <p><strong>ID:</strong> <?php echo htmlspecialchars($user['Sr']); ?></p>
-                <p><strong>Name:</strong> <?php echo htmlspecialchars($user['Customer_Name']); ?></p>
-                <p><strong>Address:</strong> <?php echo htmlspecialchars($user['Address']); ?></p>
-            </div>
-            <div class="second">
-                <p><strong>Contact No:</strong> <?php echo htmlspecialchars($user['mobile']); ?></p>
-                <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-            </div>
+          
+            <?php
+
+            if ($result->num_rows > 0) {
+                echo "<table border='1' style='width:'100%' border-collapse:collapse'>
+                    <tr>
+                        <th>id</th>
+                        <th>Club Name</th>
+                        <th>Show timing</th>
+                        <th>address</th>
+                        <th>Price</th>
+                       
+                       
+                    </tr>";
+                while ($row = $result->fetch_assoc()) {
+                                        echo "<tr'>
+                        <td>" . $row['id'] . "</td>
+                        <td>" . $row['club_name'] . "</td>
+                        <td>" . $row['show_time'] . "</td>
+                        <td>" . $row['address'] .",". $row['city'] .",".$row['postal_code']. "</td>
+                        <td>" . $row['price'] . "</td>
+                 
+                        </tr>";
+                }
+                echo "<table>";
+
+            } else {
+                echo "no club found kindely reigter ";
+                ?>
+                <a href="VenderClubCreate.php">Register new club</a>
+                <?php
+            }
+
+            ?>
+
+
         </div>
 
 
     </div>
-    <!--.........................footer is here-->
 
+
+
+    <!---,.............footer is eher-->
     <div class="footer">
         <div class="fleft">
             <h4>The Noida Clubs</h4>
@@ -119,10 +162,28 @@ $user = $_SESSION['user'];
 <style>
     body {
         font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
+
         background-color: #f4f4f9;
         color: #333;
+    }
+    th,td{
+        border-width: thin;
+        padding: 2px;
+    }
+    table{
+        width: 95%;
+        margin-left: 2%;
+        margin-right: 3%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        text-align: center;
+    
+    }
+
+
+    #thenoida {
+
+        margin-left: -73px;
     }
 
     .container {
@@ -142,7 +203,7 @@ $user = $_SESSION['user'];
     }
 
     .details {
-        display: flex;
+        /* display: flex; */
         justify-content: space-between;
         margin-bottom: 10px;
         width: 85%;
@@ -199,9 +260,10 @@ $user = $_SESSION['user'];
         list-style-type: none;
         /* padding: 20px; */
         align-items: center;
-        justify-content: center;
+        /* justify-content: center; */
         display: flex;
         margin-top: 5px;
+        margin-left: 11%;
     }
 
 
@@ -214,6 +276,7 @@ $user = $_SESSION['user'];
         color: white;
         line-height: 50px;
     }
+
     .profile-left ul li a:hover {
         color: orange;
     }
@@ -222,7 +285,8 @@ $user = $_SESSION['user'];
         /* background-color: yellow; */
         display: flex;
     }
-    .logo{
+
+    .logo {
         height: 13%;
         position: absolute;
         margin-top: -70px;
@@ -230,7 +294,8 @@ $user = $_SESSION['user'];
         background-color: black;
         width: 15%;
     }
-    .logo img{
+
+    .logo img {
         width: 36%;
         border-radius: 100%;
         /* width: 100%; */

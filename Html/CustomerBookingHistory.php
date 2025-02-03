@@ -3,7 +3,7 @@ include("db.php");
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header("Location: VenderLogin.php");
+    header("Location: CustomerLogin.php");
     exit();
 }
 $user = $_SESSION['user'];
@@ -45,7 +45,7 @@ $result = $stmt->get_result();
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
-        <a href="logout.php">Logout</a>
+        <a href="logoutCustomer.php">Logout</a>
 
 
     </nav>
@@ -200,7 +200,7 @@ $result = $stmt->get_result();
         border-width: thin;
         padding: 2px;
     }
-
+   
     
     .logout-container {
         text-align: center;

@@ -8,6 +8,65 @@ if (!isset($_SESSION['vender'])) {
 $vender = $_SESSION['vender'];
 ?>
 
+<?php
+
+
+include("db.php");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $club_name = $_POST['club_name'];
+    $image_url = $_POST['image_url'];
+    $show_time = $_POST['show_time'];
+    $address = $_POST['address'];
+    $city = $_POST['city'];
+    $postal_code = $_POST['postal_code'];
+    // $book_tkt = $_POST['book_tkt'];
+    // $image_url1 = $_POST['image_url1'];
+    // $image_url2 = $_POST['image_url2'];
+    // $image_url3 = $_POST['image_url3'];
+    $about = $_POST['about'];
+
+
+    $stmt = $conn->prepare("INSERT INTO club_overviews (club_name, image_url,about,show_time, address, city, postal_code,) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?)");
+    $stmt->bind_param("sssssssssss", $club_name, $image_url, $show_time, $address, $city, $postal_code, $about);
+
+
+    if ($stmt->execute()) {
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'New Club has been created successfully.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'update_club.php';
+                    });
+                });
+              </script>";
+    } else {
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to Create New Club.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+              </script>";
+    }
+
+    $stmt->close();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +93,8 @@ $vender = $_SESSION['vender'];
         <!-- <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> -->
         <a href="status.php" id="status">Booking Status</a>
         <a href="logout.php">Logout</a>
+        <a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a>
+
         <!--..................drop down is here-->
 
 
@@ -44,11 +105,11 @@ $vender = $_SESSION['vender'];
 
 
 
-    <h2 id="h2">Vender Profile</h2>
+    <!-- <h2 id="h2">New Club Create</h2> -->
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-                <img src="../image/amit.png" alt="image">
+            <img src="<?php echo $selected_club ? $selected_club['image_url'] : ''; ?>" alt="Club images">
             </div>
             <ul>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
@@ -60,25 +121,47 @@ $vender = $_SESSION['vender'];
 
             </ul>
 
+
         </div>
         <div class="details">
-            <div class="first">
-                <p class="paragraph"><strong>ID:</strong> <?php echo htmlspecialchars($vender['id']); ?></p>
-                <p class="paragraph"><strong>Business Name:</strong>
-                    <?php echo htmlspecialchars($vender['business_name']); ?>
-                </p>
-                <p class="paragraph"><strong>Name:</strong> <?php echo htmlspecialchars($vender['client_name']); ?></p>
-                <p class="paragraph"><strong>Contact No:</strong> <?php echo htmlspecialchars($vender['contact_no']); ?>
-                </p>
+            
+            <form action="" method="POST" id="createClubForm">
+                <h2>Create New Club</h2>
+                <label for="club_name">Club Name:</label>
+                <input type="text" id="club_name" name="club_name" required>
 
-            </div>
-            <div class="second">
-                <p class="paragraph"><strong>Email:</strong> <?php echo htmlspecialchars($vender['email']); ?></p>
-                <p class="paragraph"><strong>GST details:</strong> <?php echo htmlspecialchars($vender['gst_no']); ?>
-                </p>
-                <p class="paragraph"><strong>Address:</strong> <?php echo htmlspecialchars($vender['address']); ?></p>
+                <label for="image_url">Image URL:</label>
+                <input type="url" id="image_url" name="image_url" required>
 
-            </div>
+                <label for="show_time">Openaning And Closing Time:</label>
+                <input type="text" id="show_time" name="show_time" required placeholder="12:30 To 11:30 PM">
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+
+                <label for="postal_code">Postal Code:</label>
+                <input type="number" id="postal_code" name="postal_code" required>
+
+                <label for="book_tkt">Email:</label>
+                <input type="url" id="book_tkt" name="email" required readonly>
+
+                <!-- <label for="image_url1">Image URL 1:</label>
+                <input type="url" id="image_url1" name="image_url1">
+
+                <label for="image_url2">Image URL 2:</label>
+                <input type="url" id="image_url2" name="image_url2">
+
+                <label for="image_url3">Image URL 3:</label>
+                <input type="url" id="image_url3" name="image_url3"> -->
+                <label for="about">About Of Club :-</label>
+                <textarea name="about" id=""></textarea>
+
+                <input type="submit" value="Create Club">
+            </form>
+
         </div>
 
 
@@ -136,6 +219,74 @@ $vender = $_SESSION['vender'];
 </html>
 
 <style>
+    /** form .container */
+
+
+
+    .details {
+        width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        /* margin-bottom: 10px;  */
+      
+      justify-content: center;
+       align-items: center; 
+
+    }
+    .details form{
+        width: 70%;
+    }
+
+    .details h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .details label {
+        display: block;
+        margin: 10px 0 5px;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .details input[type="text"],
+    .details input[type="url"],
+    .details input[type="time"],
+    .details input[type="number"],
+    .details input[type="datetime-local"] {
+        width: 100%;
+        padding: 8px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 19px;
+        font-weight: normal;
+    }
+
+    .details input[type="submit"] {
+        padding: 10px 15px;
+        /* background-color: #007BFF; */
+        background-color: #45a049;
+        color: white;
+        border: none;
+        margin-top: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    textarea {
+        width: 100%;
+        height: auto;
+        font-size: 18px;
+    }
+
+
+
     body {
         font-family: Arial, sans-serif;
 
@@ -145,7 +296,8 @@ $vender = $_SESSION['vender'];
 
     #thenoida {
 
-        margin-left: -73px;
+        /* margin-left: -73px; */
+        margin-left: 0 !important;
     }
 
     .container {
@@ -162,15 +314,6 @@ $vender = $_SESSION['vender'];
         color: #444;
         font-size: 24px;
         padding: 20px;
-    }
-
-    .details {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        width: 85%;
-        justify-content: center;
-        align-items: center;
     }
 
     .first,
@@ -250,18 +393,22 @@ $vender = $_SESSION['vender'];
 
     .logo {
         height: 13%;
-        position: absolute;
-        margin-top: -70px;
+        /* position: absolute; */
+        /* margin-top: -70px; */
         /* margin-left: 10px; */
         background-color: black;
-        width: 15%;
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
     }
 
     .logo img {
-        width: 36%;
-        border-radius: 100%;
+        /* width: 36%; */
+        /* border-radius: 100%; */
         /* width: 100%; */
-        height: 90%;
-        margin-left: 28%;
+        height: 100%;
+        /* margin-left: 12%; */
     }
 </style>
