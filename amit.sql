@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2025 at 12:20 PM
+-- Generation Time: Feb 03, 2025 at 05:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -57,6 +57,28 @@ INSERT INTO `club_overviews` (`id`, `image_url`, `image_url1`, `image_url2`, `im
 (4, 'https://d4t7t8y8xqo0t.cloudfront.net/resized/750X436/restaurant%2F674070%2Frestaurant220210909103651.jpeg', 'https://t4.ftcdn.net/jpg/06/29/57/61/240_F_629576172_uLKJIWMlDFUQLQd9uk7u2Ot0IW2RzDKw.jpg', 'https://t3.ftcdn.net/jpg/02/87/35/70/240_F_287357045_Ib0oYOxhotdjOEHi0vkggpZTQCsz0r19.jpg', 'https://t3.ftcdn.net/jpg/03/10/64/98/240_F_310649884_dGXw5heDwDZb5jSpnQ16P9k32PXLtqmM.jpg', 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75                ', 'White Club', '24 hours open', 'Delhi', 'New delhi', '22222', 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75', 1200, 'WHITE', 12, 0),
 (5, 'https://d26dp53kz39178.cloudfront.net/media/uploads/products/Pasha_Nightclub_result-1699078135102.webp', 'https://t4.ftcdn.net/jpg/01/27/82/05/240_F_127820544_6lkdQUUPRZ7ikF3rOzmYiMUd3qZ6PRqL.jpg', 'https://t3.ftcdn.net/jpg/02/53/01/36/240_F_253013633_TDcGVWptIzybwZABAEUE2aUQaIAsolt7.jpg', 'https://t4.ftcdn.net/jpg/01/61/59/73/240_F_161597387_1J5BqmdPp8fOtlk7dSk0iMBRAzAxZMiR.jpg', 'hauz khass is situated near in new delhi the distance of captial is near anout 5 km and nearest metro station is \"HauzKhass\" in mezanda line and yellow line in toward melinium city gurgoan', 'Hauz Khass', '11:30 AM to 01:30 AM', 'Gurgoan', 'Delhi', '202021', 'https:www.hauzkkhass.com', 499, 'HAUZ', 14, 0),
 (6, 'https://i.cdn.newsbytesapp.com/images/l37520210324131352.jpeg', 'https://t3.ftcdn.net/jpg/01/23/22/64/240_F_123226414_fdzRAzNJNKCHkqoEJXPkIlFBBSduLfLq.jpg', 'https://t4.ftcdn.net/jpg/02/78/70/01/240_F_278700194_dyVW7DLEsZuKVeWnPf8mAzAuB3Ocf139.jpg', 'https://t4.ftcdn.net/jpg/06/29/60/35/240_F_629603580_nwAAW6XnRjv31u2dfJ4C2i0gvaN0mPL9.jpg', 'Delhi Club House is inspired by the clubs of colonial India. These institutions were the exclusive domain of their members to catch up with friends & colleagues over a drink or a meal. The food was neither fancy nor gastronomic - It was good, fresh, comfort food, borrowed from each other\\\'s cuisines and satisfied the paletes of the \\\'babus\\\' as well as as the Britishers over a drink. Delhi Club House is a take on the vibe of these old clubs. It reminisces an era gone by, a culture gone by. At DC', 'Delhi Club', '24 hours available for customer', 'delhi', 'Delhi', '20209', '', 1200, 'DELHI', 15, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customerreg`
+--
+
+CREATE TABLE `customerreg` (
+  `Sr` int(10) NOT NULL,
+  `Customer_Name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `mobile` int(10) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Address` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customerreg`
+--
+
+INSERT INTO `customerreg` (`Sr`, `Customer_Name`, `email`, `mobile`, `Password`, `Address`) VALUES
+(1, 'amit', 'amitpss239@gmail.com', 1234567890, '123456', 'Noida sector 63');
 
 -- --------------------------------------------------------
 
@@ -300,6 +322,30 @@ INSERT INTO `registrations` (`id`, `club`, `name`, `gender`, `date`, `mobile`, `
 (158, 'Royal FarmHouse', 'Amit', 'Male', '2025-01-24T12:30', '2222222222', 'jhfh@gmail.com', 11, 18450, 'Success', 'pay_PjD65VMIkbClc2', 'd50499a577', '2025-01-14 05:36:48.990113'),
 (159, 'Royal FarmHouse', 'royal', 'Male', '2025-01-16T12:22', '1111111111', 'sdafdsafasd@gmail.com', 11, 18450, 'Success', 'pay_PjhAhb9zANN1Zp', '5b37bf2185', '2025-01-15 11:01:57.641655');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vender`
+--
+
+CREATE TABLE `vender` (
+  `id` int(11) NOT NULL,
+  `business_name` varchar(255) NOT NULL,
+  `client_name` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `contact_no` int(10) NOT NULL,
+  `gst_no` varchar(25) NOT NULL,
+  `address` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `vender`
+--
+
+INSERT INTO `vender` (`id`, `business_name`, `client_name`, `email`, `password`, `contact_no`, `gst_no`, `address`) VALUES
+(1, 'amit information', 'amit', 'amitpss239@gmail.com', 'Amit123', 1234567890, '1234567890', 'Noida sector 63');
+
 --
 -- Indexes for dumped tables
 --
@@ -309,6 +355,13 @@ INSERT INTO `registrations` (`id`, `club`, `name`, `gender`, `date`, `mobile`, `
 --
 ALTER TABLE `club_overviews`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customerreg`
+--
+ALTER TABLE `customerreg`
+  ADD PRIMARY KEY (`Sr`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `farmhouse`
@@ -329,6 +382,13 @@ ALTER TABLE `registrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `vender`
+--
+ALTER TABLE `vender`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -337,6 +397,12 @@ ALTER TABLE `registrations`
 --
 ALTER TABLE `club_overviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `customerreg`
+--
+ALTER TABLE `customerreg`
+  MODIFY `Sr` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `farmhouse`
@@ -355,6 +421,12 @@ ALTER TABLE `msg`
 --
 ALTER TABLE `registrations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+
+--
+-- AUTO_INCREMENT for table `vender`
+--
+ALTER TABLE `vender`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

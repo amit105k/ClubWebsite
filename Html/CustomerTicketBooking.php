@@ -70,6 +70,17 @@ $price = 00;
 $promocode='n/a';
 $promodis =00;
 
+$query = $conn->prepare("SELECT Customer_Name, email, mobile FROM customerreg WHERE email = ?");
+$query->bind_param("s", $user['email']);
+$query->execute();
+$result1 = $query->get_result();
+
+if ($name = $result1->fetch_assoc()) {
+    $namee = $name['Customer_Name'];
+    $gmail = $name['email'];
+    $mobile = $name['mobile'];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedClubId = $_POST['club'] ?? '';
     if ($selectedClubId) {
@@ -86,18 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 
-    $query = $conn->prepare("SELECT Customer_Name, email, mobile FROM customerreg WHERE email = ?");
-    $query->bind_param("s", $user['email']);
-    $query->execute();
-    $result1 = $query->get_result();
-    
-    if ($name = $result1->fetch_assoc()) {
-        $namee = $name['Customer_Name'];
-        $gmail = $name['email'];
-        $mobile = $name['mobile'];
-    }
-    
-    $query->close();
 }
 ?>
 
@@ -121,10 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="clubb" value="<?php echo htmlspecialchars($club_name); ?>" hidden>
 
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($namee); ?>" ><br><br>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($namee); ?>" required>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($namee ?? ''); ?>" required>
-
+        <input type="text" id="name" name="name" readonly required value="<?php echo htmlspecialchars($namee); ?>" ><br><br>
 
         <label for="gender">Gender:</label>
         <select id="gender" name="gender" required>
@@ -137,13 +133,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="datetime-local" id="date" name="date" required><br><br>
 
         <label for="mobile">Mobile:</label>
-        <!-- <input type="text" id="mobile" name="mobile" required maxlength="10" minlength="10"><br><br> -->
-        <input type="text" id="mobile" name="mobile" required placeholder="Enter your Phone" minlength="10" maxlength="10" 
+        <!-- <input type="text" id="mobile" name="mobile" hidden required maxlength="10" minlength="10" value="<?php echo htmlspecialchars($mobile); ?>"><br><br> -->
+        <input type="text" id="mobile" name="mobile" value="<?php echo htmlspecialchars($mobile); ?>" readonly placeholder="Enter your Phone" minlength="10" maxlength="10" 
 oninput="this.value = this.value.replace(/[^0-9]/g, '');" title="Please enter a valid 10-digit phone number">
 
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <input type="email" id="email" name="email" required readonly value="<?php echo htmlspecialchars( $gmail); ?>"><br><br>
+        
 
         <label for="promocode">PROMOCODE/CUPON CODE:</label>
             <input type="text" id="promocode" name="promocode"> <span id="promo" onclick="apply()">Apply
@@ -328,15 +325,15 @@ promoButton.addEventListener('click', apply);
                         icon: 'success',
                         showCancelButton: true,
                         cancelButtonText: 'Proceed for Payment',
-                        confirmButtonText: 'Return to Home',
+                        confirmButtonText: 'Return to Profile',
                         // footer: `<button onclick="window.location.href='http://127.0.0.1:5500/amitclub/Html/index.html'">Go to Home Page</button>`,
                         showDenyButton: true,
                         denyButtonText: 'Create New',
                     }).then(result => {
                         if (result.isConfirmed) {
-                            window.location.href = 'http://localhost/amitclub/Html/index.php';
+                            window.location.href = 'http://localhost/amitclub/Html/CustomerProfile.php';
                         } else if (result.isDenied) {
-                            window.location.href = 'http://localhost/amitclub/Html/buyticket.php';
+                            window.location.href = 'http://localhost/amitclub/Html/CustomerTicketBooking.php';
                         } else {
                             // window.location.href = 'http://localhost/amitclub/Html/razorpay_order.php';
                             // window.location.href = 'http://localhost/amitclub/Html/razorpay_order.php';
@@ -485,11 +482,11 @@ function showModal(details) {
             <p id="paragraph">Confirmation details are send to your registered Email I'd:<b>${details.email}</b></p>
 
             <div style="margin-top: 20px;">
-                <button onclick="window.location.href='http://localhost/amitclub/Html/index.php'"
+                <button onclick="window.location.href='http://localhost/amitclub/Html/CustomerProfile.php'"
                     style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; width: 45%;">
-                    Go to Home Page
+                    Back To Profile
                 </button>
-                <button onclick="window.location.href='http://localhost/amitclub/Html/buyticket.php'"
+                <button onclick="window.location.href='http://localhost/amitclub/Html/CustomerTicketBooking.php'"
                     style="padding: 10px 20px; background: #008CBA; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px; width: 45%;">
                     Book Another Ticket
                 </button>
@@ -556,6 +553,10 @@ function closeModal() {
         flex: 1;
         position: relative;
         left: 0;
+    }
+    input:read-only {
+        font-size: 18px;
+        color: orange;
     }
 </style>
 

@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gstNo = $_POST['gstNo'];
     $address = $_POST['address'];
 
-  
-      $stmt = $conn->prepare("INSERT INTO vender (business_name, client_name, email, password, contact_no, gst_no, address) VALUES (?, ?, ?, ?, ?,?,?)");
-      $stmt->bind_param("sssssss", $businessName, $clientName, $email,$password, $contactNo,$gstNo,$address);
+
+    $stmt = $conn->prepare("INSERT INTO vender (business_name, client_name, email, password, contact_no, gst_no, address) VALUES (?, ?, ?, ?, ?,?,?)");
+    $stmt->bind_param("sssssss", $businessName, $clientName, $email, $password, $contactNo, $gstNo, $address);
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Kindely Login']);
     } else if ($stmt->errno == 1062) {
@@ -115,6 +115,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 5px;
             position: relative;
         }
+
+       #vendorForm a {
+            width: 95%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        #vendorForm a:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 
@@ -181,7 +198,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div id="passwordError" style="color: red; display: none;">Passwords do not match.</div>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Register</button>
+        <a href="VenderLogin.php">Login</a>
     </form>
 
     <!-- <script>

@@ -193,6 +193,8 @@ $result = $stmt->get_result();
         width: 85%;
         justify-content: center;
         align-items: center;
+        padding-left: 10px;
+        box-sizing: border-box;
     }
     th,td{
         border-width: thin;

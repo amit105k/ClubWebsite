@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $userEmail = $_POST['user'];
     $userPassword = $_POST['password'];
 
-    $query = "SELECT id,business_name, client_name,contact_no,gst_no,address, email, password FROM vender WHERE email = ? AND password = ?";
+    $query = "SELECT id, business_name, client_name, contact_no, gst_no, address, email, password FROM vender WHERE email = ? AND password = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $userEmail, $userPassword);
     $stmt->execute();
@@ -18,20 +18,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-
-        $_SESSION['user'] = $row;
+        $_SESSION['vender'] = $row;
         header("Location: VenderProfile.php");
         exit();
     } else {
-        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-        echo '<script>
-            Swal.fire({
-                title: "Error!",
-                text: "You have entered wrong credentials!",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        </script>';
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Login',
+                        text: 'Invalid login details, please try again.',
+                        confirmButtonText: 'Retry'
+                    }).then(() => {
+                        window.location.href = 'VenderLogin.php';
+                    });
+                });
+              </script>";
     }
 
     $stmt->close();
@@ -101,11 +104,12 @@ $conn->close();
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required>
 
-        <input type="submit" value="Submit">
+        <button type="submit" >Login</button>
+        <a href="VenderReg.php">Register</a>
     </form>
 
-       <!---,.............footer is eher-->
-       <div class="footer">
+    <!---,.............footer is eher-->
+    <div class="footer">
         <div class="fleft">
             <h4>The Noida Clubs</h4>
             <p>Noida hosts a number of premium, exclusive clubs that attract professionals and those looking for a
@@ -178,6 +182,20 @@ $conn->close();
         border-radius: 4px;
         box-sizing: border-box;
     }
+    button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
 
     input[type="submit"] {
         width: 100%;
@@ -189,11 +207,30 @@ $conn->close();
         cursor: pointer;
         background-color: #45a049;
     }
+
     .ftext {
         text-align: center;
         background-color: black;
         color: white;
         padding: 10px;
         box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
+    }
+
+    #venderLogin a {
+        width: 95%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        margin-top: 10px;
+        text-decoration: none;
+    }
+
+    #venderLogin a:hover {
+        background-color: #45a049;
     }
 </style>

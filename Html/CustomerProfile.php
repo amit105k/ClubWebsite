@@ -32,7 +32,7 @@ $user = $_SESSION['user'];
         <!-- <a href="#clubs">Clubs</a>
         <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
-        <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
+        <a href="CustomerTicketBooking.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
         <a href="logout.php">Logout</a>
 
@@ -51,7 +51,7 @@ $user = $_SESSION['user'];
                 <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
                 <li><a href="CustomerBookingHistory.php">Booking History</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
-                <li><a href="CustomerProfileUpdate.php">Update Passw</a></li>
+                <li><a href="CustomerPasswordUpdate.php">Update Passw</a></li>
 
             </ul>
 

@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['vender'])) {
     header("Location: VenderLogin.php");
     exit();
 }
-$user = $_SESSION['user'];
+$vender = $_SESSION['vender'];
 ?>
 
 <!DOCTYPE html>
@@ -41,16 +41,45 @@ $user = $_SESSION['user'];
 
 
     <!-- ...this is profile details..-->
-    <h2>Vendor Profile</h2>
-    <div class="details">
-        <p class="paragraph"><strong>ID:</strong> <?php echo htmlspecialchars($user['id']); ?></p>
-        <p class="paragraph"><strong>Business Name:</strong> <?php echo htmlspecialchars($user['business_name']); ?>
-        </p>
-        <p class="paragraph"><strong>Name:</strong> <?php echo htmlspecialchars($user['client_name']); ?></p>
-        <p class="paragraph"><strong>Contact No:</strong> <?php echo htmlspecialchars($user['contact_no']); ?></p>
-        <p class="paragraph"><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-        <p class="paragraph"><strong>GST details:</strong> <?php echo htmlspecialchars($user['gst_no']); ?></p>
-        <p class="paragraph"><strong>Address:</strong> <?php echo htmlspecialchars($user['address']); ?></p>
+
+
+
+    <h2 id="h2">Vender Profile</h2>
+    <div class="profile">
+        <div class="profile-left">
+            <div class="logo">
+                <img src="../image/amit.png" alt="image">
+            </div>
+            <ul>
+                <li><a href="CustomerTicketBooking.php">Create New Club</a></li>
+                <li><a href="CustomerBookingHistory.php">Show Club Details</a></li>
+                <li><a href="CustomerProfileUpdate.php">Update Club</a></li>
+                <li><a href="CustomerPasswordUpdate.php">Delete Club</a></li>
+                <li><a href="CustomerPasswordUpdate.php">Update Gallery</a></li>
+                <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
+
+            </ul>
+
+        </div>
+        <div class="details">
+            <div class="first">
+                <p class="paragraph"><strong>ID:</strong> <?php echo htmlspecialchars($vender['id']); ?></p>
+                <p class="paragraph"><strong>Business Name:</strong>
+                    <?php echo htmlspecialchars($vender['business_name']); ?>
+                </p>
+                <p class="paragraph"><strong>Name:</strong> <?php echo htmlspecialchars($vender['client_name']); ?></p>
+                <p class="paragraph"><strong>Contact No:</strong> <?php echo htmlspecialchars($vender['contact_no']); ?>
+                </p>
+              
+            </div>
+            <div class="second">
+            <p class="paragraph"><strong>Email:</strong> <?php echo htmlspecialchars($vender['email']); ?></p>
+                <p class="paragraph"><strong>GST details:</strong> <?php echo htmlspecialchars($vender['gst_no']); ?></p>
+                <p class="paragraph"><strong>Address:</strong> <?php echo htmlspecialchars($vender['address']); ?></p>
+            
+            </div>
+        </div>
+
 
     </div>
     <?php
@@ -110,7 +139,7 @@ $user = $_SESSION['user'];
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        /* background-color: #f4f4f9; */
+        background-color: #f4f4f9;
         color: #333;
     }
 
@@ -123,55 +152,108 @@ $user = $_SESSION['user'];
         padding: 20px;
     }
 
-    h2 {
+    #h2 {
         text-align: center;
         color: #444;
         font-size: 24px;
-        margin-bottom: 20px;
+        padding: 20px;
     }
 
-    .paragraph {
+    .details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        width: 85%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .first,
+    .second {
+        width: 50%;
+        text-align: center;
+    }
+
+    .first p,
+    .second p {
+        margin: 19px 0;
         font-size: 18px;
-        margin: 10px 0;
-        line-height: 1.6;
     }
 
-    .paragraph strong {
+    .address {
+        margin-top: 20px;
+        padding-top: 10px;
+    }
+
+    .details strong {
         color: #555;
     }
-
-    /* a {
-        display: inline-block;
-        text-align: center;
-        background-color: #007bff;
-        color: #fff;
-        text-decoration: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 16px;
-        margin-top: 20px;
-        transition: background-color 0.3s;
-    }
-
-    a:hover {
-        background-color: #0056b3;
-    } */
 
     .logout-container {
         text-align: center;
         margin-top: 30px;
     }
 
-    .details {
-        /* background-color: white; */
-        text-align: center;
-    }
+
 
     .ftext {
         text-align: center;
         background-color: black;
         color: white;
         padding: 10px;
+        font-size: 15px;
         box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
+    }
+
+    /** profile deatails are here */
+    .profile-left {
+        background-color: black;
+        /* padding: 10px; */
+        width: 15%;
+    }
+
+    .profile-left ul li {
+        /* line-height: 50px; */
+        list-style-type: none;
+        /* padding: 20px; */
+        align-items: center;
+        /* justify-content: center; */
+        display: flex;
+        margin-top: 5px;
+        margin-left: 11%;
+    }
+
+
+    .profile-left ul li a {
+        /* background-color: pink; */
+        text-decoration: none;
+        /* padding: 10px; */
+        height: 100%;
+        height: 100%;
+        color: white;
+        line-height: 50px;
+    }
+    .profile-left ul li a:hover {
+        color: orange;
+    }
+
+    .profile {
+        /* background-color: yellow; */
+        display: flex;
+    }
+    .logo{
+        height: 13%;
+        position: absolute;
+        margin-top: -70px;
+        /* margin-left: 10px; */
+        background-color: black;
+        width: 15%;
+    }
+    .logo img{
+        width: 36%;
+        border-radius: 100%;
+        /* width: 100%; */
+        height: 90%;
+        margin-left: 28%;
     }
 </style>

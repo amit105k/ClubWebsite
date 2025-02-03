@@ -23,15 +23,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: CustomerProfile.php");
         exit();
     } else {
-        echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-        echo '<script>
-            Swal.fire({
-                title: "Error!",
-                text: "You have entered wrong credentials!",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        </script>';
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Login',
+                        text: 'Invalid login details, please try again.',
+                        confirmButtonText: 'Retry'
+                    }).then(() => {
+                        window.location.href = 'CustomeLogin.php';
+                    });
+                });
+              </script>";
     }
 
     $stmt->close();
