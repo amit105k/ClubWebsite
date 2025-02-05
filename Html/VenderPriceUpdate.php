@@ -35,27 +35,20 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = intval($_POST['id']);
-    $image_url = $conn->real_escape_string($_POST['image_url']);
-    $club_name = $conn->real_escape_string($_POST['club_name']);
-    $show_time = $conn->real_escape_string($_POST['show_time']);
-    $address = $conn->real_escape_string($_POST['address']);
-    $city = $conn->real_escape_string($_POST['city']);
-    $postal_code = $conn->real_escape_string($_POST['postal_code']);
-    $about = $conn->real_escape_string($_POST['about']);
+    $price = $conn->real_escape_string($_POST['price']);
+    $promocode= $conn->real_escape_string($_POST['promocode']);
+    $promodis = $conn->real_escape_string($_POST['promodis']);
+    $extraperson = $conn->real_escape_string($_POST['extraperson']);
 
     $sql = "UPDATE club_overviews SET 
-                image_url = ?, 
-                club_name = ?, 
-                show_time = ?, 
-                address = ?, 
-                city = ?, 
-                postal_code = ?, 
-                about = ?
+                price = ?, 
+                promocode = ?, 
+                promodis = ?, 
+                extraperson = ?
                  
             WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssi", $image_url, $club_name, $show_time, $address, $city, $postal_code, $about, $id);
+    $stmt->bind_param("isii", $price, $promocode, $promodis, $extraperson);
 
     if ($stmt->execute()) {
         echo "<script>
@@ -66,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.href = 'update_club.php';
+                        window.location.href = 'VenderProfile.php';
                     });
                 });
               </script>";
@@ -111,7 +104,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendor Profile</title>
+    <title>Price/Promo Cre/Upd</title>
     <link rel="stylesheet" href="../css/index.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
@@ -153,13 +146,13 @@ $conn->close();
             <ul>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
-                <li><a href="VenderPriceUpdate.php">Price/Promo Cre</a></li>
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
                 <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
 
             </ul>
+
 
         </div>
         <div class="details">
@@ -182,37 +175,22 @@ $conn->close();
                 <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo $selected_club ? $selected_club['id'] : ''; ?>">
 
-                    <label for="image_url">Image URL:</label>
-                    <input type="text" id="image_url" name="image_url"
-                        value="<?php echo $selected_club ? $selected_club['image_url'] : ''; ?>" required><br><br>
+                    <label for="image_url">Price:</label>
+                    <input type="text" id="image_url" name="price"
+                        value="<?php echo $selected_club ? $selected_club['price'] : ''; ?>" required><br><br>
 
-                    <label for="club_name">Club Name:</label>
-                    <input type="text" id="club_name" name="club_name"
-                        value="<?php echo $selected_club ? $selected_club['club_name'] : ''; ?>" required><br><br>
+                    <label for="club_name">Promocode:</label>
+                    <input type="text" id="club_name" name="promocode"
+                        value="<?php echo $selected_club ? $selected_club['promocode'] : ''; ?>" ><br><br>
 
-                    <label for="show_time">Show Time:</label>
-                    <input type="text" id="show_time" name="show_time"
-                        value="<?php echo $selected_club ? $selected_club['show_time'] : ''; ?>"><br><br>
+                    <label for="show_time">promodis:</label>
+                    <input type="text" id="show_time" name="promodis"
+                        value="<?php echo $selected_club ? $selected_club['promodis'] : ''; ?>"><br><br>
 
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" name="address"
-                        value="<?php echo $selected_club ? $selected_club['address'] : ''; ?>"><br><br>
+                    <label for="address">extraperson:</label>
+                    <input type="text" id="address" name="extraperson"
+                        value="<?php echo $selected_club ? $selected_club['extraperson'] : ''; ?>"><br><br>
 
-                    <label for="city">City:</label>
-                    <input type="text" id="city" name="city"
-                        value="<?php echo $selected_club ? $selected_club['city'] : ''; ?>"><br><br>
-
-                    <label for="postal_code">Postal Code:</label>
-                    <input type="text" id="postal_code" name="postal_code"
-                        value="<?php echo $selected_club ? $selected_club['postal_code'] : ''; ?>"><br><br>
-
-                    <label for="about">About of Clubs :-</label>
-                    <textarea type="text" id="book_tkt" name="about" value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
-                    </textarea><br><br>
-
-                    <!-- <label for="book_tkt">Link for Booking:</label>
-        <input type="text" id="book_tkt" name="book_tkt"
-            value="<?php echo $selected_club ? $selected_club['book_tkt'] : ''; ?>"><br><br> -->
 
                     <input type="submit" name="submit" value="Update Club">
                 </form>

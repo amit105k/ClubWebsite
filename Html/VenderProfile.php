@@ -3,9 +3,30 @@ session_start();
 
 if (!isset($_SESSION['vender'])) {
     header("Location: VenderLogin.php");
+    ?>
+    <script>
+        alert("Something went worng");
+    </script>
+    <?php
     exit();
 }
 $vender = $_SESSION['vender'];
+
+include("db.php");
+$query="SELECT image_url FROM club_overviews WHERE email=?";
+$stmt=$conn->prepare($query);
+$stmt->bind_param("s",$vender['email']);
+$stmt->execute();
+$result=$stmt->get_result();
+if($result->num_rows>0){
+    while($row=$result->fetch_assoc()){
+        $logo=$row['image_url'];
+        $_SESSION['logo'] = $logo;
+
+
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,16 +48,9 @@ $vender = $_SESSION['vender'];
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <!-- <a href="service.php">Services</a> -->
-        <!-- <a href="#clubs">Clubs</a>
-        <a href="#clubs">Gallery</a> -->
         <a href="contact.php">Contact Us</a>
-        <!-- <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> -->
         <a href="status.php" id="status">Booking Status</a>
         <a href="logout.php">Logout</a>
-        <!--..................drop down is here-->
-
-
     </nav>
 
 
@@ -48,7 +62,9 @@ $vender = $_SESSION['vender'];
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-                <img src="../image/amit.png" alt="image">
+                <!-- <img src="../image/amit.png" alt="image"> -->
+                <img src="<?php echo $logo ?>" alt="Club images">
+
             </div>
             <ul>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
@@ -59,13 +75,11 @@ $vender = $_SESSION['vender'];
                 <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
 
             </ul>
-
         </div>
         <div class="details">
             <div class="first">
                 <p class="paragraph"><strong>ID:</strong> <?php echo htmlspecialchars($vender['id']); ?></p>
-                <p class="paragraph"><strong>Business Name:</strong>
-                    <?php echo htmlspecialchars($vender['business_name']); ?>
+                <p class="paragraph"><strong>Business Name:</strong><?php echo htmlspecialchars($vender['business_name']); ?>
                 </p>
                 <p class="paragraph"><strong>Name:</strong> <?php echo htmlspecialchars($vender['client_name']); ?></p>
                 <p class="paragraph"><strong>Contact No:</strong> <?php echo htmlspecialchars($vender['contact_no']); ?>
@@ -84,9 +98,7 @@ $vender = $_SESSION['vender'];
 
     </div>
     <?php
-    // header("Location: VenderLogin.php");
-    // exit();
-    // session_destroy(); ?>
+     ?>
 
 
 
@@ -249,19 +261,22 @@ $vender = $_SESSION['vender'];
     }
 
     .logo {
-        height: 13%;
+        height: 15%;
         position: absolute;
         margin-top: -70px;
         /* margin-left: 10px; */
-        background-color: black;
+        background-color:black;
         width: 15%;
+        padding: 10px;
+        box-sizing: border-box;
     }
 
     .logo img {
-        width: 36%;
-        border-radius: 100%;
+        /* width: 36%; */
+        /* border-radius: 100%; */
         /* width: 100%; */
-        height: 90%;
-        margin-left: 28%;
+        height: 100%;
+        width: 100%;
+        /* margin-left: 28%; */
     }
 </style>

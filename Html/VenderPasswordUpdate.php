@@ -7,6 +7,13 @@ if (!isset($_SESSION['vender'])) {
 }
 
 $vender = $_SESSION['vender'];
+
+
+if (!isset($_SESSION['logo'])) {
+    header("Location: VenderLogin.php");
+    exit();
+}
+$logo=$_SESSION['logo'];
 include("db.php");
 
 if ($conn->connect_error) {
@@ -112,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-                <img src="../image/amit.png" alt="image">
+            <img src="<?php echo $logo ?>" alt="Club images">
             </div>
             <ul>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
@@ -303,20 +310,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     .logo {
-        height: 13%;
+        height: 15%;
         position: absolute;
         margin-top: -70px;
         /* margin-left: 10px; */
-        background-color: black;
+        background-color:black;
         width: 15%;
+        padding: 10px;
+        box-sizing: border-box;
     }
 
     .logo img {
-        width: 36%;
-        border-radius: 100%;
+        /* width: 36%; */
+        /* border-radius: 100%; */
         /* width: 100%; */
-        height: 90%;
-        margin-left: 28%;
+        height: 100%;
+        width: 100%;
+        /* margin-left: 28%; */
     }
 
 

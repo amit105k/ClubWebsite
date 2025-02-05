@@ -6,6 +6,8 @@ if (!isset($_SESSION['vender'])) {
     exit();
 }
 $vender = $_SESSION['vender'];
+$logo=$_SESSION['logo'];
+
 ?>
 
 <?php
@@ -24,16 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = $_POST['address'];
     $city = $_POST['city'];
     $postal_code = $_POST['postal_code'];
-    // $book_tkt = $_POST['book_tkt'];
-    // $image_url1 = $_POST['image_url1'];
-    // $image_url2 = $_POST['image_url2'];
-    // $image_url3 = $_POST['image_url3'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
     $about = $_POST['about'];
 
 
-    $stmt = $conn->prepare("INSERT INTO club_overviews (club_name, image_url,about,show_time, address, city, postal_code,) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?,?)");
-    $stmt->bind_param("sssssssssss", $club_name, $image_url, $show_time, $address, $city, $postal_code, $about);
+    $stmt = $conn->prepare("INSERT INTO club_overviews (club_name, image_url,address,city, postal_code,email,mobile,show_time, about) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?,?,?)");
+    $stmt->bind_param("sssssssss", $club_name, $image_url, $address, $city, $postal_code,$email,$mobile ,$show_time,$about);
 
 
     if ($stmt->execute()) {
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.href = 'update_club.php';
+                        window.location.href = 'VenderProfile.php';
                     });
                 });
               </script>";
@@ -109,11 +109,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-            <img src="<?php echo $selected_club ? $selected_club['image_url'] : ''; ?>" alt="Club images">
+            <img src="<?php echo $logo ?>" alt="Club images">
             </div>
             <ul>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
+                <li><a href="VenderPriceUpdate.php">Price/Promo Cre</a></li>
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
@@ -146,16 +147,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="number" id="postal_code" name="postal_code" required>
 
                 <label for="book_tkt">Email:</label>
-                <input type="url" id="book_tkt" name="email" required readonly>
+                <input type="url" id="book_tkt" name="email" required readonly value="<?php echo(htmlspecialchars($vender['email'])); ?>">
 
-                <!-- <label for="image_url1">Image URL 1:</label>
-                <input type="url" id="image_url1" name="image_url1">
+                <label for="book_tkt">Mobile:</label>
+                <input type="text" id="book_tkt" name="mobile" required value="<?php echo htmlspecialchars($vender['contact_no']) ?>">
 
-                <label for="image_url2">Image URL 2:</label>
-                <input type="url" id="image_url2" name="image_url2">
-
-                <label for="image_url3">Image URL 3:</label>
-                <input type="url" id="image_url3" name="image_url3"> -->
                 <label for="about">About Of Club :-</label>
                 <textarea name="about" id=""></textarea>
 
@@ -397,7 +393,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         /* margin-top: -70px; */
         /* margin-left: 10px; */
         background-color: black;
-        width: 100%;
+        /* width: 15%; */
         justify-content: center;
         padding: 10px;
         box-sizing: border-box;
@@ -407,7 +403,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .logo img {
         /* width: 36%; */
         /* border-radius: 100%; */
-        /* width: 100%; */
+        width: 100%;
         height: 100%;
         /* margin-left: 12%; */
     }

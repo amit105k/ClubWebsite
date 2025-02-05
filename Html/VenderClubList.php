@@ -7,6 +7,13 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 
+
+if (!isset($_SESSION['logo'])) {
+    header("Location: VenderLogin.php");
+    exit();
+}
+$logo=$_SESSION['logo'];
+
 include("db.php");
 
 $sql = "SELECT * FROM club_overviews where email=?";
@@ -56,11 +63,12 @@ $result = $stmt->get_result();
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-                <img src="../image/amit.png" alt="image">
+            <img src="<?php echo $logo ?>" alt="Club images">
             </div>
             <ul>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
+                <li><a href="VenderPriceUpdate.php">Price/Promo Cre</a></li>
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
@@ -68,34 +76,31 @@ $result = $stmt->get_result();
 
             </ul>
 
-
         </div>
         <div class="details">
           
             <?php
 
             if ($result->num_rows > 0) {
-                echo "<table border='1' style='width:'100%' border-collapse:collapse'>
-                    <tr>
-                        <th>id</th>
-                        <th>Club Name</th>
-                        <th>Show timing</th>
-                        <th>address</th>
-                        <th>Price</th>
-                       
-                       
-                    </tr>";
-                while ($row = $result->fetch_assoc()) {
-                                        echo "<tr'>
-                        <td>" . $row['id'] . "</td>
-                        <td>" . $row['club_name'] . "</td>
-                        <td>" . $row['show_time'] . "</td>
-                        <td>" . $row['address'] .",". $row['city'] .",".$row['postal_code']. "</td>
-                        <td>" . $row['price'] . "</td>
-                 
-                        </tr>";
-                }
-                echo "<table>";
+                echo "<table border='1' style='border-collapse: collapse;'>
+         <tr>
+             <th>id</th>
+             <th>Club Name</th>
+             <th>Show timing</th>
+             <th>address</th>
+             <th>Price</th>
+         </tr>";
+ while ($row = $result->fetch_assoc()) {
+     echo "<tr>
+             <td>" . $row['id'] . "</td>
+             <td>" . $row['club_name'] . "</td>
+             <td>" . $row['show_time'] . "</td>
+             <td>" . $row['address'] . ", " . $row['city'] . ", " . $row['postal_code'] . "</td>
+             <td>" . $row['price'] . "</td>
+           </tr>";
+ }
+ echo "</table>";
+
 
             } else {
                 echo "no club found kindely reigter ";
@@ -160,6 +165,7 @@ $result = $stmt->get_result();
 </html>
 
 <style>
+    
     body {
         font-family: Arial, sans-serif;
 
@@ -186,14 +192,14 @@ $result = $stmt->get_result();
         margin-left: -73px;
     }
 
-    .container {
+    /* .container {
         max-width: 600px;
         margin: 50px auto;
         background: #fff;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
-    }
+    } */
 
     #h2 {
         text-align: center;
@@ -208,7 +214,7 @@ $result = $stmt->get_result();
         margin-bottom: 10px;
         width: 85%;
         justify-content: center;
-        align-items: center;
+        align-items: center; */
     }
 
     .first,
@@ -287,19 +293,22 @@ $result = $stmt->get_result();
     }
 
     .logo {
-        height: 13%;
+        height: 15%;
         position: absolute;
         margin-top: -70px;
         /* margin-left: 10px; */
-        background-color: black;
+        background-color:black;
         width: 15%;
+        padding: 10px;
+        box-sizing: border-box;
     }
 
     .logo img {
-        width: 36%;
-        border-radius: 100%;
+        /* width: 36%; */
+        /* border-radius: 100%; */
         /* width: 100%; */
-        height: 90%;
-        margin-left: 28%;
+        height: 100%;
+        width: 100%;
+        /* margin-left: 28%; */
     }
 </style>
