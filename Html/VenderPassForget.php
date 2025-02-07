@@ -1,82 +1,86 @@
-<!-- 
-include("db.php");
-session_start();
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $userEmail = $_POST['user'];
-    $userPassword = $_POST['password'];
-
-    $query = "SELECT id, business_name, client_name, contact_no, gst_no, address, email, password FROM vender WHERE email = ? AND password = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $userEmail, $userPassword);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $_SESSION['vender'] = $row;
-        header("Location: VenderProfile.php");
-        exit();
-    } else {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Invalid Login',
-                        text: 'Invalid login details, please try again.',
-                        confirmButtonText: 'Retry'
-                    }).then(() => {
-                        window.location.href = 'VenderLogin.php';
-                    });
-                });
-              </script>";
-    }
-
-    $stmt->close();
-}
-
-$conn->close(); -->
-
-
-
 <?php
 session_start();
+include('../smtp/PHPMailerAutoload.php');
 include("db.php");
 
-function generateOTP() {
-    return rand(100000, 999999); 
-    ?><h1><?php echo htmlspecialchars(rand())?>;</h1><?php
-}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
 
-if (isset($_POST['send_otp'])) {
-    $email = $_POST['email'];
-    $otp = generateOTP();
-    $expiry_time = time() + 120; 
+    if ($action == 'sendOtp') {
+        if (isset($_POST['email']) && !empty($_POST['email'])) {
+            $email = $_POST['email'];
 
-    $_SESSION['otp'] = $otp;
-    $_SESSION['otp_expiry'] = $expiry_time;
+            $sql = "SELECT * FROM vender WHERE email = '$email'";
+            $result = $conn->query($sql);
 
-    $subject = "Your OTP Code";
-    $message = "Your OTP code is: $otp";
-    $headers = "From: amitpss239@gmail.com";
-    include('../smtp/PHPMailerAutoload.php');
+            if ($result->num_rows > 0) {
+                $otp = rand(100000, 999999);
+                $_SESSION['otp'] = $otp;
+                $_SESSION['email'] = $email;
 
-    if (mail($email, $subject, $message, $headers)) {
-        echo "OTP sent!";
-    } else {
-        echo "Failed to send OTP.";
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'amitpss239@gmail.com';
+                    $mail->Password = 'houu svmg tlpy hyqx';
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port = 587;
+
+                    $mail->setFrom('amitpss239@gmail.com', 'Club Admin');
+                    $mail->addAddress($email);
+                    $mail->isHTML(true);
+                    $mail->Subject = "Password Forget";
+                    $mail->Body = "
+                        <h2>Reset Your Password</h2>
+                        <p><strong>Your OTP for Password forget is:</strong><b> $otp</b></p>
+                        <p> Please do not share this OTP with anyone. </p>
+                        <p> OTP is valid for only 2 minutes in IST. </p>
+                        
+                        <p>Thank you for choosing us!</p>
+                    ";
+
+                    $mail->send();
+                    echo json_encode(["status" => "success", "message" => "OTP sent to your email. Please check your inbox."]);
+                } catch (Exception $e) {
+                    echo json_encode(["status" => "error", "message" => "Email could not be sent: {$e->getMessage()}"]);
+                }
+            } else {
+                echo json_encode(["status" => "error", "message" => "Email is not registered with us."]);
+            }
+        } else {
+            echo json_encode(["status" => "error", "message" => "Email is required."]);
+        }
+    }
+
+    if ($action == 'updatePassword') {
+        if (isset($_POST['email'], $_POST['otp'], $_POST['newPassword'])) {
+            $email = $_POST['email'];
+            $otp = $_POST['otp'];
+            $newPassword = $_POST['newPassword'];
+
+            if ($_SESSION['email'] == $email && $_SESSION['otp'] == $otp) {
+                $sql = "UPDATE vender SET password = '$newPassword' WHERE email = '$email'";
+
+                if ($conn->query($sql) === TRUE) {
+                    unset($_SESSION['otp']);
+                    unset($_SESSION['email']);
+                    echo "Password updated successfully";
+                } else {
+                    echo "Error updating password";
+                }
+            } else {
+                echo "Invalid OTP";
+            }
+        } else {
+            echo "All fields are required.";
+        }
     }
 }
+
+$conn->close();
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,6 +94,8 @@ if (isset($_POST['send_otp'])) {
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
@@ -128,23 +134,30 @@ if (isset($_POST['send_otp'])) {
 
     </nav>
     <form id="venderLogin" method="POST" action="">
-    <h2>Vendor Password Forget</h2>
-    
-    <label for="user">Enter Your Email</label>
-    <input type="text" name="user" id="user" required>
+        <h2>Vendor Password Forget</h2>
 
-    <!-- Send OTP Link -->
-    <span id="forget">
-        <a href="javascript:void(0);" id="sendOtpBtn">Send OTP</a>
-    </span>
+        <label for="user">Enter Your Email</label>
+        <input type="email" name="user" id="user" required>
 
-    <label for="otp">Enter OTP</label>
-    <input type="text" name="otp" id="otp" required>
+        <span id="forget"><a href="javascript:void(0);" id="sendOtpBtn">Send OTP</a></span>
 
-    <button type="submit" id="submitBtn">Submit</button>
-    <a id="venderreg" href="VenderReg.php">Register</a>
-    <a id="venderreg" href="VenderLogin.php">Login</a>
-</form>
+        <label for="otp">Enter OTP</label>
+        <input type="text" name="otp" id="otp" required disabled>
+
+        <div id="passwordFields" style="display: none;">
+            <label for="newPassword">Enter New Password</label>
+            <input type="password" name="newPassword" id="newPassword" required>
+
+            <label for="confirmPassword">Confirm New Password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" required>
+
+            <button type="submit" id="submitBtn" disabled>Submit</button>
+        </div>
+
+        <a id="venderreg" href="VenderReg.php">Register</a>
+        <a id="venderreg" href="VenderLogin.php">Login</a>
+    </form>
+
     <!---,.............footer is eher-->
     <div class="footer">
         <div class="fleft">
@@ -190,17 +203,19 @@ if (isset($_POST['send_otp'])) {
 
 </html>
 <style>
-    #user{
+    #user {
         margin-bottom: 0px;
     }
 
-#forget {
+    #forget {
         /* background-color: #ccc !important; */
     }
-    input[type='password']{
+
+    input[type='password'] {
         color: red;
         margin-bottom: 0;
     }
+
     #forget a {
         color: orange !important;
         cursor: pointer;
@@ -215,7 +230,7 @@ if (isset($_POST['send_otp'])) {
         border-radius: 4px;
         margin-top: 10px;
         display: flow-root;*/
-    } 
+    }
 
     form {
         /* margin-top: 30px auto auto auto; */
@@ -246,19 +261,20 @@ if (isset($_POST['send_otp'])) {
         border-radius: 4px;
         box-sizing: border-box;
     }
-    button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
 
 
     input[type="submit"] {
@@ -299,49 +315,80 @@ if (isset($_POST['send_otp'])) {
     }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-document.getElementById('sendOtpBtn').addEventListener('click', function() {
-    let email = document.getElementById('user').value;
+    let generatedOtp = null;
 
-    if (!email) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please enter a valid email!',
-        });
-        return;
-    }
+    document.getElementById('sendOtpBtn').addEventListener('click', function () {
+        let email = document.getElementById('user').value;
 
-    fetch('', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `email=${email}&send_otp=1`
-    })
-    .then(response => response.text())
-    .then(result => {
-        console.log(result); 
-        localStorage.setItem('otp', result); 
-    })
-    .catch(error => console.error('Error:', error));
-});
+        if (!email) {
+            Swal.fire('Error', 'Please enter a valid email address.', 'error');
+            return;
+        }
 
-document.getElementById('submitBtn').addEventListener('click', function(event) {
-    event.preventDefault();
-    
-    let enteredOtp = document.getElementById('otp').value;
-    let storedOtp = localStorage.getItem('otp');
-    let otpExpiry = localStorage.getItem('otp_expiry');
+        fetch('', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'email=' + email + '&action=sendOtp'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    Swal.fire({
+                        title: 'OTP Sent',
+                        text: 'OTP has been sent successfully to your email. Please enter the OTP.',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then(() => {
+                        document.getElementById('otp').disabled = false;
+                        document.getElementById('submitBtn').disabled = false;
+                        document.getElementById('passwordFields').style.display = 'block';
+                    });
+                } else {
+                    Swal.fire('Error', data.message, 'error');
+                }
+            })
+            .catch(error => {
+                Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+            });
+    });
 
-    if (enteredOtp === storedOtp && Date.now() < otpExpiry) {
-        window.location.href = 'amit.php'; 
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'OTP wrong',
-            text: 'The OTP you entered is incorrect or expired.',
-        });
-    }
-});
+    document.getElementById('venderLogin').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let enteredOtp = document.getElementById('otp').value;
+        let newPassword = document.getElementById('newPassword').value;
+        let confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (enteredOtp !== generatedOtp) {
+            Swal.fire('Error', 'Invalid OTP. Please re-enter the correct OTP.', 'error');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            Swal.fire('Error', 'New password and confirm password do not match.', 'error');
+            return;
+        }
+
+        fetch('', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'email=' + document.getElementById('user').value + '&newPassword=' + newPassword + '&action=updatePassword'
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "Password updated successfully") {
+                    Swal.fire('Success', 'Your password has been updated successfully. You can now log in.', 'success')
+                        .then(() => {
+                            window.location.href = 'VenderLogin.php';
+                        });
+                } else {
+                    Swal.fire('Error', data, 'error');
+                }
+            })
+            .catch(error => {
+                Swal.fire('Error', 'An error occurred while updating the password. Please try again.', 'error');
+            });
+    });
 </script>

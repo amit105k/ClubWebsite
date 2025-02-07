@@ -106,7 +106,9 @@ $conn->close();
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Login">
+        <a id="venderreg" href="CustomerReg.php">Register</a>
+
     </form>
 
 
@@ -187,21 +189,40 @@ $conn->close();
         box-sizing: border-box;
     }
 
-    input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        /* background-color: #4CAF50; */
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        background-color: #45a049;
-    }
     .ftext {
         text-align: center;
         background-color: black;
         color: white;
         padding: 10px;
         box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #45a049;
+        font-size: 16px;
+
+    }
+    #venderreg {
+        width: 95%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+       font-size: 16px;
+        text-align: center;
+        /* margin-top: 10px; */
+        text-decoration: none;
+    }
+
+    #venderreg:hover {
+        background-color: #45a049;
     }
 </style>

@@ -111,6 +111,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
         }
+        #venderreg {
+        width: 95%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        margin-top: 10px;
+        text-decoration: none;
+    }
+
+    #venderreg:hover {
+        background-color: #45a049;
+    }
     </style>
 </head>
 
@@ -172,7 +189,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div id="passwordError" style="color: red; display: none;">Passwords do not match.</div>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Register</button>
+        <a id="venderreg" href="CustomeLogin.php">Login</a>
+
     </form>
 
    <script>

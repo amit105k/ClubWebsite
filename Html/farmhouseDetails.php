@@ -90,7 +90,7 @@
 
             <!--...................................lawn are here ......................-->
             <div class="c-customer-reviews lawn">
-                <h2>Customer Reviews</h2>
+                <h2>Lawns Realted to This FarmHouse</h2>
                 <div class="c-slider-container lawn1">
                     <div class="c-slider lawn2">
                         <div class="c-slide lawn3">
