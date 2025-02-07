@@ -82,23 +82,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <nav>
+    <!-- <nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <!-- <a href="service.php">Services</a> -->
-        <!-- <a href="#clubs">Clubs</a>
-        <a href="#clubs">Gallery</a> -->
+        <a href="service.php">Services</a>
+        <a href="#clubs">Clubs</a>
+        <a href="#clubs">Gallery</a> 
         <a href="contact.php">Contact Us</a>
-        <!-- <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> -->
+         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> 
         <a href="status.php" id="status">Booking Status</a>
-        <a href="logout.php">Logout</a>
         <a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a>
 
-        <!--..................drop down is here-->
+        ..................drop down is here
 
 
-    </nav>
+    </nav> -->
 
 
     <!-- ...this is profile details..-->
@@ -119,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
                 <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
-
+                <li> <a href="logout.php">Logout</a></li>
             </ul>
 
 

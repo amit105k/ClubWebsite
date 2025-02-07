@@ -1,4 +1,4 @@
-<?php
+<!-- 
 include("db.php");
 session_start();
 
@@ -40,7 +40,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->close();
 }
 
-$conn->close();
+$conn->close(); -->
+
+
+
+<?php
+session_start();
+include("db.php");
+
+function generateOTP() {
+    return rand(100000, 999999); 
+    ?><h1><?php echo htmlspecialchars(rand())?>;</h1><?php
+}
+
+if (isset($_POST['send_otp'])) {
+    $email = $_POST['email'];
+    $otp = generateOTP();
+    $expiry_time = time() + 120; 
+
+    $_SESSION['otp'] = $otp;
+    $_SESSION['otp_expiry'] = $expiry_time;
+
+    $subject = "Your OTP Code";
+    $message = "Your OTP code is: $otp";
+    $headers = "From: amitpss239@gmail.com";
+    include('../smtp/PHPMailerAutoload.php');
+
+    if (mail($email, $subject, $message, $headers)) {
+        echo "OTP sent!";
+    } else {
+        echo "Failed to send OTP.";
+    }
+}
 ?>
 
 
@@ -97,19 +128,23 @@ $conn->close();
 
     </nav>
     <form id="venderLogin" method="POST" action="">
-        <h2>Vendor Login</h2>
-        <label for="user">Enter Your Email</label>
-        <input type="text" name="user" id="user" required>
+    <h2>Vendor Password Forget</h2>
+    
+    <label for="user">Enter Your Email</label>
+    <input type="text" name="user" id="user" required>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        <span id="forget"><a href="VenderPassForget.php">ForgetPassword</a></span>
+    <!-- Send OTP Link -->
+    <span id="forget">
+        <a href="javascript:void(0);" id="sendOtpBtn">Send OTP</a>
+    </span>
 
+    <label for="otp">Enter OTP</label>
+    <input type="text" name="otp" id="otp" required>
 
-        <button type="submit">Login</button>
-        <a id="venderreg" href="VenderReg.php">Register</a>
-    </form>
-
+    <button type="submit" id="submitBtn">Submit</button>
+    <a id="venderreg" href="VenderReg.php">Register</a>
+    <a id="venderreg" href="VenderLogin.php">Login</a>
+</form>
     <!---,.............footer is eher-->
     <div class="footer">
         <div class="fleft">
@@ -155,7 +190,11 @@ $conn->close();
 
 </html>
 <style>
-    #forget {
+    #user{
+        margin-bottom: 0px;
+    }
+
+#forget {
         /* background-color: #ccc !important; */
     }
     input[type='password']{
@@ -207,20 +246,19 @@ $conn->close();
         border-radius: 4px;
         box-sizing: border-box;
     }
-
     button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-    button:hover {
-        background-color: #45a049;
-    }
+        button:hover {
+            background-color: #45a049;
+        }
 
 
     input[type="submit"] {
@@ -260,3 +298,50 @@ $conn->close();
         background-color: #45a049;
     }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.getElementById('sendOtpBtn').addEventListener('click', function() {
+    let email = document.getElementById('user').value;
+
+    if (!email) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please enter a valid email!',
+        });
+        return;
+    }
+
+    fetch('', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `email=${email}&send_otp=1`
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log(result); 
+        localStorage.setItem('otp', result); 
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('submitBtn').addEventListener('click', function(event) {
+    event.preventDefault();
+    
+    let enteredOtp = document.getElementById('otp').value;
+    let storedOtp = localStorage.getItem('otp');
+    let otpExpiry = localStorage.getItem('otp_expiry');
+
+    if (enteredOtp === storedOtp && Date.now() < otpExpiry) {
+        window.location.href = 'amit.php'; 
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'OTP wrong',
+            text: 'The OTP you entered is incorrect or expired.',
+        });
+    }
+});
+</script>

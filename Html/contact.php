@@ -149,7 +149,6 @@
             padding: 10px;
             border: .2px solid white;
             border-radius: 8px;
-            /* background-color: black; */
         }
 
         .fa-brands:hover {
@@ -191,7 +190,6 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            /* background: black; */
             margin-left: 25%;
             margin-bottom: 5%;
         }

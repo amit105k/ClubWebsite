@@ -7,10 +7,9 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 
-$logo=$_SESSION['logo'];
+$logo = $_SESSION['logo'];
 
-
-//...................................
+// ...................................
 
 include('db.php');
 
@@ -36,7 +35,7 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $conn->real_escape_string($_POST['price']);
-    $promocode= $conn->real_escape_string($_POST['promocode']);
+    $promocode = $conn->real_escape_string($_POST['promocode']);
     $promodis = $conn->real_escape_string($_POST['promodis']);
     $extraperson = $conn->real_escape_string($_POST['extraperson']);
 
@@ -44,59 +43,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 price = ?, 
                 promocode = ?, 
                 promodis = ?, 
-                extraperson = ?
-                 
+                extraperson = ? 
             WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isii", $price, $promocode, $promodis, $extraperson);
+    $stmt->bind_param("isiii", $price, $promocode, $promodis, $extraperson, $id);
 
     if ($stmt->execute()) {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Club details have been updated successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'VenderProfile.php';
-                    });
-                });
-              </script>";
+        echo json_encode(['status' => 'success', 'message' => 'Club details have been updated successfully.']);
     } else {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Failed to update the club details.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                });
-              </script>";
+        echo json_encode(['status' => 'error', 'message' => 'Failed to update the club details.']);
     }
 
     $stmt->close();
 }
 
-
-// $sql = "SELECT id, club_name FROM club_overviews";
-// $result = $conn->query($sql);
-// $clubs = [];
-// while ($row = $result->fetch_assoc()) {
-//     $clubs[] = $row;
-// }
-
-// $selected_club = null;
-// if (isset($_GET['id']) && $_GET['id'] != 'new') {
-//     $id = $_GET['id'];
-//     $sql = "SELECT * FROM club_overviews WHERE id = $id";
-//     $selected_club_result = $conn->query($sql);
-//     $selected_club = $selected_club_result->fetch_assoc();
-// }
-
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -106,6 +69,8 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Price/Promo Cre/Upd</title>
     <link rel="stylesheet" href="../css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
@@ -113,23 +78,23 @@ $conn->close();
 </head>
 
 <body>
-    <nav>
+     <!-- <nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <!-- <a href="service.php">Services</a> -->
-        <!-- <a href="#clubs">Clubs</a>
-        <a href="#clubs">Gallery</a> -->
+        <a href="service.php">Services</a>
+        <a href="#clubs">Clubs</a>
+        <a href="#clubs">Gallery</a> 
         <a href="contact.php">Contact Us</a>
-        <!-- <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> -->
+         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> 
         <a href="status.php" id="status">Booking Status</a>
         <a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a>
 
-        <a href="logout.php">Logout</a>
-        <!--..................drop down is here-->
+        ..................drop down is here
 
 
-    </nav>
+    </nav> -->
+
 
 
     <!-- ...this is profile details..-->
@@ -144,15 +109,15 @@ $conn->close();
                 <!-- <img src="../image/amit.png" alt="image"> -->
             </div>
             <ul>
+                <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
                 <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
-
+                <li> <a href="logout.php">Logout</a></li>
             </ul>
-
 
         </div>
         <div class="details">
@@ -192,8 +157,8 @@ $conn->close();
                         value="<?php echo $selected_club ? $selected_club['extraperson'] : ''; ?>"><br><br>
 
 
-                    <input type="submit" name="submit" value="Update Club">
-                </form>
+                        <input type="submit" name="submit" value="Update Club">
+                        </form>
             <?php endif; ?>
         </div>
 
@@ -442,3 +407,44 @@ $conn->close();
         /* margin-left: 12%; */
     }
 </style>
+
+      <script>
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            fetch('', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = 'VenderProfile.php';  
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Something went wrong!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        });
+</script>

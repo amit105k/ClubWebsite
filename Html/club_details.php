@@ -746,10 +746,10 @@
                 </div>
                 <!-- Slide 3 -->
                 <div class="c-slide">
-                    <img src="https://media.licdn.com/dms/image/v2/D5635AQH2ggyUOJLbSg/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1730032881426?e=1737792000&v=beta&t=cvkKOIS26kHcvJOdUaKr1YR73Ka98ZxgfFwxTQ0Kyqw"
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFZsVG6jE6NSEAE-tZ6fQInynUg0tRyD-k1Q&s"
                         alt="Customer 3">
                     <div class="c-content">
-                        <h4>Rupal Singh</h4>
+                        <h4>Aishwariya Rai</h4>
                         <p>Very satisfied with my purchase. Highly recommended!</p>
                         <div class="c-star-rating">
                             <span class="c-star filled">★</span>

@@ -130,13 +130,14 @@ $conn->close();
                 <!-- <img src="../image/amit.png" alt="image"> -->
             </div>
             <ul>
+                <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
-                <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
+                <li><a href="VenderPriceUpdate.php">Price/Cupon</a></li>
                 <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
-
+                <li> <a href="logout.php">Logout</a></li>
             </ul>
 
 
