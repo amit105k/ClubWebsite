@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($action === 'sendOtp') {
         $email = $_POST['email'];
-        $checkEmail = "SELECT email FROM vender WHERE email = ?";
+        $checkEmail = "SELECT email FROM customerreg WHERE email = ?";
         $stmt = $conn->prepare($checkEmail);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $newPassword =$_POST['newPassword'];
         $email = $_SESSION['email'];
 
-        $updateQuery = "UPDATE vender SET password = ? WHERE email = ?";
+        $updateQuery = "UPDATE customerreg SET password = ? WHERE email = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param("ss", $newPassword, $email);
 
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendor Password Reset</title>
+    <title>Customer Password Reset</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </nav>
     <form id="venderLogin">
-    <h2>Vendor Password Forget</h2>
+    <h2>Customer Password Forget</h2>
 
     <label for="user">Enter Your Email</label>
     <input type="email" name="user" id="user" required>
@@ -157,8 +157,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit" id="submitBtn" disabled>Submit</button>
     </div>
 
-    <a  id="venderreg" href="VenderReg.php">Register</a>
-    <a  id="venderreg" href="VenderLogin.php">Login</a>
+    <a  id="venderreg" href="CustomerReg.php">Register</a>
+    <a  id="venderreg" href="CustomeLogin.php">Login</a>
 </form>
     <!---,.............footer is eher-->
     <div class="footer">
@@ -209,22 +209,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    /* display: flex; */
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
 }
 
-/* Form Container */
+
 form {
     max-width: 400px;
     margin: 8% auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color:background-color: #f9f9f9;
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -234,15 +232,13 @@ form h2 {
     margin-bottom: 20px;
 }
 
-/* Labels */
+
 label {
     display: block;
-    text-align: left;
     font-weight: bold;
     margin: 10px 0 5px;
 }
 
-/* Input Fields */
 input {
     width: 100%;
     padding: 8px;
@@ -262,13 +258,13 @@ input[type='password'] {
     margin-bottom: 0;
 }
 
-/* OTP Input */
+
 #otp[disabled] {
     background-color: #e9ecef;
     cursor: not-allowed;
 }
 
-/* OTP Button */
+
 #forget {
     float: right;
 }
@@ -286,7 +282,6 @@ input[type='password'] {
     text-decoration: underline;
 }
 
-/* Submit Button */
 button, input[type="submit"] {
     width: 100%;
     padding: 10px;
@@ -342,114 +337,7 @@ button:hover, input[type="submit"]:hover {
 }
 
 </style>
-<!-- <style>
-    #user {
-        margin-bottom: 0px;
-    }
 
-    #forget {
-    
-        float: right;
-    }
-
-    input[type='password'] {
-        color: red;
-        margin-bottom: 0;
-    }
-
-    #forget a {
-        color: orange !important;
-        cursor: pointer;
-        text-align: right;
-        display: inline-block;
-        padding: 10px;
-        text-decoration: none;
-      
-    }
-
-    form {
-        /* margin-top: 30px auto auto auto; */
-        max-width: 400px;
-        margin: 8% auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-        text-align: center;
-    }
-
-    form h2 {
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-    }
-
-    input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        display: block;
-    }
-
-    button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-
-
-    input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        /* background-color: #4CAF50; */
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        background-color: #45a049;
-    }
-
-    .ftext {
-        text-align: center;
-        background-color: black;
-        color: white;
-        padding: 10px;
-        box-shadow: 0 0 0px 0px rgba(208, 141, 58, 0.57);
-    }
-
-    #venderreg {
-        width: 95%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        display: inline-block;
-        text-align: center;
-        margin-top: 10px;
-        text-decoration: none;
-    }
-
-    #venderreg:hover {
-        background-color: #45a049;
-    }
-</style> -->
 
 
 <script>

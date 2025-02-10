@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 <label for="">Enter Confirm Password</label>
                 <input type="password" required id="confirmPassword">
-                <h3>your old password is: <?php echo htmlspecialchars($row['Password']) ?></h3>
+            
                 <p id="passwordError" style="display: none; color: red;"></p>
 
                 <button type="submit">Update</button>

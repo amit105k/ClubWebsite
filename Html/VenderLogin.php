@@ -159,7 +159,7 @@ $conn->close();
         /* background-color: #ccc !important; */
     }
     input[type='password']{
-        color: red;
+        /* color: red; */
         margin-bottom: 0;
     }
     #forget a {

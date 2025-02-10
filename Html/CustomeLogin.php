@@ -105,6 +105,8 @@ $conn->close();
 
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required>
+        <span id="forget"><a href="CustomerPassForget.php">ForgetPassword</a></span>
+
 
         <input type="submit" value="Login">
         <a id="venderreg" href="CustomerReg.php">Register</a>
@@ -159,8 +161,20 @@ $conn->close();
 
 </html>
 <style>
+     input[type='password']{
+        margin-bottom: 0;
+    }
+     #forget a {
+        color: orange !important;
+        cursor: pointer;
+        text-align: right;
+        display: inline-block;
+        width: 95%;
+        padding: 10px;
+        text-decoration: none;
+       
+    } 
     form {
-        /* margin-top: 30px auto auto auto; */
         max-width: 400px;
         margin: 8% auto;
         padding: 20px;
