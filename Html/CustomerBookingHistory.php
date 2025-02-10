@@ -62,7 +62,7 @@ $result = $stmt->get_result();
                 <li><a href="CustomerProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a></li>
                 <li><a href="">Booking Ticket</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
-                <li><a href="CustomerProfileUpdate.php">Update Passw</a></li>
+                <li><a href="CustomerPasswordUpdate.php">Change Password</a></li>
 
             </ul>
 

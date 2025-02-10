@@ -49,6 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             /* font-family: Arial, sans-serif; */
             /* margin: 20px; */
+            background-color: #f4f4f4;
+
         }
 
         form {
@@ -57,7 +59,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            background-color: #f4f3f3 !important;
+            margin-bottom: 20px;
+
         }
 
         label {

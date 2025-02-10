@@ -213,6 +213,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: #f4f3f3 !important;
+
 }
 
 

@@ -161,6 +161,10 @@ $conn->close();
 
 </html>
 <style>
+    body{
+        background-color: #f4f3f3 !important;
+
+    }
      input[type='password']{
         margin-bottom: 0;
     }

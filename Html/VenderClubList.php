@@ -73,7 +73,7 @@ $result = $stmt->get_result();
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
-                <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
+                <li><a href="VenderPasswordUpdate.php">Change Password</a></li>
                 <li> <a href="logout.php">Logout</a></li>
             </ul>
 

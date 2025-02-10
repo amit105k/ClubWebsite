@@ -49,6 +49,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     <style>
+        body{
+            background-color: #f4f4f4;
+
+        }
         form {
             max-width: 400px;
             margin: auto;

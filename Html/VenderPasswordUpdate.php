@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
-                <li><a href="VenderPasswordUpdate.php">Update Login Pass</a></li>
+                <li><a href="VenderPasswordUpdate.php">Change Password</a></li>
                 <li> <a href="logout.php">Logout</a></li>
             </ul>
 
@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f9;
+        background-color: #f4f3f3 !important;
         color: #333;
     }
 

@@ -236,10 +236,11 @@ form h2 {
 
 /* Labels */
 label {
-    display: block;
-    text-align: left;
+    /* display: block; */
+    text-align: center;
     font-weight: bold;
-    margin: 10px 0 5px;
+    /* margin: 10px 0 5px; */
+    /* margin-bottom: 10px !important; */
 }
 
 /* Input Fields */
@@ -250,7 +251,8 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    display: block;
+    /* display: block; */
+    margin-top: 10px;
 }
 
 #user {

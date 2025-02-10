@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
                 <li><a href="CustomerBookingHistory.php">Booking History</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
-                <li><a href="CustomerPasswordUpdate.php">Update Passw</a></li>
+                <li><a href="CustomerPasswordUpdate.php">Change Password</a></li>
 
             </ul>
 
@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f9;
+        background-color: #f4f3f3 !important;
         color: #333;
     }
 
@@ -240,9 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     .profile-left ul li {
-        /* line-height: 50px; */
         list-style-type: none;
-        /* padding: 20px; */
         align-items: center;
         justify-content: center;
         display: flex;
@@ -259,10 +257,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         color: white;
         line-height: 50px;
     }
-
     .profile-left ul li a:hover {
         color: orange;
     }
+
 
     .profile {
         /* background-color: yellow; */
