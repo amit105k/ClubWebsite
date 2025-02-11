@@ -77,16 +77,35 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
 
 //     $stmt->close();
 // }
-$emaill = $_SESSION['vender']; 
-$email=$emaill['email'];
+
+$email = $vender['email'];
 $targetDir = "uploads/";
-$response = ""; // To track the success or failure of the process
+$response = "";
 
 if (!is_dir($targetDir)) {
-    mkdir($targetDir, 0777, true); // Create directory if it does not exist
+    mkdir($targetDir, 0777, true);
 }
 
+$stmt = $conn->prepare("SELECT image_url1, image_url2, image_url3 FROM club_overviews WHERE id = ?");
+$stmt->bind_param("s", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$stmt->close();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload'])) {
+
+    foreach (['image_url1', 'image_url2', 'image_url3'] as $index => $column) {
+        if (!empty($row[$column]) && file_exists($row[$column])) {
+            unlink($row[$column]); 
+        }
+    }
+
+    $stmt = $conn->prepare("UPDATE club_overviews SET image_url1 = NULL, image_url2 = NULL, image_url3 = NULL WHERE id = ?");
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+    $stmt->close();
+
     $uploadedFiles = [];
 
     for ($i = 1; $i <= 3; $i++) {
@@ -96,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload'])) {
             $targetFilePath = $targetDir . time() . "_" . $fileName;
             $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
 
-            // Allowed file types
             $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
             if (in_array($fileType, $allowedTypes)) {
                 if (move_uploaded_file($_FILES[$fileKey]["tmp_name"], $targetFilePath)) {
@@ -112,10 +130,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload'])) {
         }
     }
 
-    // If all 3 images are uploaded successfully, update the database
     if (count($uploadedFiles) === 3) {
-        $stmt = $conn->prepare("UPDATE club_overviews SET image_url1 = ?, image_url2 = ?, image_url3 = ? WHERE email = ?");
-        $stmt->bind_param("ssss", $uploadedFiles[0], $uploadedFiles[1], $uploadedFiles[2], $email);
+        $stmt = $conn->prepare("UPDATE club_overviews SET image_url1 = ?, image_url2 = ?, image_url3 = ? WHERE id = ?");
+        $stmt->bind_param("ssss", $uploadedFiles[0], $uploadedFiles[1], $uploadedFiles[2], $id);
 
         if ($stmt->execute()) {
             $response = "success";
@@ -210,19 +227,37 @@ $conn->close();
 
             <?php if ($selected_club || isset($_GET['id']) && $_GET['id'] == 'new'): ?>
                 <form action="" method="post" enctype="multipart/form-data">
-                    <label>Image 1:</label>
-                    <input type="file" name="image1" required><br><br>
 
-                    <label>Image 2:</label>
-                    <input type="file" name="image2" required><br><br>
+<div class="upload-container">
+    <?php if (!empty($row['image_url1']) && file_exists($row['image_url1'])): ?>
+        <img src="<?php echo $row['image_url1']; ?>" class="image-preview" alt="Image 1">
+    <?php else: ?>
+        <span>No image uploaded</span>
+    <?php endif; ?>
+    <input type="file" name="image1" required>
+</div><br>
 
-                    <label>Image 3:</label>
-                    <input type="file" name="image3" required><br><br>
+<div class="upload-container">
+    <?php if (!empty($row['image_url2']) && file_exists($row['image_url2'])): ?>
+        <img src="<?php echo $row['image_url2']; ?>" class="image-preview" alt="Image 2">
+    <?php else: ?>
+        <span>No image uploaded</span>
+    <?php endif; ?>
+    <input type="file" name="image2" required>
+</div><br>
 
-                    <!-- <h3><?php echo htmlspecialchars($email); ?></h3> <br> -->
+<div class="upload-container">
+    <?php if (!empty($row['image_url3']) && file_exists($row['image_url3'])): ?>
+        <img src="<?php echo $row['image_url3']; ?>" class="image-preview" alt="Image 3">
+    <?php else: ?>
+        <span>No image uploaded</span>
+    <?php endif; ?>
+    <input type="file" name="image3" required>
+</div><br>
 
-                    <button type="submit" name="upload">Upload Images</button>
-                </form>
+<h3><?php echo htmlspecialchars($email); ?></h3>
+<button type="submit" name="upload">Upload Images</button>
+</form>
 
             <?php endif; ?>
         </div>
@@ -476,6 +511,17 @@ $conn->close();
         height: 100%;
         /* margin-left: 12%; */
     }
+    .image-preview {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+        .upload-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 </style>
 
 <script>
