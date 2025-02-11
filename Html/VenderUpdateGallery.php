@@ -7,7 +7,7 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 
-$logo=$_SESSION['logo'];
+$logo = $_SESSION['logo'];
 
 
 //...................................
@@ -34,50 +34,99 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
     $selected_club = $selected_club_result->fetch_assoc();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $image_url1 = isset($_POST['image_url1']) ? $conn->real_escape_string($_POST['image_url1']) : '';
-    $image_url2 = isset($_POST['image_url2']) ? $conn->real_escape_string($_POST['image_url2']) : '';
-    $image_url3 = isset($_POST['image_url3']) ? $conn->real_escape_string($_POST['image_url3']) : '';
-   
-    $sql = "UPDATE club_overviews SET 
-                image_url1 = ?, 
-               image_url2 = ?, 
-                image_url3 = ?
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     $image_url1 = isset($_POST['image_url1']) ? $conn->real_escape_string($_POST['image_url1']) : '';
+//     $image_url2 = isset($_POST['image_url2']) ? $conn->real_escape_string($_POST['image_url2']) : '';
+//     $image_url3 = isset($_POST['image_url3']) ? $conn->real_escape_string($_POST['image_url3']) : '';
+
+//     $sql = "UPDATE club_overviews SET 
+//                 image_url1 = ?, 
+//                image_url2 = ?, 
+//                 image_url3 = ?
                
                  
-            WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssi", $image_url1,$image_url2,$image_url3,$id);
+//             WHERE id = ?";
+//     $stmt = $conn->prepare($sql);
+//     $stmt->bind_param("sssi", $image_url1, $image_url2, $image_url3, $id);
 
-    if ($stmt->execute()) {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Gallery updated successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'update_club.php';
-                    });
-                });
-              </script>";
-    } else {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Failed to update Gallery.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                });
-              </script>";
-    }
+//     if ($stmt->execute()) {
+//         echo "<script>
+//                 document.addEventListener('DOMContentLoaded', function() {
+//                     Swal.fire({
+//                         title: 'Success!',
+//                         text: 'Gallery updated successfully.',
+//                         icon: 'success',
+//                         confirmButtonText: 'OK'
+//                     }).then(() => {
+//                         window.location.href = 'update_club.php';
+//                     });
+//                 });
+//               </script>";
+//     } else {
+//         echo "<script>
+//                 document.addEventListener('DOMContentLoaded', function() {
+//                     Swal.fire({
+//                         title: 'Error!',
+//                         text: 'Failed to update Gallery.',
+//                         icon: 'error',
+//                         confirmButtonText: 'OK'
+//                     });
+//                 });
+//               </script>";
+//     }
 
-    $stmt->close();
+//     $stmt->close();
+// }
+$emaill = $_SESSION['vender']; 
+$email=$emaill['email'];
+$targetDir = "uploads/";
+$response = ""; // To track the success or failure of the process
+
+if (!is_dir($targetDir)) {
+    mkdir($targetDir, 0777, true); // Create directory if it does not exist
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload'])) {
+    $uploadedFiles = [];
+
+    for ($i = 1; $i <= 3; $i++) {
+        $fileKey = "image" . $i;
+        if (isset($_FILES[$fileKey]) && $_FILES[$fileKey]['error'] == 0) {
+            $fileName = basename($_FILES[$fileKey]["name"]);
+            $targetFilePath = $targetDir . time() . "_" . $fileName;
+            $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
+
+            // Allowed file types
+            $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+            if (in_array($fileType, $allowedTypes)) {
+                if (move_uploaded_file($_FILES[$fileKey]["tmp_name"], $targetFilePath)) {
+                    $uploadedFiles[] = $targetFilePath;
+                } else {
+                    $response = "error";
+                }
+            } else {
+                $response = "error";
+            }
+        } else {
+            $response = "error";
+        }
+    }
+
+    // If all 3 images are uploaded successfully, update the database
+    if (count($uploadedFiles) === 3) {
+        $stmt = $conn->prepare("UPDATE club_overviews SET image_url1 = ?, image_url2 = ?, image_url3 = ? WHERE email = ?");
+        $stmt->bind_param("ssss", $uploadedFiles[0], $uploadedFiles[1], $uploadedFiles[2], $email);
+
+        if ($stmt->execute()) {
+            $response = "success";
+        } else {
+            $response = "error";
+        }
+        $stmt->close();
+    } else {
+        $response = "error";
+    }
+}
 
 
 
@@ -96,6 +145,7 @@ $conn->close();
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -126,7 +176,7 @@ $conn->close();
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-            <img src="<?php echo $logo ?>" alt="Club images">
+                <img src="<?php echo $logo ?>" alt="Club images">
                 <!-- <img src="../image/amit.png" alt="image"> -->
             </div>
             <ul>
@@ -159,22 +209,21 @@ $conn->close();
             </form>
 
             <?php if ($selected_club || isset($_GET['id']) && $_GET['id'] == 'new'): ?>
-                <form action="" method="POST">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <label>Image 1:</label>
+                    <input type="file" name="image1" required><br><br>
 
-                    <label for="image_url">Image URL 1:</label>
-                    <input type="text" id="image_url" name="image_url1"
-                    value="<?php echo $selected_club ? $selected_club['image_url1'] : ''; ?>" ><br><br>
+                    <label>Image 2:</label>
+                    <input type="file" name="image2" required><br><br>
 
-                    <label for="image_url">Image URL 2:</label>
-                    <input type="text" id="image_url" name="image_url2"
-                    value="<?php echo $selected_club ? $selected_club['image_url2'] : ''; ?>" ><br><br>
+                    <label>Image 3:</label>
+                    <input type="file" name="image3" required><br><br>
 
-                    <label for="image_url">Image URL 3:</label>
-                    <input type="text" id="image_url" name="image_url3"
-                    value="<?php echo $selected_club ? $selected_club['image_url3'] : ''; ?>" ><br><br>                    
+                    <!-- <h3><?php echo htmlspecialchars($email); ?></h3> <br> -->
 
-                    <input type="submit" name="submit" value="Update Club">
+                    <button type="submit" name="upload">Upload Images</button>
                 </form>
+
             <?php endif; ?>
         </div>
 
@@ -246,6 +295,11 @@ $conn->close();
         align-items: center;
 
 
+    }
+    button[type='submit']{
+        color: white;
+        background-color: #45a049;
+        border-radius: 5px;
     }
 
     .details form {
@@ -423,3 +477,26 @@ $conn->close();
         /* margin-left: 12%; */
     }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let response = "<?php echo $response; ?>";
+
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Images updated successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "VenderProfile.php"; 
+            });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Images not uploaded. Please try again.',
+                icon: 'error'
+            });
+        }
+    });
+</script>
