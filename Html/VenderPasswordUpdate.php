@@ -9,11 +9,11 @@ if (!isset($_SESSION['vender'])) {
 $vender = $_SESSION['vender'];
 
 
-if (!isset($_SESSION['logo'])) {
-    header("Location: VenderLogin.php");
-    exit();
+if (isset($_SESSION['logo']) && !empty($_SESSION['logo'])) {
+    echo "Logo found: " . $_SESSION['logo'];
+} else {
 }
-$logo=$_SESSION['logo'];
+
 include("db.php");
 
 if ($conn->connect_error) {

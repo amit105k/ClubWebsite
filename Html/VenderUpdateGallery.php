@@ -7,7 +7,12 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 
-$logo = $_SESSION['logo'];
+// $logo = $_SESSION['logo'];
+
+if (isset($_SESSION['logo']) && !empty($_SESSION['logo'])) {
+    echo "Logo found: " . $_SESSION['logo'];
+} else {
+}
 
 
 //...................................
@@ -43,8 +48,8 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
 //                 image_url1 = ?, 
 //                image_url2 = ?, 
 //                 image_url3 = ?
-               
-                 
+
+
 //             WHERE id = ?";
 //     $stmt = $conn->prepare($sql);
 //     $stmt->bind_param("sssi", $image_url1, $image_url2, $image_url3, $id);
@@ -97,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload'])) {
 
     foreach (['image_url1', 'image_url2', 'image_url3'] as $index => $column) {
         if (!empty($row[$column]) && file_exists($row[$column])) {
-            unlink($row[$column]); 
+            unlink($row[$column]);
         }
     }
 
@@ -228,36 +233,36 @@ $conn->close();
             <?php if ($selected_club || isset($_GET['id']) && $_GET['id'] == 'new'): ?>
                 <form action="" method="post" enctype="multipart/form-data">
 
-<div class="upload-container">
-    <?php if (!empty($row['image_url1']) && file_exists($row['image_url1'])): ?>
-        <img src="<?php echo $row['image_url1']; ?>" class="image-preview" alt="Image 1">
-    <?php else: ?>
-        <span>No image uploaded</span>
-    <?php endif; ?>
-    <input type="file" name="image1" required>
-</div><br>
+                    <div class="upload-container">
+                        <?php if (!empty($row['image_url1']) && file_exists($row['image_url1'])): ?>
+                            <img src="<?php echo $row['image_url1']; ?>" class="image-preview" alt="Image 1">
+                        <?php else: ?>
+                            <span>No image uploaded</span>
+                        <?php endif; ?>
+                        <input type="file" name="image1" required>
+                    </div><br>
 
-<div class="upload-container">
-    <?php if (!empty($row['image_url2']) && file_exists($row['image_url2'])): ?>
-        <img src="<?php echo $row['image_url2']; ?>" class="image-preview" alt="Image 2">
-    <?php else: ?>
-        <span>No image uploaded</span>
-    <?php endif; ?>
-    <input type="file" name="image2" required>
-</div><br>
+                    <div class="upload-container">
+                        <?php if (!empty($row['image_url2']) && file_exists($row['image_url2'])): ?>
+                            <img src="<?php echo $row['image_url2']; ?>" class="image-preview" alt="Image 2">
+                        <?php else: ?>
+                            <span>No image uploaded</span>
+                        <?php endif; ?>
+                        <input type="file" name="image2" required>
+                    </div><br>
 
-<div class="upload-container">
-    <?php if (!empty($row['image_url3']) && file_exists($row['image_url3'])): ?>
-        <img src="<?php echo $row['image_url3']; ?>" class="image-preview" alt="Image 3">
-    <?php else: ?>
-        <span>No image uploaded</span>
-    <?php endif; ?>
-    <input type="file" name="image3" required>
-</div><br>
+                    <div class="upload-container">
+                        <?php if (!empty($row['image_url3']) && file_exists($row['image_url3'])): ?>
+                            <img src="<?php echo $row['image_url3']; ?>" class="image-preview" alt="Image 3">
+                        <?php else: ?>
+                            <span>No image uploaded</span>
+                        <?php endif; ?>
+                        <input type="file" name="image3" required>
+                    </div><br>
 
-<h3><?php echo htmlspecialchars($email); ?></h3>
-<button type="submit" name="upload">Upload Images</button>
-</form>
+                    <!-- <h3><?php echo htmlspecialchars($email); ?></h3> -->
+                    <button type="submit" name="upload">Upload Images</button>
+                </form>
 
             <?php endif; ?>
         </div>
@@ -331,7 +336,8 @@ $conn->close();
 
 
     }
-    button[type='submit']{
+
+    button[type='submit'] {
         color: white;
         background-color: #45a049;
         border-radius: 5px;
@@ -380,6 +386,7 @@ $conn->close();
         border-radius: 5px;
         cursor: pointer;
         width: 100%;
+        margin-bottom: 30px;
     }
 
     textarea {
@@ -511,21 +518,23 @@ $conn->close();
         height: 100%;
         /* margin-left: 12%; */
     }
+
     .image-preview {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border: 1px solid #ddd;
-        }
-        .upload-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+    }
+
+    .upload-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         let response = "<?php echo $response; ?>";
 
         if (response === "success") {
@@ -535,7 +544,7 @@ $conn->close();
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                window.location.href = "VenderProfile.php"; 
+                window.location.href = "VenderProfile.php";
             });
         } else if (response === "error") {
             Swal.fire({

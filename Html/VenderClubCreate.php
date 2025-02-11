@@ -6,7 +6,11 @@ if (!isset($_SESSION['vender'])) {
     exit();
 }
 $vender = $_SESSION['vender'];
-$logo=$_SESSION['logo'];
+if (isset($_SESSION['logo']) && !empty($_SESSION['logo'])) {
+    echo "Logo found: " . $_SESSION['logo'];
+} else {
+}
+
 
 ?>
 
