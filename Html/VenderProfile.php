@@ -111,12 +111,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
                 <input type="file" name="profileImage" id="fileInput" accept="image/*" onchange="uploadImage()">
             </form>
             <ul>
-                <li><a href="VenderProfile.php"></i> DashBoard</a></li>
+                <li><a href="VenderProfile.php"> DashBoard</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
-                <li><a href="VenderClubUpdate.php">Update Club</a></li>
-                <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderPriceUpdate.php">Price/Cupon</a></li>
+                <li><a href="VenderClubUpdate.php">Update Club</a></li>
+                <li><a href="VenderUpdateGallery.php">Gallery</a></li>
+                <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderPasswordUpdate.php">Change Password</a></li>
                 <li> <a href="logout.php">Logout</a></li>
             </ul>

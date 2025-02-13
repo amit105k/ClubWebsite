@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.href = 'update_club.php';
+                        window.location.href = 'VenderProfile.php';
                     });
                 });
               </script>";
@@ -128,6 +128,8 @@ $conn->close();
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
@@ -158,16 +160,17 @@ $conn->close();
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-            <img src="<?php echo $logo ?>" alt="Club images">
+                <img src="<?php echo $logo ?>" alt="Club images">
                 <!-- <img src="../image/amit.png" alt="image"> -->
             </div>
             <ul>
                 <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
-                <li><a href="VenderClubUpdate.php">Update Club</a></li>
-                <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderPriceUpdate.php">Price/Cupon</a></li>
+                <li><a href="VenderClubUpdate.php">Update Club</a></li>
+                <li><a href="VenderUpdateGallery.php">Gallery</a></li>
+                <li><a href="VenderClubDelete.php">Delete Club</a></li>
                 <li><a href="VenderPasswordUpdate.php">Change Password</a></li>
                 <li> <a href="logout.php">Logout</a></li>
             </ul>
@@ -193,9 +196,10 @@ $conn->close();
                 <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo $selected_club ? $selected_club['id'] : ''; ?>">
 
-                    <label for="image_url">Image URL:</label>
-                    <input type="text" id="image_url" name="image_url"
-                        value="<?php echo $selected_club ? $selected_club['image_url'] : ''; ?>" required><br><br>
+                    <label for="image_url">Image:</label>
+                    <input type="file" name="image_url" id="image_url" required><br><br>
+                    <!-- <input type="text" id="image_url" name="image_url"
+                        value="<?php echo $selected_club ? $selected_club['image_url'] : ''; ?>" required> -->
 
                     <label for="club_name">Club Name:</label>
                     <input type="text" id="club_name" name="club_name"
@@ -219,7 +223,7 @@ $conn->close();
 
                     <label for="about">About of Clubs :-</label>
                     <textarea type="text" id="book_tkt" name="about" value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
-                    </textarea><br><br>
+                        </textarea><br><br>
 
                     <!-- <label for="book_tkt">Link for Booking:</label>
         <input type="text" id="book_tkt" name="book_tkt"
