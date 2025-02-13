@@ -7,12 +7,19 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 
-// $logo = $_SESSION['logo'];
-
-if (isset($_SESSION['logo']) && !empty($_SESSION['logo'])) {
-    echo "Logo found: " . $_SESSION['logo'];
-} else {
+include("db.php");
+$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $vender['email']);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $logo = $row['image_url'];
+    }
 }
+
+
 
 
 //...................................
@@ -171,23 +178,22 @@ $conn->close();
 </head>
 
 <body>
-    <nav>
+    <!-- <nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
-        <!-- <a href="service.php">Services</a> -->
-        <!-- <a href="#clubs">Clubs</a>
-        <a href="#clubs">Gallery</a> -->
+        <a href="service.php">Services</a>
+        <a href="#clubs">Clubs</a>
+        <a href="#clubs">Gallery</a>
         <a href="contact.php">Contact Us</a>
-        <!-- <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> -->
+        <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
         <a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a>
 
         <a href="logout.php">Logout</a>
-        <!--..................drop down is here-->
 
 
-    </nav>
+    </nav> -->
 
 
     <!-- ...this is profile details..-->

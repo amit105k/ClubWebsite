@@ -11,19 +11,60 @@ if (!isset($_SESSION['vender'])) {
     exit();
 }
 $vender = $_SESSION['vender'];
+$email = $vender['email'];
+
 
 include("db.php");
-$query="SELECT image_url FROM club_overviews WHERE email=?";
-$stmt=$conn->prepare($query);
-$stmt->bind_param("s",$vender['email']);
+$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $vender['email']);
 $stmt->execute();
-$result=$stmt->get_result();
-if($result->num_rows>0){
-    while($row=$result->fetch_assoc()){
-        $logo=$row['image_url'];
-        $_SESSION['logo'] = $logo;
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $logo = $row['image_url'];
+    }
+}
 
 
+// logo insert 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
+    $targetDir = "uploads/";
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0777, true);
+    }
+
+    if ($logo !== "default.png" && file_exists($logo)) {
+        unlink($logo);
+    }
+
+    $fileName = time() . "_" . basename($_FILES["profileImage"]["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
+
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    if (in_array($fileType, $allowedTypes)) {
+        if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $targetFilePath)) {
+
+
+            $updateQuery = "UPDATE club_overviews SET image_url=? WHERE email=?";
+            $updateStmt = $conn->prepare($updateQuery);
+            $updateStmt->bind_param("ss", $targetFilePath, $email);
+            if ($updateStmt->execute()) {
+                $_SESSION['user']['image'] = $targetFilePath;
+                $_SESSION['success'] = "Profile image uploaded successfully.";
+
+                header("Location: VenderProfile.php");
+                exit();
+            } else {
+                $_SESSION['error'] = "Failed to update database.";
+            }
+        } else {
+            $_SESSION['error'] = "File upload failed.";
+        }
+    } else {
+        $_SESSION['error'] = "Invalid file format. Only JPG, PNG, or GIF allowed.";
     }
 }
 
@@ -41,6 +82,8 @@ if($result->num_rows>0){
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -58,29 +101,33 @@ if($result->num_rows>0){
 
 
 
-    <h2 id="h2">Vender Profile</h2>
     <div class="profile">
         <div class="profile-left">
-            <div class="logo">
-                <!-- <img src="../image/amit.png" alt="image"> -->
-                <img src="<?php echo $logo ?>" alt="Club images">
-
+            <div class="logo" onclick="document.getElementById('fileInput').click();">
+                <img src="<?php echo htmlspecialchars($logo); ?>" id="profileImage" alt="Profile Image">
+                <span class="edit-icon" onclick="document.getElementById('fileInput').click();">&#9998;</span>
             </div>
+            <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                <input type="file" name="profileImage" id="fileInput" accept="image/*" onchange="uploadImage()">
+            </form>
             <ul>
+                <li><a href="VenderProfile.php"></i> DashBoard</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
-                <li><a href="VenderPriceUpdate.php">Price/Promo Cre</a></li>
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
-                <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
+                <li><a href="VenderPriceUpdate.php">Price/Cupon</a></li>
                 <li><a href="VenderPasswordUpdate.php">Change Password</a></li>
                 <li> <a href="logout.php">Logout</a></li>
             </ul>
         </div>
         <div class="details">
+        <h2 id="h2">Vender Profile</h2>
+
             <div class="first">
                 <p class="paragraph"><strong>ID:</strong> <?php echo htmlspecialchars($vender['id']); ?></p>
-                <p class="paragraph"><strong>Business Name:</strong><?php echo htmlspecialchars($vender['business_name']); ?>
+                <p class="paragraph"><strong>Business
+                        Name:</strong><?php echo htmlspecialchars($vender['business_name']); ?>
                 </p>
                 <p class="paragraph"><strong>Name:</strong> <?php echo htmlspecialchars($vender['client_name']); ?></p>
                 <p class="paragraph"><strong>Contact No:</strong> <?php echo htmlspecialchars($vender['contact_no']); ?>
@@ -99,11 +146,13 @@ if($result->num_rows>0){
 
     </div>
     <?php
-     ?>
+    ?>
 
 
 
     <!---,.............footer is eher-->
+
+
     <div class="footer">
         <div class="fleft">
             <h4>The Noida Clubs</h4>
@@ -149,6 +198,46 @@ if($result->num_rows>0){
 </html>
 
 <style>
+     .logo {
+        /* width: 15%;  */
+        padding: 10px;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .logo img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    .edit-icon {
+        position: absolute;
+        /* top: 10px;
+        right: 10px; */
+        margin-top: -40px;
+        left: 12%;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        font-size: 16px;
+    }
+
+    .logo:hover .edit-icon {
+        display: block;
+    }
+
+    #fileInput {
+        display: none;
+    }
+
     body {
         font-family: Arial, sans-serif;
 
@@ -178,7 +267,7 @@ if($result->num_rows>0){
     }
 
     .details {
-        display: flex;
+        /* display: flex; */
         justify-content: space-between;
         margin-bottom: 10px;
         width: 85%;
@@ -188,8 +277,21 @@ if($result->num_rows>0){
 
     .first,
     .second {
-        width: 50%;
-        text-align: center;
+        width: 40%;
+        /* Make each section take up half the width */
+        display: inline-block;
+        /* Display them next to each other */
+        /* vertical-align: top;  */
+        padding: 10px;
+        box-sizing: border-box;
+        margin-top: 50px;
+    }
+
+    .first {
+        margin-left: 16%;
+
+        box-sizing: border-box;
+        /* Add some space between the two sections */
     }
 
     .first p,
@@ -260,24 +362,31 @@ if($result->num_rows>0){
         /* background-color: yellow; */
         display: flex;
     }
-
-    .logo {
-        height: 15%;
-        position: absolute;
-        margin-top: -70px;
-        /* margin-left: 10px; */
-        background-color:black;
-        width: 15%;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .logo img {
-        /* width: 36%; */
-        /* border-radius: 100%; */
-        /* width: 100%; */
-        height: 100%;
-        width: 100%;
-        /* margin-left: 28%; */
-    }
 </style>
+
+<script>
+        function uploadImage() {
+            document.getElementById('uploadForm').submit();
+        }
+
+        <?php if (isset($_SESSION['success'])) { ?>
+            Swal.fire({
+                title: 'Profile Updated',
+                text: '<?php echo $_SESSION['success']; ?>',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            })
+            // .then(() => {
+            //     window.location.href = 'customerLogin.php';
+            // });
+        <?php unset($_SESSION['success']); } ?>
+
+        <?php if (isset($_SESSION['error'])) { ?>
+            Swal.fire({
+                title: 'Error',
+                text: '<?php echo $_SESSION['error']; ?>',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        <?php unset($_SESSION['error']); } ?>
+    </script>

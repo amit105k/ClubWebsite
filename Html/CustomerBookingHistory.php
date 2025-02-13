@@ -17,6 +17,19 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 
+
+// loho find
+
+$old = "SELECT * FROM customerreg WHERE email=?";
+$stmt = $conn->prepare($old);
+$stmt->bind_param("s", $user['email']);
+$stmt->execute();
+$resultt = $stmt->get_result();
+
+if ($resultt->num_rows > 0) {
+    $row = $resultt->fetch_assoc();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,13 +69,15 @@ $result = $stmt->get_result();
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-                <img src="../image/amit.png" alt="image">
+            <img src="<?php echo $row['image'] ?>" alt="image">
             </div>
             <ul>
-                <li><a href="CustomerProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a></li>
-                <li><a href="">Booking Ticket</a></li>
+                <li><a href="CustomerProfile.php">Dashboard</a></li>
+                <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
+                <li><a href="CustomerBookingHistory.php">Booking History</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
                 <li><a href="CustomerPasswordUpdate.php">Change Password</a></li>
+                <li><a href="logoutCustomer.php">Logout</a></li>
 
             </ul>
 
@@ -225,28 +240,29 @@ $result = $stmt->get_result();
         width: 15%;
     }
 
+    .profile-left ul{
+        margin-top: 10px !important;
+    }
     .profile-left ul li {
-        /* line-height: 50px; */
-        list-style-type: none;
-        /* padding: 20px; */
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        margin-top: 5px;
+       
+        display: flex !important;
+        margin-top: 5px !important;
     }
 
-    .profile-left ul li a {
-        /* background-color: pink; */
+
+    .profile-left ul li a{
         text-decoration: none;
-        /* padding: 10px; */
         height: 100%;
         height: 100%;
         color: white;
-        line-height: 50px;
+        line-height: 40px !important;
+        margin-left: 20% !important;
     }
+
     .profile-left ul li a:hover {
         color: orange;
     }
+
 
 
     .profile {
@@ -254,7 +270,7 @@ $result = $stmt->get_result();
         display: flex;
     }
 
-    .logo{
+    .logo {
         height: 13%;
         position: absolute;
         margin-top: -70px;
@@ -262,7 +278,8 @@ $result = $stmt->get_result();
         background-color: black;
         width: 15%;
     }
-    .logo img{
+
+    .logo img {
         width: 36%;
         border-radius: 100%;
         /* width: 100%; */

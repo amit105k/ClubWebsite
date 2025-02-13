@@ -111,15 +111,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-                <img src="../image/amit.png" alt="image">
+                <!-- <img src="../image/amit.png" alt="image"> -->
+                <img src="<?php echo $userDetails['image'] ?>" alt="image">
             </div>
             <ul>
-                <li><a href="CustomerProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a></li>
-                <li><a href="CustomerBookingHistory.php">Booking Ticket</a></li>
+                <li><a href="CustomerProfile.php">Dashboard</a></li>
+                <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
+                <li><a href="CustomerBookingHistory.php">Booking History</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
-                <li><a href="CustomerPasswordUpdate.php">Update Passw</a></li>
-            </ul>
+                <li><a href="CustomerPasswordUpdate.php">Change Password</a></li>
+                <li><a href="logoutCustomer.php">Logout</a></li>
 
+            </ul>
         </div>
         <div class="details">
             <form action="" method="POST">
@@ -274,29 +277,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         width: 15%;
     }
 
+    .profile-left ul {
+        margin-top: 10px;
+    }
     .profile-left ul li {
-        /* line-height: 50px; */
-        list-style-type: none;
-        /* padding: 20px; */
+        /* list-style-type: none;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
         display: flex;
         margin-top: 5px;
     }
 
+
     .profile-left ul li a {
-        /* background-color: pink; */
         text-decoration: none;
-        /* padding: 10px; */
         height: 100%;
         height: 100%;
         color: white;
-        line-height: 50px;
+        line-height: 40px;
+        margin-left: 20%;
     }
 
     .profile-left ul li a:hover {
         color: orange;
     }
+
 
 
     .profile {

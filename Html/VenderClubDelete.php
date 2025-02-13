@@ -7,9 +7,16 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 
-if (isset($_SESSION['logo']) && !empty($_SESSION['logo'])) {
-    echo "Logo found: " . $_SESSION['logo'];
-} else {
+include("db.php");
+$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $vender['email']);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $logo = $row['image_url'];
+    }
 }
 
 
@@ -135,12 +142,12 @@ if (isset($_POST['delete_club'])) {
                 <img src="<?php echo $logo ?>" alt="Club images">
             </div>
             <ul>
+                <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
-                <li><a href="VenderPriceUpdate.php">Price/Promo Cre</a></li>
                 <li><a href="VenderClubUpdate.php">Update Club</a></li>
                 <li><a href="VenderClubDelete.php">Delete Club</a></li>
-                <li><a href="VenderUpdateGallery.php">Update Gallery</a></li>
+                <li><a href="VenderPriceUpdate.php">Price/Cupon</a></li>
                 <li><a href="VenderPasswordUpdate.php">Change Password</a></li>
                 <li> <a href="logout.php">Logout</a></li>
             </ul>

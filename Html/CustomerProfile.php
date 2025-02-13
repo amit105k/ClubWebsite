@@ -6,7 +6,65 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 $user = $_SESSION['user'];
+$email = $user['email'];
+
+
+include("db.php");
+
+// thsi if 
+$query = "SELECT image FROM customerreg WHERE email=?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+$logo = "default.png"; 
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $logo = $row['image'];
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
+    $targetDir = "logo/";
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0777, true); 
+    }
+
+    if ($logo !== "default.png" && file_exists($logo)) {
+        unlink($logo);
+    }
+
+    $fileName = time() . "_" . basename($_FILES["profileImage"]["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
+
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    if (in_array($fileType, $allowedTypes)) {
+        if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $targetFilePath)) {
+
+        
+            $updateQuery = "UPDATE customerreg SET image=? WHERE email=?";
+            $updateStmt = $conn->prepare($updateQuery);
+            $updateStmt->bind_param("ss", $targetFilePath, $email);
+            if ($updateStmt->execute()) {
+                $_SESSION['user']['image'] = $targetFilePath;
+                $_SESSION['success'] = "Profile image uploaded successfully.";
+                
+                header("Location: customerProfile.php");
+                exit();
+            } else {
+                $_SESSION['error'] = "Failed to update database.";
+            }
+        } else {
+            $_SESSION['error'] = "File upload failed.";
+        }
+    } else {
+        $_SESSION['error'] = "Invalid file format. Only JPG, PNG, or GIF allowed.";
+    }
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +78,8 @@ $user = $_SESSION['user'];
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 
@@ -43,15 +103,23 @@ $user = $_SESSION['user'];
     <!-- ...this is profile details..-->
     <h2 id="h2">Customer Profile</h2>
     <div class="profile">
-        <div class="profile-left">
-            <div class="logo">
-                <img src="../image/amit.png" alt="image">
+    <div class="profile-left">
+            <div class="logo" onclick="document.getElementById('fileInput').click();">
+                <img src="<?php echo htmlspecialchars($logo); ?>" id="profileImage" alt="Profile Image">
+                <span class="edit-icon" onclick="document.getElementById('fileInput').click();">&#9998;</span>
             </div>
+            <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                <input type="file" name="profileImage" id="fileInput" accept="image/*" onchange="uploadImage()">
+            </form>
+     
+
             <ul>
+                <li><a href="CustomerProfile.php">Dashboard</a></li>
                 <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
                 <li><a href="CustomerBookingHistory.php">Booking History</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
                 <li><a href="CustomerPasswordUpdate.php">Change Password</a></li>
+                <li><a href="logoutCustomer.php">Logout</a></li>
 
             </ul>
 
@@ -193,11 +261,13 @@ $user = $_SESSION['user'];
         /* padding: 10px; */
         width: 15%;
     }
-
+    .profile-left ul {
+        margin-top: 10px;
+    }
     .profile-left ul li {
-        list-style-type: none;
+        /* list-style-type: none;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
         display: flex;
         margin-top: 5px;
     }
@@ -208,8 +278,10 @@ $user = $_SESSION['user'];
         height: 100%;
         height: 100%;
         color: white;
-        line-height: 50px;
+        line-height: 40px;
+        margin-left: 20%;
     }
+
     .profile-left ul li a:hover {
         color: orange;
     }
@@ -218,19 +290,76 @@ $user = $_SESSION['user'];
         /* background-color: yellow; */
         display: flex;
     }
-    .logo{
+
+    .logo {
         height: 13%;
         position: absolute;
         margin-top: -70px;
         /* margin-left: 10px; */
         background-color: black;
         width: 15%;
+        overflow: hidden;
+        cursor: pointer;
+
     }
-    .logo img{
-        width: 36%;
+
+    .logo img {
+        width: 50%;
         border-radius: 100%;
         /* width: 100%; */
-        height: 90%;
+        height: 100%;
         margin-left: 28%;
+        /* width: 100%;
+        height: 100%; */
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .edit-icon {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        font-size: 16px;
+    }
+
+    .logo:hover .edit-icon {
+        display: block;
+    }
+
+    #fileInput {
+        display: none;
     }
 </style>
+
+<script>
+        function uploadImage() {
+            document.getElementById('uploadForm').submit();
+        }
+
+        <?php if (isset($_SESSION['success'])) { ?>
+            Swal.fire({
+                title: 'Profile Updated',
+                text: '<?php echo $_SESSION['success']; ?>',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            })
+            // .then(() => {
+            //     window.location.href = 'customerLogin.php';
+            // });
+        <?php unset($_SESSION['success']); } ?>
+
+        <?php if (isset($_SESSION['error'])) { ?>
+            Swal.fire({
+                title: 'Error',
+                text: '<?php echo $_SESSION['error']; ?>',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        <?php unset($_SESSION['error']); } ?>
+    </script>

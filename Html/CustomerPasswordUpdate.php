@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection error: " . $conn->connect_error);
 }
 
-$old = "SELECT Password FROM customerreg WHERE email=?";
+$old = "SELECT * FROM customerreg WHERE email=?";
 $stmt = $conn->prepare($old);
 $stmt->bind_param("s", $user['email']);
 $stmt->execute();
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <a href="contact.php">Contact Us</a>
         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
-        <a href="logoutCustomer.php">Logout</a>
+        
 
 
     </nav>
@@ -83,13 +83,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-                <img src="../image/amit.png" alt="image">
+            <img src="<?php echo $row['image'] ?>" alt="image">
             </div>
             <ul>
+                <li><a href="CustomerProfile.php">Dashboard</a></li>
                 <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
                 <li><a href="CustomerBookingHistory.php">Booking History</a></li>
                 <li><a href="CustomerProfileUpdate.php">Update Profile</a></li>
                 <li><a href="CustomerPasswordUpdate.php">Change Password</a></li>
+                <li><a href="logoutCustomer.php">Logout</a></li>
 
             </ul>
 
@@ -107,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <input type="password" required id="confirmPassword">
             
                 <p id="passwordError" style="display: none; color: red;"></p>
+              
 
                 <button type="submit">Update</button>
             </form>
@@ -239,24 +242,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         width: 15%;
     }
 
+    .profile-left ul {
+        margin-top: 10px;
+    }
     .profile-left ul li {
-        list-style-type: none;
+        /* list-style-type: none;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
         display: flex;
         margin-top: 5px;
     }
 
 
     .profile-left ul li a {
-        /* background-color: pink; */
         text-decoration: none;
-        /* padding: 10px; */
         height: 100%;
         height: 100%;
         color: white;
-        line-height: 50px;
+        line-height: 40px;
+        margin-left: 20%;
     }
+
     .profile-left ul li a:hover {
         color: orange;
     }
