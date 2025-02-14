@@ -7,14 +7,14 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
 
@@ -22,60 +22,55 @@ if ($result->num_rows > 0) {
 ?>
 
 <?php
-
-
-include("db.php");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$response = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $club_name = htmlspecialchars($_POST['club_name']);
+    $show_time = htmlspecialchars($_POST['show_time']);
+    $address = htmlspecialchars($_POST['address']);
+    $city = htmlspecialchars($_POST['city']);
+    $postal_code = htmlspecialchars($_POST['postal_code']);
+    $email = htmlspecialchars($_POST['email']);
+    $mobile = htmlspecialchars($_POST['mobile']);
+    $about = htmlspecialchars($_POST['about']);
 
-    $club_name = $_POST['club_name'];
-    $image_url = $_POST['image_url'];
-    $show_time = $_POST['show_time'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $postal_code = $_POST['postal_code'];
-    $email = $_POST['email'];
-    $mobile = $_POST['mobile'];
-    $about = $_POST['about'];
+    $image_name = $_FILES['image']['name'];
+    $image_tmp_name = $_FILES['image']['tmp_name'];
+    $image_folder = 'uploads/' . uniqid() . '_' . basename($image_name);
 
+    if (move_uploaded_file($image_tmp_name, $image_folder)) {
+        // Insert data into database
+        $stmt = $conn->prepare("INSERT INTO club_overviews 
+            (club_name, image, show_time, address, city, postal_code, email, mobile, about) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param(
+            "sssssssss", 
+            $club_name, 
+            $image_folder,
+            $show_time, 
+            $address, 
+            $city, 
+            $postal_code, 
+            $email, 
+            $mobile, 
+            $about
+        );
 
-    $stmt = $conn->prepare("INSERT INTO club_overviews (club_name, image_url,address,city, postal_code,email,mobile,show_time, about) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?,?,?)");
-    $stmt->bind_param("sssssssss", $club_name, $image_url, $address, $city, $postal_code,$email,$mobile ,$show_time,$about);
-
-
-    if ($stmt->execute()) {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'New Club has been created successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'VenderProfile.php';
-                    });
-                });
-              </script>";
+        if ($stmt->execute()) {
+            $response = "success";
+        } else {
+            $response = "error";
+        }
+        $stmt->close();
     } else {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Failed to Create New Club.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                });
-              </script>";
+        $response = "error";
+
     }
 
-    $stmt->close();
+    $conn->close();
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -90,32 +85,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    <!-- <nav>
-        <h4 id="thenoida">The Noida Clubs</h4>
-        <a href="index.php">Home</a>
-        <a href="about.php">About</a>
-        <a href="service.php">Services</a>
-        <a href="#clubs">Clubs</a>
-        <a href="#clubs">Gallery</a> 
-        <a href="contact.php">Contact Us</a>
-         <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt=""> 
-        <a href="status.php" id="status">Booking Status</a>
-        <a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> Back To Profile</a>
-
-        ..................drop down is here
-
-
-    </nav> -->
-
-
-    <!-- ...this is profile details..-->
-
-
-
-    <!-- <h2 id="h2">New Club Create</h2> -->
+   
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
@@ -135,15 +109,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         </div>
-        <div class="details">
-            
-            <form action="" method="POST" id="createClubForm">
+        <div class="details">            
+            <form action="" method="POST" id="createClubForm" enctype="multipart/form-data">
                 <h2>Create New Club</h2>
                 <label for="club_name">Club Name:</label>
                 <input type="text" id="club_name" name="club_name" required>
 
-                <label for="image_url">Image URL:</label>
-                <input type="url" id="image_url" name="image_url" required>
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" required>
+
 
                 <label for="show_time">Openaning And Closing Time:</label>
                 <input type="text" id="show_time" name="show_time" required placeholder="12:30 To 11:30 PM">
@@ -155,13 +129,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="city" name="city" required>
 
                 <label for="postal_code">Postal Code:</label>
-                <input type="number" id="postal_code" name="postal_code" required>
+                <input type="text" id="postal_code" name="postal_code" required  minlength="6" maxlength="6" 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '');">
 
                 <label for="book_tkt">Email:</label>
                 <input type="url" id="book_tkt" name="email" required readonly value="<?php echo(htmlspecialchars($vender['email'])); ?>">
 
                 <label for="book_tkt">Mobile:</label>
-                <input type="text" id="book_tkt" name="mobile" required value="<?php echo htmlspecialchars($vender['contact_no']) ?>">
+                <input type="text" id="mobile" name="mobile" required  minlength="10" maxlength="10" 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="<?php echo htmlspecialchars($vender['contact_no']) ?>">
 
                 <label for="about">About Of Club :-</label>
                 <textarea name="about" id=""></textarea>
@@ -419,3 +395,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         /* margin-left: 12%; */
     }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let response = "<?php echo $response; ?>";
+
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Club Create successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "VenderProfile.php";
+            });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Club not Created. Please try again.',
+                icon: 'error'
+            });
+        }
+    });
+</script>

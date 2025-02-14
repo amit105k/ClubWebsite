@@ -10,14 +10,14 @@ $vender = $_SESSION['vender'];
 
 
 include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
 
@@ -124,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
     <!-- ...this is profile details..-->
-    <h2 id="h2">Vender Password Update</h2>
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
@@ -145,6 +144,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
         <div class="details">
             <form action="" method="POST" id="passupdate">
+                <h2 id="h2">Vender Password Update</h2>
+
                 <label for="">Enter your Old Password</label>
                 <input type="password" required name="oldpass">
 
@@ -319,25 +320,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     .logo {
-        height: 15%;
-        position: absolute;
-        margin-top: -70px;
-        /* margin-left: 10px; */
-        background-color:black;
-        width: 15%;
+        /* width: 15%;  */
         padding: 10px;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     .logo img {
-        /* width: 36%; */
-        /* border-radius: 100%; */
-        /* width: 100%; */
-        height: 100%;
         width: 100%;
-        /* margin-left: 28%; */
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
     }
-
 
     form {
         max-width: 400px;

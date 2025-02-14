@@ -8,14 +8,14 @@ if (!isset($_SESSION['vender'])) {
 $vender = $_SESSION['vender'];
 
 include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
 
@@ -46,49 +46,6 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
     $selected_club = $selected_club_result->fetch_assoc();
 }
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     $image_url1 = isset($_POST['image_url1']) ? $conn->real_escape_string($_POST['image_url1']) : '';
-//     $image_url2 = isset($_POST['image_url2']) ? $conn->real_escape_string($_POST['image_url2']) : '';
-//     $image_url3 = isset($_POST['image_url3']) ? $conn->real_escape_string($_POST['image_url3']) : '';
-
-//     $sql = "UPDATE club_overviews SET 
-//                 image_url1 = ?, 
-//                image_url2 = ?, 
-//                 image_url3 = ?
-
-
-//             WHERE id = ?";
-//     $stmt = $conn->prepare($sql);
-//     $stmt->bind_param("sssi", $image_url1, $image_url2, $image_url3, $id);
-
-//     if ($stmt->execute()) {
-//         echo "<script>
-//                 document.addEventListener('DOMContentLoaded', function() {
-//                     Swal.fire({
-//                         title: 'Success!',
-//                         text: 'Gallery updated successfully.',
-//                         icon: 'success',
-//                         confirmButtonText: 'OK'
-//                     }).then(() => {
-//                         window.location.href = 'update_club.php';
-//                     });
-//                 });
-//               </script>";
-//     } else {
-//         echo "<script>
-//                 document.addEventListener('DOMContentLoaded', function() {
-//                     Swal.fire({
-//                         title: 'Error!',
-//                         text: 'Failed to update Gallery.',
-//                         icon: 'error',
-//                         confirmButtonText: 'OK'
-//                     });
-//                 });
-//               </script>";
-//     }
-
-//     $stmt->close();
-// }
 
 $email = $vender['email'];
 $targetDir = "uploads/";
@@ -506,24 +463,20 @@ $conn->close();
     }
 
     .logo {
-        height: 129px;
-        /* position: absolute; */
-        /* margin-top: -70px; */
-        /* margin-left: 10px; */
-        background-color: black;
-        width: 100%;
-        justify-content: center;
+        /* width: 15%;  */
         padding: 10px;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
         box-sizing: border-box;
-        display: flex;
+        overflow: hidden;
     }
 
     .logo img {
-        /* width: 36%; */
-        /* border-radius: 100%; */
-        /* width: 100%; */
-        height: 100%;
-        /* margin-left: 12%; */
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
     }
 
     .image-preview {

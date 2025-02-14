@@ -8,14 +8,14 @@ if (!isset($_SESSION['vender'])) {
 $vender = $_SESSION['vender'];
 
 include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
 
@@ -152,8 +152,8 @@ $conn->close();
                 <form action="" method="post">
                     <input type="hidden" name="id" value="<?php echo $selected_club ? $selected_club['id'] : ''; ?>">
 
-                    <label for="image_url">Price:</label>
-                    <input type="text" id="image_url" name="price"
+                    <label for="image">Price:</label>
+                    <input type="text" id="image" name="price"
                         value="<?php echo $selected_club ? $selected_club['price'] : ''; ?>" required><br><br>
 
                     <label for="club_name">Promocode:</label>
@@ -399,24 +399,20 @@ $conn->close();
     }
 
     .logo {
-        height: 129px;
-        /* position: absolute; */
-        /* margin-top: -70px; */
-        /* margin-left: 10px; */
-        background-color: black;
-        width: 100%;
-        justify-content: center;
+        /* width: 15%;  */
         padding: 10px;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
         box-sizing: border-box;
-        display: flex;
+        overflow: hidden;
     }
 
     .logo img {
-        /* width: 36%; */
-        /* border-radius: 100%; */
-        /* width: 100%; */
-        height: 100%;
-        /* margin-left: 12%; */
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
     }
 </style>
 

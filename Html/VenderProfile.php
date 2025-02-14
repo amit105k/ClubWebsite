@@ -15,14 +15,14 @@ $email = $vender['email'];
 
 
 include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
 
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
         if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $targetFilePath)) {
 
 
-            $updateQuery = "UPDATE club_overviews SET image_url=? WHERE email=?";
+            $updateQuery = "UPDATE club_overviews SET image=? WHERE email=?";
             $updateStmt = $conn->prepare($updateQuery);
             $updateStmt->bind_param("ss", $targetFilePath, $email);
             if ($updateStmt->execute()) {

@@ -7,20 +7,17 @@ if (!isset($_SESSION['vender'])) {
 }
 $vender = $_SESSION['vender'];
 
-include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+include('db.php');
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
-
-
-include('db.php');
 
 $sql = "SELECT id, club_name FROM club_overviews where email=?";
 $query = $conn->prepare($sql);
@@ -43,10 +40,9 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
 }
 
 if (isset($_POST['delete_club'])) {
-    $query = "DELETE FROM club_overviews WHERE email=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $vender['email']);
-    $stmt->execute($sql);
+    $query = "DELETE FROM club_overviews WHERE id=?";
+    $stmt = $conn->prepare($query); 
+    $stmt->bind_param("i", $id);
 
 
     if ($stmt->execute()) {
@@ -103,7 +99,7 @@ if (isset($_POST['delete_club'])) {
                 }).then(function() {
                     
                     document.getElementById('delete-form').submit();
-                    window.location.href = 'http://localhost/amitclub/html/deleteclub.php';
+                    window.location.href = 'VenderProfile.php';
                 });
             }
         });
@@ -135,7 +131,6 @@ if (isset($_POST['delete_club'])) {
 
 
 
-    <h2 id="h2"> Select Club to Delete </h2>
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
@@ -155,10 +150,11 @@ if (isset($_POST['delete_club'])) {
 
         </div>
         <div class="details container">
-            <!-- <h2>Select Club to  Delete</h2> -->
 
             <form action="" method="get">
                 <!-- <label for="id">Select Club ID to Edit:</label> -->
+                <h2 id="h2"> Select Club to Delete </h2>
+
                 <select name="id" id="id" required onchange="handleSelectChange(this)">
                     <option value="">Select Club</option>
                     <?php foreach ($clubs as $club): ?>
@@ -177,8 +173,11 @@ if (isset($_POST['delete_club'])) {
                     <label for="club_name">Club Name:</label>
                     <p><?php echo $selected_club ? $selected_club['club_name'] : ''; ?></p></br>
 
-                    <label for="image_url">Image URL:</label></br>
-                    <p><?php echo $selected_club ? $selected_club['image_url'] : ''; ?></p></br>
+                    <label for="image_url">Image:</label></br>
+                    <p>
+                        <!-- <?php echo $selected_club ? $selected_club['image'] : ''; ?> -->
+                        <img src="<?php echo $logo ?>" alt="Club images">
+                    </p></br>
 
                     <label for="show_time">Show Time:</label></br>
 
@@ -256,24 +255,43 @@ if (isset($_POST['delete_club'])) {
 </html>
 
 <style>
-    .container {
+    /* .container {
         max-width: 600px;
         margin: 5px auto;
         padding: 20px;
-        background-color: white;
+        background-color: #f4f4f4;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+    } */
 
     /* h2 {
         text-align: center;
         margin-bottom: 30px;
     } */
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+    .details form {
+  width: 70%;
+  margin-left: 15%;
+}
+.details label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 19px;
+  font-weight: bold;
+}
+form select,form option,form button
+ {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 19px;
+  font-weight: normal;
+}
+    form img{
+        max-height: 150px;
+        max-width: 160px;
     }
     select{
         padding: 5px;
@@ -333,15 +351,31 @@ if (isset($_POST['delete_club'])) {
         padding: 20px;
     }
 
-    .details {
-        /* display: flex; */
+    /* .details {
+        display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
-        width: 85%;
+        width: 100%;
         justify-content: center;
         align-items: center;
-        */
-    }
+        background-color: #f4f4f4;
+        
+    } */
+    .details {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  width: 85%;
+  justify-content: center;
+  align-items: center;
+}
 
     .first,
     .second {
@@ -411,20 +445,20 @@ if (isset($_POST['delete_club'])) {
     }
 
     .logo {
-        height: 15%;
-        position: absolute;
-        margin-top: -70px;
-        background-color: black;
-        width: 15%;
+        /* width: 15%;  */
         padding: 10px;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     .logo img {
-
-        height: 100%;
         width: 100%;
-
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
     }
 
     form label {

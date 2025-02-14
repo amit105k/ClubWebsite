@@ -11,7 +11,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo '<a href="club_details.php?id=' . $row['id'] . '" class="fade">'; 
         echo '<div class="fadee">';
-        echo '<img src="' . $row['image_url'] . '" alt="Club Image" class="image">';
+        echo '<img src="' . $row['image'] . '" alt="Club Image" class="image">';
         echo '<div class="overlay">';
         echo '<div class="text">';
 

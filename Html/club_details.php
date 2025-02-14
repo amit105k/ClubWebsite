@@ -70,7 +70,7 @@
                 <div class="image-containerr">
 
                     <div class="fade">
-                        <img src="<?php echo $row['image_url']; ?>" alt="Club Image" class="image">
+                        <img src="<?php echo $row['image']; ?>" alt="Club Image" class="image">
                     </div>
                     <div class="paragraphh">
                         <h2>Description Of Our Club</h2></br>

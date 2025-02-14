@@ -9,14 +9,14 @@ $vender = $_SESSION['vender'];
 
 
 include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
 
@@ -67,11 +67,10 @@ $result = $stmt->get_result();
 
 
 
-    <h2 id="h2">Club List</h2>
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-            <img src="<?php echo $logo ?>" alt="Club images">
+                <img src="<?php echo $logo ?>" alt="Club images">
             </div>
             <ul>
                 <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
@@ -84,41 +83,40 @@ $result = $stmt->get_result();
                 <li><a href="VenderPasswordUpdate.php">Change Password</a></li>
                 <li> <a href="logout.php">Logout</a></li>
             </ul>
-
+            
         </div>
         <div class="details">
-          
+            
+            <h2 id="h2">Club List</h2>
             <?php
 
             if ($result->num_rows > 0) {
                 echo "<table border='1' style='border-collapse: collapse;'>
-         <tr>
-             <th>id</th>
-             <th>Club Name</th>
-             <th>Show timing</th>
-             <th>address</th>
-             <th>Price</th>
-         </tr>";
- while ($row = $result->fetch_assoc()) {
-     echo "<tr>
-             <td>" . $row['id'] . "</td>
-             <td>" . $row['club_name'] . "</td>
-             <td>" . $row['show_time'] . "</td>
-             <td>" . $row['address'] . ", " . $row['city'] . ", " . $row['postal_code'] . "</td>
-             <td>" . $row['price'] . "</td>
-           </tr>";
- }
- echo "</table>";
+                    <tr>
+                        <th>id</th>
+                        <th>Club Name</th>
+                        <th>Show timing</th>
+                        <th>address</th>
+                        <th>Price</th>
+                    </tr>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                            <td>" . $row['id'] . "</td>
+                            <td>" . $row['club_name'] . "</td>
+                            <td>" . $row['show_time'] . "</td>
+                            <td>" . $row['address'] . ", " . $row['city'] . ", " . $row['postal_code'] . "</td>
+                            <td>" . $row['price'] . "</td>
+                        </tr>";
+                            }
+                            echo "</table>";
+                            } else {
+                                echo "no club found kindely reigter ";
+                                ?>
+                                <a href="VenderClubCreate.php">Register new club</a>
+                                <?php
+                            }
 
-
-            } else {
-                echo "no club found kindely reigter ";
-                ?>
-                <a href="VenderClubCreate.php">Register new club</a>
-                <?php
-            }
-
-            ?>
+                            ?>
 
 
         </div>
@@ -174,25 +172,27 @@ $result = $stmt->get_result();
 </html>
 
 <style>
-    
     body {
         font-family: Arial, sans-serif;
 
         background-color: #f4f4f9;
         color: #333;
     }
-    th,td{
+
+    th,
+    td {
         border-width: thin;
         padding: 2px;
     }
-    table{
+
+    table {
         width: 95%;
         margin-left: 2%;
         margin-right: 3%;
         margin-bottom: 20px;
         box-sizing: border-box;
         text-align: center;
-    
+
     }
 
 
@@ -223,7 +223,8 @@ $result = $stmt->get_result();
         margin-bottom: 10px;
         width: 85%;
         justify-content: center;
-        align-items: center; */
+        align-items: center;
+        */
     }
 
     .first,
@@ -302,22 +303,19 @@ $result = $stmt->get_result();
     }
 
     .logo {
-        height: 15%;
-        position: absolute;
-        margin-top: -70px;
-        /* margin-left: 10px; */
-        background-color:black;
-        width: 15%;
+        /* width: 15%;  */
         padding: 10px;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     .logo img {
-        /* width: 36%; */
-        /* border-radius: 100%; */
-        /* width: 100%; */
-        height: 100%;
         width: 100%;
-        /* margin-left: 28%; */
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
     }
 </style>

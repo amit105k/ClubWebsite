@@ -8,22 +8,16 @@ if (!isset($_SESSION['vender'])) {
 $vender = $_SESSION['vender'];
 
 include("db.php");
-$query = "SELECT image_url FROM club_overviews WHERE email=?";
+$query = "SELECT image FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $logo = $row['image_url'];
+        $logo = $row['image'];
     }
 }
-
-
-
-//...................................
-
-include('db.php');
 
 $sql = "SELECT id, club_name FROM club_overviews where email=?";
 $query = $conn->prepare($sql);
@@ -45,76 +39,64 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
     $selected_club = $selected_club_result->fetch_assoc();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = intval($_POST['id']);
-    $image_url = $conn->real_escape_string($_POST['image_url']);
-    $club_name = $conn->real_escape_string($_POST['club_name']);
-    $show_time = $conn->real_escape_string($_POST['show_time']);
-    $address = $conn->real_escape_string($_POST['address']);
-    $city = $conn->real_escape_string($_POST['city']);
-    $postal_code = $conn->real_escape_string($_POST['postal_code']);
-    $about = $conn->real_escape_string($_POST['about']);
 
-    $sql = "UPDATE club_overviews SET 
-                image_url = ?, 
-                club_name = ?, 
-                show_time = ?, 
-                address = ?, 
-                city = ?, 
-                postal_code = ?, 
-                about = ?
-                 
-            WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssi", $image_url, $club_name, $show_time, $address, $city, $postal_code, $about, $id);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    $club_id = $_POST['id'];
+    $club_name = $_POST['club_name'];
+    $show_time = $_POST['show_time'];
+    $address = $_POST['address'];
+    $city = $_POST['city'];
+    $postal_code = $_POST['postal_code'];
+    $about = $_POST['about'];
+    $image_name = $_FILES['image']['name'];
+    $image_tmp = $_FILES['image']['tmp_name'];
+    
+    $sql = "SELECT * FROM club_overviews WHERE id = '$id'";
+    $result = $conn->query($sql);
+    $club = $result->fetch_assoc();
 
-    if ($stmt->execute()) {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Club details have been updated successfully.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'VenderProfile.php';
-                    });
-                });
-              </script>";
-    } else {
-        echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Failed to update the club details.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                });
-              </script>";
+    if ($club) {
+        if ($image_name) {
+            $old_image = $club['image']; 
+            if ($old_image && file_exists('uploads/' . $old_image)) {
+                unlink('uploads/' . $old_image);
+            }
+
+            $new_image = time() . '_' . $image_name; 
+            move_uploaded_file($image_tmp, 'uploads/' . $new_image);
+        } else {
+            $new_image = $club['image'];
+        }
+
+        $update_sql = "UPDATE club_overviews 
+                       SET club_name = '$club_name', 
+                           show_time = '$show_time', 
+                           address = '$address', 
+                           city = '$city', 
+                           postal_code = '$postal_code', 
+                           about = '$about', 
+                           image = '$new_image'
+                       WHERE id = '$id'";
+
+        if ($conn->query($update_sql) === TRUE) {
+            // Success message
+            echo "<script type='text/javascript'>
+                    swal('Success!', 'Club updated successfully!', 'success');
+                  </script>";
+        } else {
+            // Error message
+            echo "<script type='text/javascript'>
+                    swal('Error!', 'Error, please contact the admin.', 'error');
+                  </script>";
+        }
     }
 
-    $stmt->close();
+    // Close connection
+    $conn->close();
 }
-
-
-// $sql = "SELECT id, club_name FROM club_overviews";
-// $result = $conn->query($sql);
-// $clubs = [];
-// while ($row = $result->fetch_assoc()) {
-//     $clubs[] = $row;
-// }
-
-// $selected_club = null;
-// if (isset($_GET['id']) && $_GET['id'] != 'new') {
-//     $id = $_GET['id'];
-//     $sql = "SELECT * FROM club_overviews WHERE id = $id";
-//     $selected_club_result = $conn->query($sql);
-//     $selected_club = $selected_club_result->fetch_assoc();
-// }
-
-$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -193,13 +175,12 @@ $conn->close();
             </form>
 
             <?php if ($selected_club || isset($_GET['id']) && $_GET['id'] == 'new'): ?>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
+
                     <input type="hidden" name="id" value="<?php echo $selected_club ? $selected_club['id'] : ''; ?>">
 
-                    <label for="image_url">Image:</label>
-                    <input type="file" name="image_url" id="image_url" required><br><br>
-                    <!-- <input type="text" id="image_url" name="image_url"
-                        value="<?php echo $selected_club ? $selected_club['image_url'] : ''; ?>" required> -->
+                    <label for="image">Image:</label>
+                    <input type="file" name="image" id="image" required><br><br>
 
                     <label for="club_name">Club Name:</label>
                     <input type="text" id="club_name" name="club_name"
@@ -223,12 +204,7 @@ $conn->close();
 
                     <label for="about">About of Clubs :-</label>
                     <textarea type="text" id="book_tkt" name="about" value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
-                        </textarea><br><br>
-
-                    <!-- <label for="book_tkt">Link for Booking:</label>
-        <input type="text" id="book_tkt" name="book_tkt"
-            value="<?php echo $selected_club ? $selected_club['book_tkt'] : ''; ?>"><br><br> -->
-
+                            </textarea><br><br>
                     <input type="submit" name="submit" value="Update Club">
                 </form>
             <?php endif; ?>
@@ -459,23 +435,19 @@ $conn->close();
     }
 
     .logo {
-        height: 129px;
-        /* position: absolute; */
-        /* margin-top: -70px; */
-        /* margin-left: 10px; */
-        background-color: black;
-        width: 100%;
-        justify-content: center;
+        /* width: 15%;  */
         padding: 10px;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
         box-sizing: border-box;
-        display: flex;
+        overflow: hidden;
     }
 
     .logo img {
-        /* width: 36%; */
-        /* border-radius: 100%; */
-        /* width: 100%; */
-        height: 100%;
-        /* margin-left: 12%; */
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
     }
 </style>
