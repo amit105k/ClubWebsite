@@ -41,25 +41,17 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
 
 if (isset($_POST['delete_club'])) {
     $query = "DELETE FROM club_overviews WHERE id=?";
-    $stmt = $conn->prepare($query); 
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $id);
 
 
     if ($stmt->execute()) {
-        echo "<script>
-        Swal.fire({
-            title: 'Success!',
-            text: 'Your club has been deleted successfully!',
-            icon: 'success'
-        }).then(function() {
-            window.location.href = 'VenderProfile.php'; 
-        });
-    </script>";
-} else {
-    echo "<script>
-        alert('Error deleting club: " . $conn->error . "');
-        </script>";
-        }
+        $response = "success";
+
+    } else {
+        $response = "error";
+
+    }
     $stmt->close();
 
 }
@@ -77,38 +69,10 @@ if (isset($_POST['delete_club'])) {
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function confirmDelete() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: "red",
-            cancelButtonColor: "#4CAF50",
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-               
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Your club has been deleted successfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'  
-                }).then(function() {
-                    
-                    document.getElementById('delete-form').submit();
-                    window.location.href = 'VenderProfile.php';
-                });
-            }
-        });
-    }
-</script>
 </head>
 
 <body>
-     <!-- <nav>
+    <!-- <nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
@@ -270,30 +234,35 @@ if (isset($_POST['delete_club'])) {
     } */
 
     .details form {
-  width: 70%;
-  margin-left: 15%;
-}
-.details label {
-  display: block;
-  margin: 10px 0 5px;
-  font-size: 19px;
-  font-weight: bold;
-}
-form select,form option,form button
- {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 19px;
-  font-weight: normal;
-}
-    form img{
+        width: 70%;
+        margin-left: 15%;
+    }
+
+    .details label {
+        display: block;
+        margin: 10px 0 5px;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    form select,
+    form option,
+    form button {
+        width: 100%;
+        padding: 8px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 19px;
+        font-weight: normal;
+    }
+
+    form img {
         max-height: 150px;
         max-width: 160px;
     }
-    select{
+
+    select {
         padding: 5px;
         font-size: 18px;
     }
@@ -362,20 +331,20 @@ form select,form option,form button
         
     } */
     .details {
-  width: 80%;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 10px;
-  justify-content: space-between;
-  justify-content: center;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  width: 85%;
-  justify-content: center;
-  align-items: center;
-}
+        width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 10px;
+        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        width: 85%;
+        justify-content: center;
+        align-items: center;
+    }
 
     .first,
     .second {
@@ -464,8 +433,31 @@ form select,form option,form button
     form label {
         font-weight: bold;
     }
-    form p{
+
+    form p {
         overflow: clip;
 
     }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let response = "<?php echo $response; ?>";
+
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Club Delete successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "VenderProfile.php";
+            });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Club not delete. Please try again.',
+                icon: 'error'
+            });
+        }
+    });
+</script>

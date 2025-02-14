@@ -39,60 +39,57 @@ if (isset($_GET['id']) && $_GET['id'] != 'new') {
     $selected_club = $selected_club_result->fetch_assoc();
 }
 
+?>
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $club_id = $_POST['id'];
-    $club_name = $_POST['club_name'];
-    $show_time = $_POST['show_time'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $postal_code = $_POST['postal_code'];
-    $about = $_POST['about'];
+<?php
+$response = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $club_name = htmlspecialchars($_POST['club_name']);
+    $show_time = htmlspecialchars($_POST['show_time']);
+    $address = htmlspecialchars($_POST['address']);
+    $city = htmlspecialchars($_POST['city']);
+    $postal_code = htmlspecialchars($_POST['postal_code']);
+    $about = htmlspecialchars($_POST['about']);
+
     $image_name = $_FILES['image']['name'];
-    $image_tmp = $_FILES['image']['tmp_name'];
-    
-    $sql = "SELECT * FROM club_overviews WHERE id = '$id'";
-    $result = $conn->query($sql);
-    $club = $result->fetch_assoc();
+    $image_tmp_name = $_FILES['image']['tmp_name'];
+    $image_folder = 'uploads/' . uniqid() . '_' . basename($image_name);
 
-    if ($club) {
-        if ($image_name) {
-            $old_image = $club['image']; 
-            if ($old_image && file_exists('uploads/' . $old_image)) {
-                unlink('uploads/' . $old_image);
-            }
+    if (move_uploaded_file($image_tmp_name, $image_folder)) {
+        $stmt = $conn->prepare("UPDATE club_overviews SET 
+            club_name = ?, 
+            image = ?, 
+            show_time = ?, 
+            address = ?, 
+            city = ?, 
+            postal_code = ?, 
+            about = ? 
+            WHERE id = ?");
 
-            $new_image = time() . '_' . $image_name; 
-            move_uploaded_file($image_tmp, 'uploads/' . $new_image);
+        $stmt->bind_param(
+            "sssssssi", 
+            $club_name,
+            $image_folder,
+            $show_time,
+            $address,
+            $city,
+            $postal_code,
+            $about,
+            $id 
+        );
+
+        if ($stmt->execute()) {
+            $response = "success";
         } else {
-            $new_image = $club['image'];
+            $response = "error";
         }
+        $stmt->close();
+    } else {
+        $response = "error";
 
-        $update_sql = "UPDATE club_overviews 
-                       SET club_name = '$club_name', 
-                           show_time = '$show_time', 
-                           address = '$address', 
-                           city = '$city', 
-                           postal_code = '$postal_code', 
-                           about = '$about', 
-                           image = '$new_image'
-                       WHERE id = '$id'";
-
-        if ($conn->query($update_sql) === TRUE) {
-            // Success message
-            echo "<script type='text/javascript'>
-                    swal('Success!', 'Club updated successfully!', 'success');
-                  </script>";
-        } else {
-            // Error message
-            echo "<script type='text/javascript'>
-                    swal('Error!', 'Error, please contact the admin.', 'error');
-                  </script>";
-        }
     }
 
-    // Close connection
     $conn->close();
 }
 ?>
@@ -111,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
@@ -180,11 +178,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="hidden" name="id" value="<?php echo $selected_club ? $selected_club['id'] : ''; ?>">
 
                     <label for="image">Image:</label>
+                    <p><img src="<?php echo $logo ?>" alt="Club images"></p>
                     <input type="file" name="image" id="image" required><br><br>
 
                     <label for="club_name">Club Name:</label>
                     <input type="text" id="club_name" name="club_name"
-                        value="<?php echo $selected_club ? $selected_club['club_name'] : ''; ?>" required><br><br>
+                        value="<?php echo $selected_club ? $selected_club['club_name'] : ''; ?>"><br><br>
 
                     <label for="show_time">Show Time:</label>
                     <input type="text" id="show_time" name="show_time"
@@ -203,8 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         value="<?php echo $selected_club ? $selected_club['postal_code'] : ''; ?>"><br><br>
 
                     <label for="about">About of Clubs :-</label>
-                    <textarea type="text" id="book_tkt" name="about" value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?>
-                            </textarea><br><br>
+                    <textarea type="text" id="book_tkt" name="about"
+                        value=""><?php echo $selected_club ? $selected_club['about'] : ''; ?></textarea><br><br>
                     <input type="submit" name="submit" value="Update Club">
                 </form>
             <?php endif; ?>
@@ -260,6 +259,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 
 <style>
+    form img {
+        max-height: 150px;
+        max-width: 160px;
+    }
+
     .details {
         width: 80%;
         /* margin: 20px auto; */
@@ -451,3 +455,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         cursor: pointer;
     }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let response = "<?php echo $response; ?>";
+
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Club Update successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "VenderProfile.php";
+            });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Club not update. Please try again.',
+                icon: 'error'
+            });
+        }
+    });
+</script>
