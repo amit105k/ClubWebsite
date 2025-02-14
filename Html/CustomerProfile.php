@@ -298,21 +298,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
         /* margin-left: 10px; */
         background-color: black;
         width: 15%;
-        overflow: hidden;
-        cursor: pointer;
-
     }
 
     .logo img {
-        width: 50%;
+        width: 36%;
         border-radius: 100%;
         /* width: 100%; */
-        height: 100%;
+        height: 90%;
         margin-left: 28%;
-        /* width: 100%;
-        height: 100%; */
-        object-fit: cover;
-        border-radius: 50%;
     }
 
     .edit-icon {

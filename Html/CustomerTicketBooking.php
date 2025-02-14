@@ -67,13 +67,12 @@
 
 
     <!-- ...this is profile details..-->
-    <h2 id="h2">Book Tickets</h2>
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
             <img src="<?php echo $rrow['image'] ?>" alt="image">
             </div>
-            <ul>
+             <ul>
                 <li><a href="CustomerProfile.php">Dashboard</a></li>
                 <li><a href="CustomerTicketBooking.php">Booking Ticket</a></li>
                 <li><a href="CustomerBookingHistory.php">Booking History</a></li>
@@ -513,6 +512,9 @@
 <!-- ......................paymrnt................................. -->
 
 <style>
+    .form-container{
+        margin-top: 50px;
+    }
     #paragraph {
         margin-top: 10px;
         margin-left: 10%;
@@ -670,24 +672,25 @@
         width: 15%;
     }
 
+    .profile-left ul {
+        margin-top: 10px;
+    }
     .profile-left ul li {
-        /* line-height: 50px; */
-        list-style-type: none;
-        /* padding: 20px; */
+        /* list-style-type: none;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
         display: flex;
         margin-top: 5px;
     }
 
+
     .profile-left ul li a {
-        /* background-color: pink; */
         text-decoration: none;
-        /* padding: 10px; */
         height: 100%;
         height: 100%;
         color: white;
-        line-height: 50px;
+        line-height: 40px;
+        margin-left: 20%;
     }
 
     .profile-left ul li a:hover {
@@ -716,7 +719,6 @@
         height: 90%;
         margin-left: 28%;
     }
-
     #paragraph {
         margin-top: 10px;
         margin-left: 10%;

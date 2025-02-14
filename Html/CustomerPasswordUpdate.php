@@ -27,19 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $oldpass = $_POST['oldpass'];
     $newpass = $_POST['newpass'];
 
-    // Check if old password matches
     if ($password !== $oldpass) {
-        echo json_encode(['success' => false, 'message' => 'Old password is incorrect']);
+        $response = "errorr";
     } else {
-        // Update password in the database
         $sql = "UPDATE customerreg SET Password=? WHERE email=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $newpass, $user['email']);
 
         if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Password updated successfully. Please login again.']);
+            $response = "success";
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error: ' . $stmt->error]);
+            $response = "error";
         }
     }
 }
@@ -58,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 
 </head>
 
@@ -354,185 +353,49 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </style>
 
 
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Function to validate the password and confirm password
-    function validatePassword() {
-        var oldPass = document.getElementById("oldpass").value;
-        var newPass = document.getElementById("newpass").value;
-        var confirmPass = document.getElementById("confirmpass").value;
+    document.getElementById('passupdate').addEventListener('submit', function (e) {
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var passwordError = document.getElementById('passwordError');
 
-        if (newPass !== confirmPass) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'New password and confirm password do not match!',
-            });
-            return false; // Prevent form submission
+        if (password !== confirmPassword) {
+            e.preventDefault();
+            passwordError.style.display = 'block';
+            passwordError.textContent = 'New Password And Confirm Password not Matched try again.';
+        } else {
+            passwordError.style.display = 'none';
         }
+    });
 
-        // Proceed with sending the form if passwords match
-        updatePassword(oldPass, newPass);
-        return false; // Prevent form submission
-    }
 
-    // Function to send AJAX request to PHP script
-    function updatePassword(oldPass, newPass) {
-        var formData = new FormData();
-        formData.append('oldpass', oldPass);
-        formData.append('newpass', newPass);
 
-        fetch('your_php_script.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Show success message
-                Swal.fire({
-                    icon: 'success',
-                    title: data.message,
-                    showConfirmButton: true,
-                }).then(() => {
-                    window.location.href = "Logout.php"; 
-                });
-            } else {
-                // Show error message
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: data.message,
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        let response = "<?php echo $response; ?>";
 
-    document.getElementById("submitBtn").addEventListener("click", validatePassword);
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Password Change successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "CustomerProfile.php";
+            });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Password Change not updated. Please try again.',
+                icon: 'error'
+            });
+        } else if (response === "errorr") { 
+            Swal.fire({
+                title: 'Error!',
+                text: 'Old Password and Enter Password are not Match.',
+                icon: 'error'
+            });
+        }
+    });
 </script>
 
-
-<!-- <script>
-    document.getElementById("passupdate").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const passwordError = document.getElementById('passwordError');
-
-    if (password !== confirmPassword) {
-        passwordError.style.display = 'block';  
-        passwordError.textContent = 'New Password and Confirm Password do not match';  
-        return; 
-    } else {
-        passwordError.style.display = 'none'; 
-    }
-
-    const formData = new FormData(this);
-
-    fetch('', { 
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Password Update Success',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "http://localhost/amitclub/html/CustomeLogin.php";
-                }
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'password not match',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "CustomerProfile.php";
-                }
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'There was an error while submitting the form.',
-            confirmButtonText: 'OK'
-        });
-    });
-});
-
-</script> -->
-
-<!-- <script>
-document.getElementById("passupdate").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const passwordError = document.getElementById('passwordError');
-
-    if (password !== confirmPassword) {
-        passwordError.style.display = 'block';  
-        passwordError.textContent = 'Passwords do not match';  
-    } else {
-        passwordError.style.display = 'none'; 
-    }
-
-    const formData = new FormData(this);
-
-    fetch('', { 
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Registration Success',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "http://localhost/amitclub/html/CustomeLogin.php";
-                }
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Kindly Login',
-                text: data.message,
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "http://localhost/amitclub/html/CustomeLogin.php";
-                }
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'There was an error while submitting the form.',
-            confirmButtonText: 'OK'
-        });
-    });
-});
-</script> -->
