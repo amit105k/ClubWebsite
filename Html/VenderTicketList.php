@@ -15,7 +15,7 @@ $email = $vender['email'];
 
 
 include("db.php");
-$query = "SELECT image FROM club_overviews WHERE email=?";
+$query = "SELECT image,club_name FROM club_overviews WHERE email=?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $vender['email']);
 $stmt->execute();
@@ -23,50 +23,23 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $logo = $row['image'];
+        $club = $row['club_name'];
     }
 }
 
 
-// logo insert 
+// $amit="Hauz Khas";
+$old = "SELECT * FROM registrations WHERE club=?";
+$stmt = $conn->prepare($old);
+$stmt->bind_param("s", $club);
+$stmt->execute();
+$resultt = $stmt->get_result();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
-    $targetDir = "uploads/";
-    if (!is_dir($targetDir)) {
-        mkdir($targetDir, 0777, true);
-    }
-
-    if ($logo !== "default.png" && file_exists($logo)) {
-        unlink($logo);
-    }
-
-    $fileName = time() . "_" . basename($_FILES["profileImage"]["name"]);
-    $targetFilePath = $targetDir . $fileName;
-    $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
-
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-    if (in_array($fileType, $allowedTypes)) {
-        if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $targetFilePath)) {
-
-
-            $updateQuery = "UPDATE club_overviews SET image=? WHERE email=?";
-            $updateStmt = $conn->prepare($updateQuery);
-            $updateStmt->bind_param("ss", $targetFilePath, $email);
-            if ($updateStmt->execute()) {
-                $_SESSION['user']['image'] = $targetFilePath;
-                $_SESSION['success'] = "Profile image uploaded successfully.";
-
-                header("Location: VenderProfile.php");
-                exit();
-            } else {
-                $_SESSION['error'] = "Failed to update database.";
-            }
-        } else {
-            $_SESSION['error'] = "File upload failed.";
-        }
-    } else {
-        $_SESSION['error'] = "Invalid file format. Only JPG, PNG, or GIF allowed.";
-    }
+if ($resultt->num_rows > 0) {
+    $row = $resultt->fetch_assoc();
 }
+
+
 
 ?>
 
@@ -76,13 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendor Profile</title>
+    <title>Customer Profile</title>
     <link rel="stylesheet" href="../css/index.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -91,27 +63,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
+         <a href="service.php">Services</a>
+        <a href="#clubs">Clubs</a>
+        <a href="#clubs">Gallery</a> 
         <a href="contact.php">Contact Us</a>
+        <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
         <a href="status.php" id="status">Booking Status</a>
-        <a href="logout.php">Logout</a>
+        <a href="logoutCustomer.php">Logout</a>
+
+
     </nav> -->
 
 
     <!-- ...this is profile details..-->
 
-
-
     <div class="profile">
         <div class="profile-left">
             <div class="logo" onclick="document.getElementById('fileInput').click();">
                 <img src="<?php echo htmlspecialchars($logo); ?>" id="profileImage" alt="Profile Image">
-                <span class="edit-icon" onclick="document.getElementById('fileInput').click();">&#9998;</span>
             </div>
-            <form id="uploadForm" method="POST" enctype="multipart/form-data">
-                <input type="file" name="profileImage" id="fileInput" accept="image/*" onchange="uploadImage()">
-            </form>
             <ul>
-                <li><a href="VenderProfile.php"> DashBoard</a></li>
+                <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
                 <li><a href="VenderTicketList.php"> Show Bookings</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
@@ -124,36 +96,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
             </ul>
         </div>
         <div class="details">
-        <h2 id="h2">Vender Profile</h2>
 
-            <div class="first">
-                <p class="paragraph"><strong>ID:</strong> <?php echo htmlspecialchars($vender['id']); ?></p>
-                <p class="paragraph"><strong>Business
-                        Name:</strong><?php echo htmlspecialchars($vender['business_name']); ?>
-                </p>
-                <p class="paragraph"><strong>Name:</strong> <?php echo htmlspecialchars($vender['client_name']); ?></p>
-                <p class="paragraph"><strong>Contact No:</strong> <?php echo htmlspecialchars($vender['contact_no']); ?>
-                </p>
+            <?php
+            if ($resultt->num_rows > 0) {
+                echo "<table border='1' style='width:100%; border-collapse:collapse; text-align: center;'>
+            <tr style='background-color:#cec7c7';>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date And Time</th>
+                <th>Mobile</th>
+                <th>No Of Persons</th>
+                <th>Amount</th>
+                <th>Payment Status</th>
+                <th>Payment id</th>
+                <th>Token id</th>
+                <th>Booking Date</th>
+            </tr>";
 
-            </div>
-            <div class="second">
-                <p class="paragraph"><strong>Email:</strong> <?php echo htmlspecialchars($vender['email']); ?></p>
-                <p class="paragraph"><strong>GST details:</strong> <?php echo htmlspecialchars($vender['gst_no']); ?>
-                </p>
-                <p class="paragraph"><strong>Address:</strong> <?php echo htmlspecialchars($vender['address']); ?></p>
+                while ($row = $resultt->fetch_assoc()) {
+                        if ($row["payment_status"] === "Success") {
+                            $rowStyle = "background-color: #c9d4c9; color: black;";
+                        } elseif ($row["payment_status"] === "Pending") {
+                            $rowStyle = "background-color: #cb5c5c; color: black;";
+                        } else {
+                            $rowStyle = "background-color: white; color: black;";
+                        }
 
-            </div>
+                        echo "<tr style='" . $rowStyle . "'>
+
+                <td>" . $row["id"] . "</td>
+                <td>" . $row["name"] . "</td>
+                <td>" . $row["date"] . "</td>
+                <td>" . $row["mobile"] . "</td>
+                <td>" . $row["count"] . "</td>
+                <td>" . $row["amount"] . "</td>
+                <td>" . $row["payment_status"] . "</td>
+                <td>" . $row["payment_id"] . "</td>
+                <td>" . $row["token_id"] . "</td>
+                <td>" . $row["bdate"] . "</td>
+            </tr>";
+                    }
+            
+                echo "</table>";
+            } else {
+                echo "<p>No  bookings found in these details.</p>";
+            }
+
+            $conn->close();
+            ?>
+
         </div>
 
 
     </div>
-    <?php
-    ?>
-
-
-
-    <!---,.............footer is eher-->
-
+    <!--.........................footer is here-->
 
     <div class="footer">
         <div class="fleft">
@@ -200,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
 </html>
 
 <style>
-     .logo {
+    .logo {
         /* width: 15%;  */
         padding: 10px;
         /* position: absolute; */
@@ -272,6 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
         /* display: flex; */
         justify-content: space-between;
         margin-bottom: 10px;
+        padding: 10px;
         width: 85%;
         justify-content: center;
         align-items: center;
@@ -364,31 +361,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['profileImage'])) {
         /* background-color: yellow; */
         display: flex;
     }
+
+    th,
+    td {
+        border-width: thin;
+        padding: 2px;
+    }
 </style>
-
-<script>
-        function uploadImage() {
-            document.getElementById('uploadForm').submit();
-        }
-
-        <?php if (isset($_SESSION['success'])) { ?>
-            Swal.fire({
-                title: 'Profile Updated',
-                text: '<?php echo $_SESSION['success']; ?>',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            })
-            // .then(() => {
-            //     window.location.href = 'customerLogin.php';
-            // });
-        <?php unset($_SESSION['success']); } ?>
-
-        <?php if (isset($_SESSION['error'])) { ?>
-            Swal.fire({
-                title: 'Error',
-                text: '<?php echo $_SESSION['error']; ?>',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        <?php unset($_SESSION['error']); } ?>
-    </script>

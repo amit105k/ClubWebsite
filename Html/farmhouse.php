@@ -11,7 +11,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo '<a href="farmhouseDetails.php?id='.$row['id'].'"
          class="fade">';
-        echo '<div class="fadee">';
+        echo '<div class="fadee"><h2 class="name">' . $row['name'] . '</h2>';
         echo '<img src="' . $row['image_url'] . '" alt="Club Image" class="image">';
         echo '<div class="overlay">';
         echo '<div class="text">';
@@ -62,4 +62,13 @@ $conn->close();
     font-size: 30px;
    
 }
+.name {
+        color: black !important;
+        position: absolute;
+        background-color: white !important;
+        bottom: 0px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 5px !important;
+    }
 </style>

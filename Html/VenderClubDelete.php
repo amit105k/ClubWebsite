@@ -102,6 +102,7 @@ if (isset($_POST['delete_club'])) {
             </div>
             <ul>
                 <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
+                <li><a href="VenderTicketList.php"> Show Bookings</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
                 <li><a href="VenderPriceUpdate.php">Price/Cupon</a></li>

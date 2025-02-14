@@ -44,15 +44,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             (club_name, image, show_time, address, city, postal_code, email, mobile, about) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param(
-            "sssssssss", 
-            $club_name, 
+            "sssssssss",
+            $club_name,
             $image_folder,
-            $show_time, 
-            $address, 
-            $city, 
-            $postal_code, 
-            $email, 
-            $mobile, 
+            $show_time,
+            $address,
+            $city,
+            $postal_code,
+            $email,
+            $mobile,
             $about
         );
 
@@ -89,14 +89,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-   
+
     <div class="profile">
         <div class="profile-left">
             <div class="logo">
-            <img src="<?php echo $logo ?>" alt="Club images">
+                <img src="<?php echo $logo ?>" alt="Club images">
             </div>
             <ul>
                 <li><a href="VenderProfile.php"><i class="fa-solid fa-left-long"></i> DashBoard</a></li>
+                <li><a href="VenderTicketList.php"> Show Bookings</a></li>
                 <li><a href="VenderClubList.php">Show Club Details</a></li>
                 <li><a href="VenderClubCreate.php">Create New Club</a></li>
                 <li><a href="VenderPriceUpdate.php">Price/Cupon</a></li>
@@ -109,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         </div>
-        <div class="details">            
+        <div class="details">
             <form action="" method="POST" id="createClubForm" enctype="multipart/form-data">
                 <h2>Create New Club</h2>
                 <label for="club_name">Club Name:</label>
@@ -129,15 +130,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="city" name="city" required>
 
                 <label for="postal_code">Postal Code:</label>
-                <input type="text" id="postal_code" name="postal_code" required  minlength="6" maxlength="6" 
-                oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                <input type="text" id="postal_code" name="postal_code" required minlength="6" maxlength="6"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '');">
 
                 <label for="book_tkt">Email:</label>
-                <input type="url" id="book_tkt" name="email" required readonly value="<?php echo(htmlspecialchars($vender['email'])); ?>">
+                <input type="url" id="book_tkt" name="email" required readonly
+                    value="<?php echo (htmlspecialchars($vender['email'])); ?>">
 
                 <label for="book_tkt">Mobile:</label>
-                <input type="text" id="mobile" name="mobile" required  minlength="10" maxlength="10" 
-                oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="<?php echo htmlspecialchars($vender['contact_no']) ?>">
+                <input type="text" id="mobile" name="mobile" required minlength="10" maxlength="10"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                    value="<?php echo htmlspecialchars($vender['contact_no']) ?>">
 
                 <label for="about">About Of Club :-</label>
                 <textarea name="about" id=""></textarea>
@@ -215,12 +218,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         display: flex;
         justify-content: space-between;
         /* margin-bottom: 10px;  */
-      
-      justify-content: center;
-       align-items: center; 
+
+        justify-content: center;
+        align-items: center;
 
     }
-    .details form{
+
+    .details form {
         width: 70%;
     }
 

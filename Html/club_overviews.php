@@ -1,7 +1,7 @@
 <?php
-include('db.php'); 
+include('db.php');
 
-$sql = "SELECT * FROM club_overviews"; 
+$sql = "SELECT * FROM club_overviews";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -9,23 +9,24 @@ if ($result->num_rows > 0) {
     echo '<h2>Overviews of the Clubs</h2>';
     echo '<div class="image-containerr">';
     while ($row = $result->fetch_assoc()) {
-        echo '<a href="club_details.php?id=' . $row['id'] . '" class="fade">'; 
-        echo '<div class="fadee">';
+        echo '<a href="club_details.php?id=' . $row['id'] . '" class="fade">';
+        echo '<div class="fadee"><h2 class="name">' . $row['club_name'] . '</h2>';
+
         echo '<img src="' . $row['image'] . '" alt="Club Image" class="image">';
         echo '<div class="overlay">';
         echo '<div class="text">';
 
-       
+
         if ($row['club_name']) {
-            echo '<h3>' . $row['club_name'] .  '</h3>';
+            echo '<h3>' . $row['club_name'] . '</h3>';
         }
 
-       
+
         if ($row['show_time']) {
             echo '<h5>' . $row['show_time'] . '</h5>';
         }
 
-       
+
         if ($row['address']) {
             echo '<h2>Address</h2>';
             echo '<h4>' . $row['address'] . '</h4>';
@@ -129,18 +130,30 @@ $conn->close();
 
 </style> -->
 <style>
-    .text a{
-    color: inherit;
-    text-decoration: none;
-    right: 10px;
-    font-weight: bold;
-    font-size: 30px;
-   
-}
-.fadee{
-    
-  /* border: 12px solid white; */
-  /* width: 27%; */
- height: 100%;
-}
+    .text a {
+        color: inherit;
+        text-decoration: none;
+        right: 10px;
+        font-weight: bold;
+        font-size: 30px;
+
+    }
+
+    .fadee {
+
+        /* border: 12px solid white; */
+        /* width: 27%; */
+        height: 100%;
+        /* box-sizing: content-box; */
+    }
+
+    .name {
+        color: black !important;
+        position: absolute;
+        background-color: white !important;
+        bottom: 0px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 5px !important;
+    }
 </style>
