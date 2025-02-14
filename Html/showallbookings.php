@@ -180,13 +180,15 @@
         border-collapse: collapse;
         margin-top: 20px;
         margin-bottom: 20px;
-        overflow: scroll;
+        /* overflow: scroll; */
+        /* background-color: #e9e8e6; */
     }
 
     table,
     th,
     td {
-        border: 3px solid #ddd;
+        border: 3px solid black;
+        background-color: #e9e8e6;
     }
 
     th,
@@ -207,7 +209,9 @@
         width: 100%;
         /* max-width: 1200px; */
         margin: 0 auto;
-        overflow-x: scroll;
+        overflow: scroll;
+        padding: 10px;
+        background-color: #e9e8e6;
     }
     .container h2{
         margin-top: 20px;

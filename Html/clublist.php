@@ -1,16 +1,4 @@
 <?php
-// // Database connection
-// $servername = "localhost";
-// $username = "root"; // Change to your database username
-// $password = ""; // Change to your database password
-// $dbname = "club_registration"; // Your database name
-
-// // Create connection
-// $conn = new mysqli($servername, $username, $password, $dbname);
-
-// // Check connection
-
-
 include("db.php");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -82,10 +70,11 @@ $result = $conn->query($sql);
                         <th>PromoCode</th>
                         <th>Promo Discount</th>
                         <th>About</th>
-                        <th>Image URL</th>
-                        <th>Image URL 1</th>
-                        <th>Image URL 2</th>
-                        <th>Image URL 3</th>
+                        <th>Profile Image</th>
+                        <th>Gallery Inage 1</th>
+                        <th>Gallery Inage 2</th>
+                        <th>Gallery Inage 3</th>
+                      
                     </tr>";
             
             while($row = $result->fetch_assoc()) {
@@ -100,10 +89,11 @@ $result = $conn->query($sql);
                         <td>" . $row["promocode"] . "</td>
                         <td>" . $row["promodis"] . "</td>
                         <td> <textarea readonly>" . $row["about"] . "</textarea></td>
-                        <td>" . $row["image_url"] . "</td>
-                        <td>" . $row["image_url1"] . "</td>
-                        <td>" . $row["image_url2"] . "</td>
-                        <td>" . $row["image_url3"] . "</td>
+                        <td><img src=". $row["image"] ."></td>
+                        <td><img src=". $row["image_url1"] ."></td>
+                        <td><img src=". $row["image_url2"] ."></td>
+                        <td><img src=". $row["image_url3"] ."></td>
+                
                     </tr>";
             }
             echo "</table>";
@@ -121,3 +111,9 @@ $result = $conn->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.8/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
+<style>
+    img {
+        max-height: 150px;
+        max-width: 160px;
+    }
+</style>
