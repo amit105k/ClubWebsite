@@ -44,42 +44,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $newpass = $_POST['newpass'];
 
     if ($password !== $oldpass) {
-        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'old Password not matched.',
-            text: 'Please try again.',
-            confirmButtonText: 'OK'
-        });
-      </script>";
+        $response = "errorr";
+
     } else {
         $sql = "UPDATE vender SET Password=? WHERE email=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $newpass, $vender['email']);
 
         if ($stmt->execute()) {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-            <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Your password has been updated successfully.',
-                        text: 'Please re-login to continue.',
-                        confirmButtonText: 'OK'
-                    }).then(function() {
-                        window.location.href = 'VenderLogin.php';
-                    });
-                  </script>";
+            $response = "success";
         } else {
-            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-             <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Something Went Wrong',
-            text: 'Please try again.',
-            confirmButtonText: 'OK'
-        });
-      </script>";
+            $response = "error";
+
         }
     }
 }
@@ -416,4 +392,33 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let response = "<?php echo $response; ?>";
+
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Club Password Change successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "VenderProfile.php";
+            });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Club Password Change not updated. Please try again.',
+                icon: 'error'
+            });
+        } else if (response === "errorr") { 
+            Swal.fire({
+                title: 'Error!',
+                text: 'Old Password and Enter Password are not Match.',
+                icon: 'error'
+            });
+        }
+    });
+</script>
+
 

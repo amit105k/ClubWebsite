@@ -60,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("isiii", $price, $promocode, $promodis, $extraperson, $id);
 
     if ($stmt->execute()) {
-        echo json_encode(['status' => 'success', 'message' => 'Club details have been updated successfully.']);
+        $response = "success";
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to update the club details.']);
+        $response = "error";
     }
 
     $stmt->close();
@@ -416,43 +416,25 @@ $conn->close();
     }
 </style>
 
-      <script>
-        document.getElementById('updateForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let response = "<?php echo $response; ?>";
 
-            const formData = new FormData(this);
-            fetch('', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: data.message,
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'VenderProfile.php';  
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: data.message,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Something went wrong!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Club Price/Promo successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "VenderProfile.php";
             });
-        });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Club Price/Promo not update. Please try again.',
+                icon: 'error'
+            });
+        }
+    });
 </script>
