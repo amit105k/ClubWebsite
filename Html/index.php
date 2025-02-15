@@ -619,10 +619,10 @@
                 </div>
                 <!-- Slide 3 -->
                 <div class="c-slide">
-                    <img src="https://media.licdn.com/dms/image/v2/D5635AQH2ggyUOJLbSg/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1730032881425?e=1738580400&v=beta&t=cAaLNjfVLr8dz1sb9HxnWqsnQH4TlhdvTgudCEA7gJ8"
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFZsVG6jE6NSEAE-tZ6fQInynUg0tRyD-k1Q&s"
                         alt="Customer 3">
                     <div class="c-content">
-                        <h4>Rupal Singh</h4>
+                        <h4>Aishwariya Rai</h4>
                         <p>Very satisfied with my purchase. Highly recommended!</p>
                         <div class="c-star-rating">
                             <span class="c-star filled">★</span>
@@ -728,6 +728,7 @@
             </div>
         </div>
     </div>
+
 
 
 
@@ -994,27 +995,27 @@
 
 
         <script>
-            let currentSlideIndexx = 0;
-            let directionn = 1;
-            const slidess = document.querySelectorAll('.c-slide');
-            const totalSlidess = slidess.length - 2;
-            const sliderr = document.querySelector('.c-slider');
+            // let currentSlideIndexx = 0;
+            // let directionn = 1;
+            // const slidess = document.querySelectorAll('.c-slide');
+            // const totalSlidess = slidess.length - 2;
+            // const sliderr = document.querySelector('.c-slider');
 
 
-            function moveToNextSlide() {
-                currentSlideIndexx += directionn;
+            // function moveToNextSlide() {
+            //     currentSlideIndexx += directionn;
 
-                if (currentSlideIndexx >= totalSlidess || currentSlideIndexx < 0) {
-                    direction *= -1;
-                    currentSlideIndexx += directionn;
-                }
+            //     if (currentSlideIndexx >= totalSlidess || currentSlideIndexx < 0) {
+            //         direction *= -1;
+            //         currentSlideIndexx += directionn;
+            //     }
 
-                const offset = -(currentSlideIndexx * 33.33);
-                sliderr.style.transform = `translateX(${offset}%)`;
-            }
+            //     const offset = -(currentSlideIndexx * 33.33);
+            //     sliderr.style.transform = `translateX(${offset}%)`;
+            // }
 
 
-            setInterval(moveToNextSlide, 3000);
+            // setInterval(moveToNextSlide, 3000);
 
 
             document.querySelectorAll('.c-star-rating').forEach(starRating => {
@@ -1046,7 +1047,7 @@
 
 <!-- customer review csss -->
 <style>
-    .c-customer-reviews {
+     .c-customer-reviews {
         width: 100%;
         background-color: black;
         text-align: center;
@@ -1064,8 +1065,8 @@
         position: relative;
         overflow: hidden;
         /* overflow-x: scroll; */
-        width: 80%;
-        margin-left: 10%;
+        width: 90%;
+        margin-left: 5%;
         background-color: white;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
@@ -1089,7 +1090,20 @@
 
     .c-slider {
         display: flex;
-        transition: transform 0.5s ease-in-out;
+        /* transition: transform 0.5s ease-in-out; */
+        animation: amit 32s linear infinite alternate;
+        width: 100%;
+    }
+
+    @keyframes amit {
+        0% {
+            margin-left: 0%;
+        }
+
+        100% {
+            margin-left: -100%;
+        }
+
     }
 
     .c-slide {
@@ -1173,6 +1187,7 @@
         color: gold;
         /* Filled stars color */
     }
+
 </style>
 
 

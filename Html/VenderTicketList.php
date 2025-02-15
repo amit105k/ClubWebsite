@@ -2,12 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['vender'])) {
-    header("Location: VenderLogin.php");
-    ?>
-    <script>
-        alert("Something went worng");
-    </script>
-    <?php
+    echo "<script>alert('Session Expired. Please Re-Login'); window.location.href='VenderLogin.php';</script>";
     exit();
 }
 $vender = $_SESSION['vender'];
