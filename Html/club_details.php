@@ -646,14 +646,13 @@ if (isset($_GET['id'])) {
     window.onload = function () {
         const slider = document.querySelector('.c-slider');
         const slides = document.querySelectorAll('.c-slide');
-        // const noReviewsText = document.querySelector('.c-customer-reviews h2');
         const noReviewsText = document.querySelector('.c-slider-container');
 
         if (slides.length < 1) {
             slider.remove();
             noReviewsText.textContent = "No customer reviews were found";
-            noReviewsText.style='height:50px';
-            noReviewsText.style='align-item:center;height:50px;color:black;border-bottom-right-radius:10px;border-bottom-left-radius: 10px; justify-content: center;align-items: center;display:flex';
+            noReviewsText.classList.add("c-slide_remove");
+            noReviewsText.classList.add("c-slide_remove");
         } else if (slides.length < 4) {
             slider.style.animation = 'none'; 
         }
@@ -1311,6 +1310,19 @@ if (isset($_GET['id'])) {
         border-top-left-radius: 10px;
 
     }
+    .c-slide_remove{
+            align-item:center;
+            height:50px;
+            color:black;
+            border-bottom-right-radius:10px;
+            border-bottom-left-radius: 10px; 
+            justify-content: center;
+            align-items: center;
+            display:flex;
+            font-weight: bold;
+            font-size: 22px;
+    }
+
 
 
     .c-slider {
@@ -1339,7 +1351,7 @@ if (isset($_GET['id'])) {
     .c-slide img {
         width: 34%;
         /* border-radius: 8px; */
-        height: 95px;
+        height: 100px;
         border-radius: 100%;
         border: 5px solid black;
     }

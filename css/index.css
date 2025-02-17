@@ -876,6 +876,233 @@ body {
 
 
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: red;
+    font-size: 28px;
+    font-weight: bold;
+    float: right;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.customerrevForm input[type="text"],
+.customerrevForm input[type="number"],
+.customerrevForm textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.customerrevForm label {
+    color: black;
+    float: left;
+}
+
+
+
+.customerrevForm button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.customerrevForm button:hover {
+    background-color: #45a049;
+}
+
+
+  
+    /*...................................................slider................................................... */
+
+    #custrev {
+        color: black;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        z-index: 2;
+        background-color: #96a5b5;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        display: inline-block;
+        font-weight: bold;
+    }
+    
+    #custrev:hover {
+        background-color: #afcbe9;
+    }
+
+
+    /* /*...................customer revirw stylels............................... */
+
+
+    .c-customer-reviews {
+        width: 100%;
+        background-color: black;
+        text-align: center;
+        color: white;
+    }
+
+    .c-customer-reviews h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .c-slider-container {
+        position: relative;
+        overflow: hidden;
+        width: 90%;
+        margin-left: 5%;
+        background-color: white;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+
+    }
+    .c-slide_remove{
+            align-item:center;
+            height:50px;
+            color:black;
+            border-bottom-right-radius:10px;
+            border-bottom-left-radius: 10px; 
+            justify-content: center;
+            align-items: center;
+            display:flex;
+            font-weight: bold;
+            font-size: 22px;
+    }
+
+
+
+    .c-slider {
+        display: flex;
+        animation: amit 32s linear infinite alternate;
+        width: 100%;
+    }
+
+    @keyframes amit {
+        0% {
+            margin-left: 0%;
+        }
+
+        100% {
+            margin-left: -100%;
+        }
+
+    }
+
+    .c-slide {
+        min-width: 33.33%;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    .c-slide img {
+        width: 34%;
+        /* border-radius: 8px; */
+        height: 100px;
+        border-radius: 100%;
+        border: 5px solid black;
+    }
+
+
+    .c-slide .c-content {
+        text-align: left;
+        padding: 10px;
+        background-color: rgb(44, 41, 41);
+        z-index: 2;
+        position: relative;
+        height: 113px;
+        text-align: center;
+    }
+
+    .c-content {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .c-slide .c-content p {
+        margin: 10px 0;
+    }
+
+    .c-star-rating {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .c-star-rating .c-star {
+        font-size: 20px;
+        color: gold;
+        margin-right: 5px;
+    }
+
+    .c-star-rating::-webkit-scrollbar {
+
+        cursor: move;
+    }
+
+    .c-star-rating::-webkit-scrollbar-thumb {
+
+        background: #888;
+        border-radius: 3px;
+    }
+
+    .c-star-rating::-webkit-scrollbar-thumb:hover {
+
+        background: #555;
+    }
+
+    .c-star-rating {
+        justify-content: flex-start;
+        padding-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .c-star-rating .c-star {
+        font-size: 20px;
+        margin-right: 5px;
+        color: lightgray;
+    }
+
+    .c-star-rating .filled {
+        color: gold;
+    }
 
 
 /*================================================= admin login css==============================*/

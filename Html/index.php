@@ -25,6 +25,9 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
 
 </head>
 <style>
@@ -183,7 +186,7 @@
 <body>
 
 
-<nav>
+    <nav>
         <h4 id="thenoida">The Noida Clubs</h4>
         <a href="index.php">Home</a>
         <a href="about.php">About</a>
@@ -282,87 +285,6 @@
     <div class="overviews  ss">
         <?php include('farmhouse.php'); ?>
     </div>
-
-
-
-
-    <!-- without databse....................... -->
-    <!-- <div class="overviews">
-        <h2>Over Views Of the Clubs</h2>
-        <div class="image-containerr">
-            <div class="fade">
-                <img src="https://images.unsplash.com/photo-1618853802485-be85de3d160f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2x1YiUyMGxpZ2h0c3xlbnwwfHwwfHx8MA%3D%3D"
-                    alt="Avatar" class="image">
-                <div class="overlay">
-                    <div class="text">
-                        <h2>White Club</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="fade">
-                <img src="https://www.namasteindiatrip.com/blog/wp-content/uploads/2022/07/Club-Titos.jpg" alt="Avatar"
-                    class="image">
-                <div class="overlay">
-                    <div class="text">
-                        <h2>Show timing</h2>
-                        <h5>11:30 AM - 02:00 PM</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="fade">
-                <img src="https://i0.wp.com/discotech.me/wp-content/uploads/2016/09/time1-1.jpg?resize=1500%2C630&ssl=1"
-                    alt="Avatar" class="image">
-                <div class="overlay">
-                    <div class="text">
-                        <h2>Address</h2>
-                        <h4>Sardha Nand Road</h4>
-                        <h5>Near Delhi Expressway</h5>
-                        <p>New Delhi</p>
-                        <p>202202</p>
-                    </div>
-                </div>
-            </div>
-            <div class="fade">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvAMCxxwTtRKRltMud3M19cIadblar7Lszw&s"
-                    alt="Avatar" class="image">
-                <div class="overlay">
-                    <div class="text">
-                        <h2>Address</h2>
-                        <h4>Sardha Nand Road</h4>
-                        <h5>Near Delhi Expressway</h5>
-                        <p>New Delhi</p>
-                        <p>202202</p>
-                    </div>
-                </div>
-            </div>
-            <div class="fade">
-                <img src="https://images.unsplash.com/photo-1555086156-e6c7353d283f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2x1YnxlbnwwfHwwfHx8MA%3D%3D"
-                    alt="Avatar" class="image">
-                <div class="overlay">
-                    <div class="text">
-                        <h2>Address</h2>
-                        <h4>Sardha Nand Road</h4>
-                        <h5>Near Delhi Expressway</h5>
-                        <p>New Delhi</p>
-                        <p>202202</p>
-                    </div>
-                </div>
-            </div>
-            <div class="fade">
-                <img src="https://miro.medium.com/v2/resize:fit:560/0*39lYV66jL0TBYW6q.jpg" alt="Avatar" class="image">
-                <div class="overlay">
-                    <div class="text">
-                        <h2>Address</h2>
-                        <h4>Sardha Nand Road</h4>
-                        <h5>Near Delhi Expressway</h5>
-                        <p>New Delhi</p>
-                        <p>202202</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
 
     <script>
         if (window.location.pathname.includes('/index.php')) {
@@ -579,152 +501,91 @@
 
 
     <!-- .....................customer reviews..................................................... -->
+    <?php
+    include("db.php");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $customer_name = $_POST['customer_name'];
+        $review_text = $_POST['review_text'];
+        $rating = $_POST['rating'];
+
+        $image = null;
+        $zero = 0;
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+            $image = "uploads/" . basename($_FILES['image']['name']);
+            move_uploaded_file($_FILES['image']['tmp_name'], $image);
+        } elseif (isset($_POST['image_url']) && !empty($_POST['image_url'])) {
+            $image = $_POST['image_url'];
+        }
+
+        $stmt = $conn->prepare("INSERT INTO customer_reviews (id,customer_name, review_text, rating, image) VALUES (?, ?, ?, ?,?)");
+        $stmt->bind_param("issis", $zero, $customer_name, $review_text, $rating, $image);
+
+        if ($stmt->execute()) {
+            $response = "success";
+        } else {
+            $response = "error";
+
+        }
+    }
+
+?>
     <div class="c-customer-reviews">
         <h2>Customer Reviews</h2>
-
+        <span id="custrev">Create New Reviews</span>
         <!-- Slider Container -->
         <div class="c-slider-container">
             <div class="c-slider">
-                <!-- Slide 1 -->
-                <div class="c-slide">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61xwV7YcxzGy_rDKq67YVijcDaYEoZyF7uQ&s"
-                        alt="Customer 1">
-                    <div class="c-content">
-                        <h4>Rashmika Mandanna</h4>
-                        <p>This product is amazing! It exceeded my expectations.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="c-slide">
-                    <img src="https://cdn.pixabay.com/photo/2022/12/13/08/42/free-smart-boy-handsome-images-7652808_1280.jpg"
-                        alt="Customer 2">
-                    <div class="c-content">
-                        <h4>Jane Smith</h4>
-                        <p>Great value for the price. Would buy again. from noida club</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="c-slide">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFZsVG6jE6NSEAE-tZ6fQInynUg0tRyD-k1Q&s"
-                        alt="Customer 3">
-                    <div class="c-content">
-                        <h4>Aishwariya Rai</h4>
-                        <p>Very satisfied with my purchase. Highly recommended!</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 4 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/564x/a6/91/38/a69138a0e0de3cd51b980fe3d21a11da.jpg" alt="Customer 4">
-                    <div class="c-content">
-                        <h4>Michael Brown</h4>
-                        <p>The quality is great, but shipping took a bit long.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 5 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/originals/1d/27/bd/1d27bdd5618fd06c26e7eab218a44711.jpg"
-                        alt="Customer 5">
-                    <div class="c-content">
-                        <h4>Amy Adams</h4>
-                        <p>Good product, but could be improved in certain areas.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 6 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/564x/25/a7/f6/25a7f6e52f7d373e7db6d63c4bdb38d1.jpg" alt="Customer 6">
-                    <div class="c-content">
-                        <h4>Daniel Harris</h4>
-                        <p>Exactly what I was looking for. Excellent experience!</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 7 -->
-                <div class="c-slide">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqh7HjgdrRxRFY0-ectwdBuWLJhntXGnU0Jg&s"
-                        alt="Customer 7">
-                    <div class="c-content">
-                        <h4>Sarah Miller</h4>
-                        <p>Fantastic! I’m very happy with this product. white club delhi </p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 8 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/736x/b2/c1/14/b2c114970d1473b26ae3e9433fd656e2.jpg" alt="Customer 8">
-                    <div class="c-content">
-                        <h4>Chris Wilson</h4>
-                        <p>Good quality, but a little more affordable options would be great.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 9 -->
-                <div class="c-slide">
-                    <img src="https://www.dpzone.in/wp-content/uploads/1/55861489.jpg" alt="Customer 9">
-                    <div class="c-content">
-                        <h4>Kelly Davis</h4>
-                        <p>Not bad, but I had some issues with the product.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                $zero=0;
+                $sql = "SELECT * FROM customer_reviews where id=$zero";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<div class='c-slide'>";
+                        echo "<img src='" . $row['image'] . "' alt='Customer'>";
+                        echo "<div class='c-content'>";
+                        echo "<h4>" . $row['customer_name'] . "</h4>";
+                        echo "<p>" . $row['review_text'] . "</p>";
+                        echo "<div class='c-star-rating'>";
+                        for ($i = 0; $i < $row['rating']; $i++) {
+                            echo "<span class='c-star filled'>★</span>";
+                        }
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<h2>No reviews found</h2>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <!--- customer review form is here -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="customerrevForm">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <label for="customer_name">Enter Your Name</label>
+                    <input type="text" name="customer_name" placeholder="Your Name" required><br><br>
+
+                    <label for="review_text">Enter Your Reviews</label>
+                    <textarea name="review_text" placeholder="Your Review" required></textarea><br><br>
+
+                    <label for="rating">Select Your Rating</label>
+                    <input type="number" name="rating" min="1" max="5" required><br><br>
+
+                    <label for="image_upload">Upload Your Image</label><br><br>
+                    <input type="file" name="image" id="image_upload" onchange="toggleImageFields()" required><br><br>
+
+                    <label for="image_url">OR Image URL</label><br><br>
+                    <input type="text" name="image_url" id="image_url" placeholder="Your Image URL"
+                        onchange="toggleImageFields()" required><br><br>
+
+                    <button type="submit">Submit Review</button>
+                </form>
             </div>
         </div>
     </div>
@@ -733,311 +594,268 @@
 
 
 
-        <!-- .......................footer is here............................................. -->
+    <!-- .......................footer is here............................................. -->
 
-        <div class="footer">
-            <div class="fleft">
-                <h4>The Noida Clubs</h4>
-                <p>Noida hosts a number of premium, exclusive clubs that attract professionals and those looking for a
-                    high-end experience. Clubs like The Club at Jaypee Greens and The Grand Venice offer </p>
-                <p>For younger crowds and those seeking nightlife, Noida's Sector 18 area, known for its malls and
-                    commercial spots, has some good options. Clubs like The Vault Café, Sky Bar, and The Noida </p>
-            </div>
-            <div class="fright">
-                <ul>
-                    <span>Links</span>
-                    <li>Home</li>
-                    <li>About Us</li>
-                    <li>Clubs</li>
-                    <li>Pricing</li>
-                    <li>Contact</li>
-                </ul>
-                <ul>
-                    <span>Contact US</span>
-                    <li><b>Address</b> - Noida Sector 58 </li>
-                    <li>Delhi - Noida Expressway </li>
-                    <li><b>Phone :</b> +91,700760000</li>
-                    <li><b>Email I'd :-</b>amitpss239@gmail.com</li>
-                </ul>
-                <ul>
-                    <span>Social Links</span>
-                    <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero asperiores es</li>
-                    <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    </li>
-                </ul>
-            </div>
+    <div class="footer">
+        <div class="fleft">
+            <h4>The Noida Clubs</h4>
+            <p>Noida hosts a number of premium, exclusive clubs that attract professionals and those looking for a
+                high-end experience. Clubs like The Club at Jaypee Greens and The Grand Venice offer </p>
+            <p>For younger crowds and those seeking nightlife, Noida's Sector 18 area, known for its malls and
+                commercial spots, has some good options. Clubs like The Vault Café, Sky Bar, and The Noida </p>
         </div>
-        <div class="hr"></div>
-        <div class="ftext">
-            <p>© 2024 Transportio. All Rights Reserved by PSS Tech noida </p>
+        <div class="fright">
+            <ul>
+                <span>Links</span>
+                <li>Home</li>
+                <li>About Us</li>
+                <li>Clubs</li>
+                <li>Pricing</li>
+                <li>Contact</li>
+            </ul>
+            <ul>
+                <span>Contact US</span>
+                <li><b>Address</b> - Noida Sector 58 </li>
+                <li>Delhi - Noida Expressway </li>
+                <li><b>Phone :</b> +91,700760000</li>
+                <li><b>Email I'd :-</b>amitpss239@gmail.com</li>
+            </ul>
+            <ul>
+                <span>Social Links</span>
+                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero asperiores es</li>
+                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </li>
+            </ul>
         </div>
+    </div>
+    <div class="hr"></div>
+    <div class="ftext">
+        <p>© 2024 Transportio. All Rights Reserved by PSS Tech noida </p>
+    </div>
 
 
 
-        <!--..................................admin login ...............................-->
+    <!--..................................admin login ...............................-->
 
 
 
 
-        <div id="adminpage">
-            <div class="login-container">
-                <h2 style="text-align: center;">Admin Login</h2>
-                <form action="" id="loginForm">
-                    UserId :<input type="text" placeholder="Enter your User id" id="userId">
-                    Password :<input type="password" placeholder="Enter your password" id="password">
-                    <span id="capta"></span><button type="button" id="refreshCaptcha"
-                        style="background: none; border: none; cursor: pointer;">
-                        <i class="fas fa-sync-alt" style="color: black; position: absolute; margin-bottom:2px ;"></i>
-                    </button>
-                    <input type="text" id="captcha" placeholder="Enter Capta Code">
-                    <button type="submit">Login</button>
-                </form>
+    <div id="adminpage">
+        <div class="login-container">
+            <h2 style="text-align: center;">Admin Login</h2>
+            <form action="" id="loginForm">
+                UserId :<input type="text" placeholder="Enter your User id" id="userId">
+                Password :<input type="password" placeholder="Enter your password" id="password">
+                <span id="capta"></span><button type="button" id="refreshCaptcha"
+                    style="background: none; border: none; cursor: pointer;">
+                    <i class="fas fa-sync-alt" style="color: black; position: absolute; margin-bottom:2px ;"></i>
+                </button>
+                <input type="text" id="captcha" placeholder="Enter Capta Code">
+                <button type="submit">Login</button>
+            </form>
 
-                <div id="cross">X</div>
-            </div>
+            <div id="cross">X</div>
         </div>
+    </div>
 
 
 
+    <!--.............admin login js......................................-->
 
-        <!-- booking status is here...................................................-->
-        <div id="statuspage">
-            <div class="login-container">
-                <h2>Booking Status</h2>
-                <form action="" method="post">
-                    <label for="searchInput">Enter Booking ID / Mobile Number</label>
-                    <input type="text" name="searchInput" id="searchInput" required>
-                    <!-- <input type="submit" value="Search"> -->
-                    <button>Search</button>
-                </form>
-                <div class="search">
-                    <?php
-                    include("db.php");
+    <script>
+        document.getElementById('admin').addEventListener('click', function () {
+            const adminpage = document.getElementById('adminpage');
+            if (adminpage.style.display === 'none' || adminpage.style.display === '') {
+                adminpage.style.display = 'block';
+            } else {
+                adminpage.style.display = 'none';
+            }
+        });
 
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
+        document.getElementById('cross').addEventListener('click', function () {
+            const adminpage = document.getElementById('adminpage');
+            adminpage.style.display = 'none';
+        });
 
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        $searchInput = $_POST['searchInput'];
+        function generateCaptcha() {
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const randomLetters = letters.charAt(Math.floor(Math.random() * letters.length)) +
+                letters.charAt(Math.floor(Math.random() * letters.length));
+            const randomLower = Math.random().toString(36).substring(2, 5);
+            const randomNumber = Math.floor(Math.random() * 90) + 10;
 
-                        $stmt = $conn->prepare("SELECT count,amount,id,club,name,payment_id,payment_status,date FROM registrations WHERE id = ? OR mobile = ?");
-                        $stmt->bind_param("ss", $searchInput, $searchInput);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                if ($row['payment_status'] == "Success") {
-                                    echo "<strong>Club Name:</strong> " . $row['club'] . "<br>";
-                                    echo "<strong>Name:</strong> " . $row['name'] . "<br>";
-                                    echo "<strong>Payment ID:</strong> " . $row['payment_id'] . "<br>";
-                                    echo "<strong>Payment Status:</strong> " . $row['payment_status'] . "<br>";
-                                    echo "<strong>Booking Date:</strong> " . $row['date'] . "<br>";
-                                    echo "<strong>Total Persons:</strong> " . $row['count'] . "<br>";
-                                    echo "<strong>Amount:</strong> " . $row['amount'] . "<br><br>";
-
-                                } else if ($row['payment_status'] == "Pending") {
-                                    echo "<strong>Club Name:</strong> " . $row['club'] . "<br>";
-                                    echo "<strong>Booking Id:</strong> " . $row['id'] . "<br>";
-                                    echo "<strong>Name:</strong> " . $row['name'] . "<br>";
-                                    echo "<strong>Payment ID:</strong> " . $row['payment_id'] . "<br>";
-                                    echo "<strong>Payment Status:</strong> " . $row['payment_status'] . "<br>";
-                                    echo "<strong>Booking Date:</strong> " . $row['date'] . "<br>";
-                                    echo "<strong>Total Persons:</strong> " . $row['count'] . "<br>";
-                                    echo "<strong>Amount:</strong> " . $row['amount'] . "<br><br>";
-                                    // echo "<button type='submit'>Pay Now</button>";
-                                    echo '<button id="paynow"><a href="paynow.php?id=' . $row['id'] . '">Pay Now</a></button>';
-                                }
-                            }
-                        } else {
-                            echo "No records found for the provided booking ID or mobile number.";
-                        }
-
-                        $stmt->close();
-                        $conn->close();
-                    }
-                    ?>
-                </div>
-
-                <div id="crosss">X</div>
-            </div>
-        </div>
-
-
-
-        <!-- ...............show club details in ...................................... -->
-        <!-- <script>
-        function showClubDetails(club) {
-            var clubs = document.querySelectorAll('.club-info');
-            clubs.forEach(function (clubElement) {
-                clubElement.style.display = 'none';
-            });
-
-            document.getElementById(club).style.display = 'block';
+            return randomLetters + randomLower + randomNumber;
         }
 
-        showClubDetails('hauzKhas');
-    </script> -->
+        document.getElementById('capta').innerText = generateCaptcha();
 
-
-        <!--.............admin login js......................................-->
-
-        <script>
-            document.getElementById('admin').addEventListener('click', function () {
-                const adminpage = document.getElementById('adminpage');
-                if (adminpage.style.display === 'none' || adminpage.style.display === '') {
-                    adminpage.style.display = 'block';
-                } else {
-                    adminpage.style.display = 'none';
-                }
-            });
-
-            document.getElementById('cross').addEventListener('click', function () {
-                const adminpage = document.getElementById('adminpage');
-                adminpage.style.display = 'none';
-            });
-
-            // Function to generate captcha
-            function generateCaptcha() {
-                const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                const randomLetters = letters.charAt(Math.floor(Math.random() * letters.length)) +
-                    letters.charAt(Math.floor(Math.random() * letters.length));
-                const randomLower = Math.random().toString(36).substring(2, 5);
-                const randomNumber = Math.floor(Math.random() * 90) + 10;
-
-                return randomLetters + randomLower + randomNumber;
-            }
-
-            // Display the initial captcha
+        document.getElementById('refreshCaptcha').addEventListener('click', function () {
             document.getElementById('capta').innerText = generateCaptcha();
+        });
 
-            // Update captcha when refresh button is clicked
-            document.getElementById('refreshCaptcha').addEventListener('click', function () {
-                document.getElementById('capta').innerText = generateCaptcha();
-            });
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
 
-            // Handling form submission
-            document.getElementById('loginForm').addEventListener('submit', function (event) {
-                event.preventDefault();
+            const userId = document.getElementById('userId').value;
+            const password = document.getElementById('password').value;
+            const captchaInput = document.getElementById('captcha').value;
+            const captchaText = document.getElementById('capta').innerText;
 
-                const userId = document.getElementById('userId').value;
-                const password = document.getElementById('password').value;
-                const captchaInput = document.getElementById('captcha').value;
-                const captchaText = document.getElementById('capta').innerText;
-
-                if (userId === 'admin' && password === 'admin123' && captchaInput === captchaText) {
-                    window.location.href = "http://localhost/amitclub/Html/admin.php";
-                } else if (captchaInput !== captchaText) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'Enter correct captcha code'
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'User and password are incorrect, please try again'
-                    });
-                }
-            });
-
-        </script>
-
-
-
-
-        <!-- ..............................slider......................... -->
-
-        <script>
-            const prevButton = document.getElementById('prev');
-            const nextButton = document.getElementById('next');
-            const slider = document.querySelector('.slider');
-            let currentIndex = 0;
-
-            const slides = document.querySelectorAll('.slide');
-            const totalSlides = slides.length;
-
-            let autoSlideInterval;
-
-            function updateSliderPosition() {
-                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }
-            function goToNextSlide() {
-                currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
-                updateSliderPosition();
-                resetAutoSlide();
-            }
-            function goToPrevSlide() {
-                currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
-                updateSliderPosition();
-                resetAutoSlide();
-            }
-            function startAutoSlide() {
-                autoSlideInterval = setInterval(goToNextSlide, 5000);
-            }
-            function resetAutoSlide() {
-                clearInterval(autoSlideInterval);
-                startAutoSlide();
-            }
-            startAutoSlide();
-            prevButton.addEventListener('click', goToPrevSlide);
-            nextButton.addEventListener('click', goToNextSlide);
-
-        </script>
-
-
-        <!-- .....................this is custmer review................................ -->
-
-
-        <script>
-            // let currentSlideIndexx = 0;
-            // let directionn = 1;
-            // const slidess = document.querySelectorAll('.c-slide');
-            // const totalSlidess = slidess.length - 2;
-            // const sliderr = document.querySelector('.c-slider');
-
-
-            // function moveToNextSlide() {
-            //     currentSlideIndexx += directionn;
-
-            //     if (currentSlideIndexx >= totalSlidess || currentSlideIndexx < 0) {
-            //         direction *= -1;
-            //         currentSlideIndexx += directionn;
-            //     }
-
-            //     const offset = -(currentSlideIndexx * 33.33);
-            //     sliderr.style.transform = `translateX(${offset}%)`;
-            // }
-
-
-            // setInterval(moveToNextSlide, 3000);
-
-
-            document.querySelectorAll('.c-star-rating').forEach(starRating => {
-                starRating.addEventListener('click', function (e) {
-                    let stars = Array.from(starRating.children);
-                    let index = stars.indexOf(e.target);
-                    if (index !== -1) {
-
-                        stars.forEach((star, i) => {
-                            if (i <= index) {
-                                star.classList.add('filled');
-                                star.classList.remove('empty');
-                            } else {
-                                star.classList.remove('filled');
-                                star.classList.add('empty');
-                            }
-                        });
-                        starRating.setAttribute('data-rating', index + 1);
-                    }
+            if (userId === 'admin' && password === 'admin123' && captchaInput === captchaText) {
+                window.location.href = "http://localhost/amitclub/Html/admin.php";
+            } else if (captchaInput !== captchaText) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Enter correct captcha code'
                 });
-            });
-        </script>
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'User and password are incorrect, please try again'
+                });
+            }
+        });
+
+    </script>
+
+
+
+
+    <!-- ..............................slider......................... -->
+
+    <script>
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const slider = document.querySelector('.slider');
+        let currentIndex = 0;
+
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        let autoSlideInterval;
+
+        function updateSliderPosition() {
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        function goToNextSlide() {
+            currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+            updateSliderPosition();
+            resetAutoSlide();
+        }
+        function goToPrevSlide() {
+            currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+            updateSliderPosition();
+            resetAutoSlide();
+        }
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(goToNextSlide, 5000);
+        }
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+        startAutoSlide();
+        prevButton.addEventListener('click', goToPrevSlide);
+        nextButton.addEventListener('click', goToNextSlide);
+
+    </script>
+
+
+    <!-- .....................this is custmer review................................ -->
+
+
+    <!--.........sweet alert for customer revirew-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let response = "<?php echo $response; ?>";
+            let href = "<?php echo $zero; ?>";
+
+            if (response === "success") {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Customer Review Submitted successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = "index.php";
+                });
+            } else if (response === "error") {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Customer Review not updated. Please try again.',
+                    icon: 'error'
+                });
+            }
+        });
+
+    </script>
+
+    <!-- image upllaod-->
+    <script>
+        function toggleImageFields() {
+            var imageFileInput = document.getElementById("image_upload");
+            var imageUrlInput = document.getElementById("image_url");
+
+            if (imageFileInput.value) {
+                imageUrlInput.disabled = true;
+            } else {
+                imageUrlInput.disabled = false;
+            }
+
+            if (imageUrlInput.value) {
+                imageFileInput.disabled = true;
+            } else {
+                imageFileInput.disabled = false;
+            }
+        }
+    </script>
+
+    <!---show modol for customer review written-->
+    <script>
+        var modal = document.getElementById("reviewModal");
+
+        var btn = document.getElementById("custrev");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+
+    <!-- check the customer revirew is less than or greater than property -->
+    <script>
+        window.onload = function () {
+            const slider = document.querySelector('.c-slider');
+            const slides = document.querySelectorAll('.c-slide');
+            const noReviewsText = document.querySelector('.c-slider-container');
+
+            if (slides.length < 1) {
+                slider.remove();
+                noReviewsText.textContent = "No customer reviews were found";
+                noReviewsText.classList.add("c-slide_remove");
+                noReviewsText.classList.add("c-slide_remove");
+            } else if (slides.length < 4) {
+                slider.style.animation = 'none';
+            }
+        }
+    </script>
 
 
 </body>
@@ -1047,7 +865,7 @@
 
 <!-- customer review csss -->
 <style>
-     .c-customer-reviews {
+    .c-customer-reviews {
         width: 100%;
         background-color: black;
         text-align: center;
@@ -1187,7 +1005,6 @@
         color: gold;
         /* Filled stars color */
     }
-
 </style>
 
 
