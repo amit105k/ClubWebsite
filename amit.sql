@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2025 at 07:56 AM
+-- Generation Time: Feb 15, 2025 at 10:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -28,38 +28,36 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `club_overviews` (
-  `id` int(11) NOT NULL,
+  `id` int(15) NOT NULL,
   `club_name` varchar(100) NOT NULL,
-  `image_url` varchar(255) NOT NULL,
-  `image_url1` varchar(255) NOT NULL,
-  `image_url2` varchar(255) NOT NULL,
-  `image_url3` varchar(255) NOT NULL,
-  `about` varchar(500) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `show_time` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `mobile` int(25) NOT NULL,
-  `book_tkt` varchar(255) NOT NULL,
+  `about` varchar(500) NOT NULL,
   `price` int(10) NOT NULL,
   `promocode` varchar(25) NOT NULL,
   `promodis` int(6) NOT NULL,
-  `extraperson` int(25) NOT NULL
+  `extraperson` int(25) NOT NULL,
+  `image_url1` longblob DEFAULT NULL,
+  `image_url2` longblob DEFAULT NULL,
+  `image_url3` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `club_overviews`
 --
 
-INSERT INTO `club_overviews` (`id`, `club_name`, `image_url`, `image_url1`, `image_url2`, `image_url3`, `about`, `show_time`, `address`, `city`, `postal_code`, `email`, `mobile`, `book_tkt`, `price`, `promocode`, `promodis`, `extraperson`) VALUES
-(1, 'Night Club Noida', 'https://i0.wp.com/discotech.me/wp-content/uploads/2016/09/time1-1.jpg?resize=1500%2C630&ssl=1', 'https://t3.ftcdn.net/jpg/01/20/28/24/360_F_120282465_htIcYKYiSb98hIrhL6X6ilI0z8vn19LY.webp', 'https://t3.ftcdn.net/jpg/01/20/28/24/360_F_120282465_htIcYKYiSb98hIrhL6X6ilI0z8vn19LY.webp', 'https://t3.ftcdn.net/jpg/01/20/28/24/360_F_120282465_htIcYKYiSb98hIrhL6X6ilI0z8vn19LY.webp', 'When it comes to nightlife, Noida is home to several world-class pubs and nightclubs which add the perfect amount of glitz to your evening. From offering a fine dining experience and foot tapping music to a panoramic view of the city from their rooftop setting, these pubs are the best place to enjoy while sipping on your cocktail. Head to these groovy nightclubs and best pubs in Noida that offer an impressive selection of food and drinks, topped with enticing ambiance.', '09:30 To 11:30', 'Sardha Nand Road', 'New Delhi', '202202', 'night@gmail.com', 2147483647, 'http://localhost/amitclub/Html/buyticket.html', 500, 'NIGHT', 10, 499),
-(2, 'White Club', 'https://images.unsplash.com/photo-1555086156-e6c7353d283f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2x1YnxlbnwwfHwwfHx8MA%3D%3D', 'https://t3.ftcdn.net/jpg/01/20/28/24/360_F_120282465_htIcYKYiSb98hIrhL6X6ilI0z8vn19LY.webp', 'https://t4.ftcdn.net/jpg/10/16/72/33/240_F_1016723375_pxJQ5D7lOKtNSpInmyag9rYZhNZeOjJE.jpg', 'https://t3.ftcdn.net/jpg/01/71/59/82/240_F_171598298_oDdPq07LiXkRRKcYMOheKAvozA0nznyd.jpg', 'This club is giving a swanky makeover to clubbing in delhi. Walk into the lounge and drench your soul in sassy cocktails like white moon and back. I loved the vibe and also the finger food, i ordered sushi and prawns it was yummy , it was spacious and i grooved in the dance floor, there was more crowd but i enjoyed alot.\\r\\nVery good service and music ....above the all very cooperative bouncers and manager....went there last night with a friend and entered as stag ....\\r\\n', '09:30 AM To 12:30AM', 'Sardha Nand Road', 'New Delhi', '202202', 'white@gmail.com', 757187544, 'http://localhost/amitclub/html/update_club.php', 999, 'DELHI', 15, 0),
-(3, 'The Rock Club Ghaziabad', 'https://miro.medium.com/v2/resize:fit:560/0*39lYV66jL0TBYW6q.jpg', 'https://t3.ftcdn.net/jpg/05/64/84/58/240_F_564845868_boJfdzOFfMhAq9e8p81bgRt5tB3uQA2C.jpg', 'https://t3.ftcdn.net/jpg/01/16/89/38/240_F_116893829_UmvQiyaTREE0P1ijV6bkLLLxwD3rI0jd.jpg', 'https://t3.ftcdn.net/jpg/01/16/89/38/240_F_116893829_UmvQiyaTREE0P1ijV6bkLLLxwD3rI0jd.jpg', 'These clubs contribute significantly to the social and recreational landscape of Ghaziabad, providing residents with opportunities to engage in various activities and community service Part of the international Lions Clubs organization, focusing on community service and various social initiatives.', 'full night', 'Ghazibad', 'vishali nagar', '202202', '0', 0, 'http://localhost/amitclub/Html/selectclub.php', 799, 'GZB', 7, 0),
-(4, 'White Club', 'https://d4t7t8y8xqo0t.cloudfront.net/resized/750X436/restaurant%2F674070%2Frestaurant220210909103651.jpeg', 'https://t4.ftcdn.net/jpg/06/29/57/61/240_F_629576172_uLKJIWMlDFUQLQd9uk7u2Ot0IW2RzDKw.jpg', 'https://t3.ftcdn.net/jpg/02/87/35/70/240_F_287357045_Ib0oYOxhotdjOEHi0vkggpZTQCsz0r19.jpg', 'https://t3.ftcdn.net/jpg/03/10/64/98/240_F_310649884_dGXw5heDwDZb5jSpnQ16P9k32PXLtqmM.jpg', 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75                ', '24 hours open', 'Delhi', 'New delhi', '22222', '0', 0, 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75', 1200, 'WHITE', 12, 0),
-(5, 'Hauz Khass', 'https://d26dp53kz39178.cloudfront.net/media/uploads/products/Pasha_Nightclub_result-1699078135102.webp', 'https://t4.ftcdn.net/jpg/01/27/82/05/240_F_127820544_6lkdQUUPRZ7ikF3rOzmYiMUd3qZ6PRqL.jpg', 'https://t3.ftcdn.net/jpg/02/53/01/36/240_F_253013633_TDcGVWptIzybwZABAEUE2aUQaIAsolt7.jpg', 'https://t4.ftcdn.net/jpg/01/61/59/73/240_F_161597387_1J5BqmdPp8fOtlk7dSk0iMBRAzAxZMiR.jpg', 'hauz khass is situated near in new delhi the distance of captial is near anout 5 km and nearest metro station is \"HauzKhass\" in mezanda line and yellow line in toward melinium city gurgoan', '11:30 AM to 01:30 AM', 'Gurgoan', 'Delhi', '202021', '0', 0, 'https:www.hauzkkhass.com', 499, 'HAUZ', 14, 0),
-(6, 'Delhi Club', 'https://i.cdn.newsbytesapp.com/images/l37520210324131352.jpeg', 'https://t3.ftcdn.net/jpg/01/23/22/64/240_F_123226414_fdzRAzNJNKCHkqoEJXPkIlFBBSduLfLq.jpg', 'https://t4.ftcdn.net/jpg/02/78/70/01/240_F_278700194_dyVW7DLEsZuKVeWnPf8mAzAuB3Ocf139.jpg', 'https://t4.ftcdn.net/jpg/06/29/60/35/240_F_629603580_nwAAW6XnRjv31u2dfJ4C2i0gvaN0mPL9.jpg', 'Delhi Club House is inspired by the clubs of colonial India. These institutions were the exclusive domain of their members to catch up with friends & colleagues over a drink or a meal. The food was neither fancy nor gastronomic - It was good, fresh, comfort food, borrowed from each other\\\'s cuisines and satisfied the paletes of the \\\'babus\\\' as well as as the Britishers over a drink. Delhi Club House is a take on the vibe of these old clubs. It reminisces an era gone by, a culture gone by. At DC', '24 hours available for customer', 'delhi', 'Delhi', '20209', '0', 0, '', 1200, 'DELHI', 15, 0),
-(26, 'White Club 2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1KC2kwepepGjxlekL2FK4Rk6ImJ-Z3zS2gQ&s+yWcSrbTmPHeao3bUMVOoJHmMquzWuhjGdOcrLXyLJ7Nc+4C/QKwb/AIESf7ZHWo7Vx7ZMgjZgwyI5Mp1H28agZYqxb7QcZFiw5EnLwYEMPAGKace4qUVo978C9w+FhCzEk4AZZDu1on3xzQ55bxiFprr4ZOFyBiJ2u', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1KC2kwepepGjxlekL2FK4Rk6ImJ-Z3zS2gQ&s+yWcSrbTmPHeao3bUMVOoJHmMquzWuhjGdOcrLXyLJ7Nc+4C/QKwb/AIESf7ZHWo7Vx7ZMgjZgwyI5Mp1H28agZYqxb7QcZFiw5EnLwYEMPAGKace4qUVo978C9w+FhCzEk4AZZDu1on3xzQ55bxiFprr4ZOFyBiJ2u', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1KC2kwepepGjxlekL2FK4Rk6ImJ-Z3zS2gQ&s+yWcSrbTmPHeao3bUMVOoJHmMquzWuhjGdOcrLXyLJ7Nc+4C/QKwb/AIESf7ZHWo7Vx7ZMgjZgwyI5Mp1H28agZYqxb7QcZFiw5EnLwYEMPAGKace4qUVo978C9w+FhCzEk4AZZDu1on3xzQ55bxiFprr4ZOFyBiJ2u', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1KC2kwepepGjxlekL2FK4Rk6ImJ-Z3zS2gQ&s+yWcSrbTmPHeao3bUMVOoJHmMquzWuhjGdOcrLXyLJ7Nc+4C/QKwb/AIESf7ZHWo7Vx7ZMgjZgwyI5Mp1H28agZYqxb7QcZFiw5EnLwYEMPAGKace4qUVo978C9w+FhCzEk4AZZDu1on3xzQ55bxiFprr4ZOFyBiJ2u', 'I had a terrible experience with the car washing service. The staff was rude and unprofessional, and they did a poor job of cleaning my car. They also charged me extra for services that were not clearly explained beforehand. The pricing was exorbitant for the low-quality work, and I felt like I was ripped off. I would not recommend this car washing service to anyone and suggest finding a more trustworthy and reliable option', '1111', 'dfgsfdgs', 'Delhi', '99999', 'white@gmail.com', 2147483647, '', 800, '', 0, 0);
+INSERT INTO `club_overviews` (`id`, `club_name`, `image`, `show_time`, `address`, `city`, `postal_code`, `email`, `mobile`, `about`, `price`, `promocode`, `promodis`, `extraperson`, `image_url1`, `image_url2`, `image_url3`) VALUES
+(1, 'Night Club Noida', 'uploads/1739445775_pexels-photo-801863.jpeg', '09:30 To 11:30', 'Sardha Nand Road', 'New Delhi', '202202', 'night@gmail.com', 2147483647, 'When it comes to nightlife, Noida is home to several world-class pubs and nightclubs which add the perfect amount of glitz to your evening. From offering a fine dining experience and foot tapping music to a panoramic view of the city from their rooftop setting, these pubs are the best place to enjoy while sipping on your cocktail. Head to these groovy nightclubs and best pubs in Noida that offer an impressive selection of food and drinks, topped with entic            gkp                         ', 500, 'NIGHT', 10, 500, 0x75706c6f6164732f313733393432393437345f70686f746f2d313535363033353531312d3331363833383165613464342e6a706567, 0x75706c6f6164732f313733393432393437345f706578656c732d70686f746f2d3830313836332e6a706567, 0x75706c6f6164732f313733393432393437345f696d616765732e6a706567),
+(2, 'White Club', 'https://images.unsplash.com/photo-1555086156-e6c7353d283f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2x1YnxlbnwwfHwwfHx8MA%3D%3D', '09:30 AM To 12:30AM', 'Sardha Nand Road', 'New Delhi', '202202', 'white@gmail.com', 757187544, 'This club is giving a swanky makeover to clubbing in delhi. Walk into the lounge and drench your soul in sassy cocktails like white moon and back. I loved the vibe and also the finger food, i ordered sushi and prawns it was yummy , it was spacious and i grooved in the dance floor, there was more crowd but i enjoyed alot.\\r\\nVery good service and music ....above the all very cooperative bouncers and manager....went there last night with a friend and entered as stag ....\\r\\n', 999, 'DELHI', 15, 0, 0x75706c6f6164732f313733393235353230345f636c75625f6f76657276696577732d696d6167655f75726c332e706e67, 0x75706c6f6164732f313733393235353230345f53637265656e73686f7420323032352d30322d31302061742031302d34302d3436204952435443204e6578742047656e65726174696f6e20655469636b6574696e672053797374656d2e706e67, 0x75706c6f6164732f313733393235353230345f53637265656e73686f7420323032352d30322d30352061742031372d31372d32342043616e64696461746520506f7274616c2053746166662053656c656374696f6e20436f6d6d697373696f6e20476f492e706e67),
+(3, 'The Rock Club Ghaziabad', 'uploads/1739535320_time1-1.jpg', 'full night', 'Ghazibad', 'vishali nagar', '202202', 'ghaziabad@gmail.com', 0, 'These clubs contribute significantly to the social and recreational landscape of Ghaziabad, providing residents with opportunities to engage in various activities and community service Part of the international Lions Clubs organization, focusing on community service and various social initiatives.', 799, 'GZB', 7, 0, NULL, NULL, NULL),
+(4, 'White Club', 'https://d4t7t8y8xqo0t.cloudfront.net/resized/750X436/restaurant%2F674070%2Frestaurant220210909103651.jpeg', '24 hours open', 'Delhi', 'New delhi', '22222', 'white@gmail.com', 1234567890, 'https://next-images.123rf.com/index/_next/image/?url=https://assets-cdn.123rf.com/index/static/assets/top-section-bg.jpeg&w=3840&q=75                ', 1200, 'WHITE', 12, 0, 0x75706c6f6164732f313733393539373034315f74696d65312d312e6a7067, 0x75706c6f6164732f313733393539373034315f706578656c732d70686f746f2d3830313836332e6a706567, 0x75706c6f6164732f313733393539373034315f70686f746f2d313535363033353531312d3331363833383165613464342e6a706567),
+(5, 'Hauz Khass', 'https://d26dp53kz39178.cloudfront.net/media/uploads/products/Pasha_Nightclub_result-1699078135102.webp', '11:30 AM to 01:30 AM', 'Gurgoan', 'Delhi', '202021', '0', 0, 'hauz khass is situated near in new delhi the distance of captial is near anout 5 km and nearest metro station is \"HauzKhass\" in mezanda line and yellow line in toward melinium city gurgoan', 499, 'HAUZ', 14, 0, NULL, NULL, NULL),
+(6, 'Delhi Club', 'uploads/67af1b004a129_images.jpeg', '24 hours available for customer', 'delhi', 'Delhi', '20209', 'delhi@gmail.com', 1234567890, 'Delhi Club House is inspired by the clubs of colonial India. These institutions were the exclusive domain of their members to catch up with friends &amp; colleagues over a drink or a meal. The food was neither fancy nor gastronomic - It was good, fresh, comfort food, borrowed from each other\\\'s cuisines and satisfied the paletes of the \\\'babus\\\' as well as as the Britishers over a drink. Delhi Club House is a take on the vibe of these old clubs. It reminisces an era gone by, a culture gone by. A', 1200, 'DELHI', 15, 0, 0x75706c6f6164732f313733393235353831335f53637265656e73686f7420323032352d30322d31302061742031302d34302d3436204952435443204e6578742047656e65726174696f6e20655469636b6574696e672053797374656d2e706e67, 0x75706c6f6164732f313733393235353831335f636c75625f6f76657276696577732d696d6167655f75726c312e706e67, 0x75706c6f6164732f313733393235353831335f313030303031323135313833322d313030303031323135313833315f30352d323130302e706e67);
 
 -- --------------------------------------------------------
 
@@ -71,7 +69,8 @@ CREATE TABLE `customerreg` (
   `Sr` int(10) NOT NULL,
   `Customer_Name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `mobile` int(11) NOT NULL,
+  `mobile` int(25) NOT NULL,
+  `image` longblob DEFAULT NULL,
   `Password` varchar(255) NOT NULL,
   `Address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -80,9 +79,49 @@ CREATE TABLE `customerreg` (
 -- Dumping data for table `customerreg`
 --
 
-INSERT INTO `customerreg` (`Sr`, `Customer_Name`, `email`, `mobile`, `Password`, `Address`) VALUES
-(1, 'amit', 'amitpss239@gmail.com', 1234567890, '123456', 'Noida sector 63'),
-(3, 'anil yadav', 'ay7838872@gmail.com', 1234567654, '12345', 'dfghjgftdrew');
+INSERT INTO `customerreg` (`Sr`, `Customer_Name`, `email`, `mobile`, `image`, `Password`, `Address`) VALUES
+(1, 'amit', 'amitpss239@gmail.com', 1234567890, 0x6c6f676f2f313733393334303334365f636c75625f6f76657276696577732d696d6167655f75726c332e706e67, '123456', 'Noida sector 63'),
+(3, 'anil yadav', 'ay7838872@gmail.com', 1111111111, 0x6c6f676f2f313733393533333137355f57686174734170705f496d6167655f323032342d31312d32325f61745f31312e30322e34375f414d2d72656d6f766562672d70726576696577202831292e706e67, '12345', 'dfghjgftdrew'),
+(4, 'satyam ', 'satyamkashyap035@gmail.com', 2147483647, 0x6c6f676f2f313733393335313236325f646f776e6c6f6164322d72656d6f766562672d707265766965772e706e67, '1234567890', 'noida');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_reviews`
+--
+
+CREATE TABLE `customer_reviews` (
+  `sr` int(10) NOT NULL,
+  `id` int(15) NOT NULL,
+  `customer_name` varchar(255) DEFAULT NULL,
+  `review_text` text DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customer_reviews`
+--
+
+INSERT INTO `customer_reviews` (`sr`, `id`, `customer_name`, `review_text`, `rating`, `image`) VALUES
+(1, 0, 'Rashmika Mandanna', 'This product is amazing! It exceeded my expectations.', 5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61xwV7YcxzGy_rDKq67YVijcDaYEoZyF7uQ&s'),
+(2, 4, 'Rashmika Mandanna', 'This product is amazing! It exceeded my expectations.', 5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61xwV7YcxzGy_rDKq67YVijcDaYEoZyF7uQ&s'),
+(3, 4, 'Rashmika Mandanna', 'This product is amazing! It exceeded my expectations.', 5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61xwV7YcxzGy_rDKq67YVijcDaYEoZyF7uQ&s'),
+(5, 4, 'Amit Kushwaha', 'this club is not perfect for more than 4 couples those who are already in this manner that has been delight in the manner', 3, 'https://media.licdn.com/dms/image/v2/D5635AQEBNzNUY06qKA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1732533970157?e=1740207600&v=beta&t=ilOS5hb96gavhP4LSkx6OTLwxYBRiLhFy65JmWGuG0w'),
+(6, 4, 'Amit Kushwaha', 'this club is not perfect for more than 4 couples those who are already in this manner that has been delight in the manner', 3, 'https://media.licdn.com/dms/image/v2/D5635AQEBNzNUY06qKA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1732533970157?e=1740207600&v=beta&t=ilOS5hb96gavhP4LSkx6OTLwxYBRiLhFy65JmWGuG0w'),
+(7, 4, 'Amit Kushwaha', 'this club is not perfect for more than 4 couples those who are already in this manner that has been delight in the manner', 3, 'https://media.licdn.com/dms/image/v2/D5635AQEBNzNUY06qKA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1732533970157?e=1740207600&v=beta&t=ilOS5hb96gavhP4LSkx6OTLwxYBRiLhFy65JmWGuG0w'),
+(8, 6, 'aman kumar', 'dsfjkshadkfjasdf', 1, 'https://media.licdn.com/dms/image/v2/D5635AQEBNzNUY06qKA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1732533970157?e=1740207600&v=beta&t=ilOS5hb96gavhP4LSkx6OTLwxYBRiLhFy65JmWGuG0w'),
+(9, 6, 'aman kumar', 'dsfjkshadkfjasdf', 1, 'https://media.licdn.com/dms/image/v2/D5635AQEBNzNUY06qKA/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1732533970157?e=1740207600&v=beta&t=ilOS5hb96gavhP4LSkx6OTLwxYBRiLhFy65JmWGuG0w'),
+(10, 1, 'aman', 'jdfyuiyfdyutfyu', 3, 'https://media.licdn.com/dms/image/v2/D4E03AQFvvU48MwQHUA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1693702753945?e=1744848000&v=beta&t=8PhmPourtjdZSd8d6iNss1bdJrN70mkDo2WPJg-11Pc'),
+(11, 1, 'mankit sharma', 'ytyuiouytrdstyuiouytr', 4, 'https://media.licdn.com/dms/image/v2/D4E03AQEMzn7nB94fGg/profile-displayphoto-shrink_400_400/B4EZO7t9O0HkAs-/0/1734021208229?e=1744848000&v=beta&t=47k3LI3SP-8xV-Cb-GDbKQtd_n5rEI2vst7M1SrXL6s'),
+(12, 2, 'dsfsdaf', 'dsafdsf', 1, 'https://media.licdn.com/dms/image/v2/D5603AQGmA_ZB_NdeQA/profile-displayphoto-shrink_400_400/B56ZTGT5LnHwAg-/0/1738493891863?e=1744848000&v=beta&t=-JmD3XNHfTG2-HjK5xlwE7sKvksfsqy8EfsjTqkfhqk'),
+(13, 2, 'dsfsdaf', 'dsafdsf', 1, 'https://media.licdn.com/dms/image/v2/D5603AQGmA_ZB_NdeQA/profile-displayphoto-shrink_400_400/B56ZTGT5LnHwAg-/0/1738493891863?e=1744848000&v=beta&t=-JmD3XNHfTG2-HjK5xlwE7sKvksfsqy8EfsjTqkfhqk'),
+(14, 2, 'Vaisha', 'sdfsdfSF', 5, 'https://media.licdn.com/dms/image/v2/D5635AQGqAqL6IBEFlQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1734590978035?e=1740211200&v=beta&t=r_pQQJUO3A7K8d8vXeBIJ3uMHF-hunLjAcy6Jb7Yjw8'),
+(15, 2, 'fasdf', 'erafds', 3, 'https://media.licdn.com/dms/image/v2/D5635AQGqAqL6IBEFlQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1734590978035?e=1740211200&v=beta&t=r_pQQJUO3A7K8d8vXeBIJ3uMHF-hunLjAcy6Jb7Yjw8'),
+(16, 2, 'aman kumar', '456789', 3, 'https://upload.wikimedia.org/wikipedia/commons/6/64/Yogi_Adithyanath_in_Uttar_Pradesh_2023.jpg'),
+(17, 4, 'sdfasdf', 'asdfasd', 2, 'Screenshot 2025-02-15 at 12-52-33 IRCTC Next Generation eTicketing System.png'),
+(18, 4, 'aman kumar', 'thus s aman kusnr', 2, 'uploads/Screenshot 2025-02-14 at 14-49-51 IRCTC Next Generation eTicketing System.png'),
+(19, 4, 'aman kumar', 'thus s aman kusnr', 2, 'uploads/Screenshot 2025-02-14 at 14-49-51 IRCTC Next Generation eTicketing System.png');
 
 -- --------------------------------------------------------
 
@@ -326,7 +365,9 @@ INSERT INTO `registrations` (`id`, `club`, `name`, `gender`, `date`, `checkout`,
 (157, 'Delhi Club', 'vijay patel', 'Male', '2025-01-10T09:30', '', '7703081188', 'vijaypatel770308@gmail.com', 5, 2000, 'Success', 'pay_PhiELrk2VTdj8k', '0cf19a0061', '2025-01-10 10:46:08.054719'),
 (158, 'Royal FarmHouse', 'Amit', 'Male', '2025-01-24T12:30', '', '2222222222', 'jhfh@gmail.com', 11, 18450, 'Success', 'pay_PjD65VMIkbClc2', 'd50499a577', '2025-01-14 05:36:48.990113'),
 (159, 'Royal FarmHouse', 'royal', 'Male', '2025-01-16T12:22', '', '1111111111', 'sdafdsafasd@gmail.com', 11, 18450, 'Success', 'pay_PjhAhb9zANN1Zp', '5b37bf2185', '2025-01-15 11:01:57.641655'),
-(160, 'White Club', 'amit kumar', 'Male', '1111-11-11T11:11', '', '1111111111', 'aman11@gmail.com', 1, 999, 'Success', 'pay_PsjCRcwQe5z2S5', '2e9dc8444e', '2025-02-07 06:52:03.724208');
+(160, 'White Club', 'amit kumar', 'Male', '1111-11-11T11:11', '', '1111111111', 'aman11@gmail.com', 1, 999, 'Success', 'pay_PsjCRcwQe5z2S5', '2e9dc8444e', '2025-02-07 06:52:03.724208'),
+(161, 'White Club', 'anil yadav', 'Male', '2025-02-12T11:11', '', '1234567654', 'ay7838872@gmail.com', 1, 999, 'Success', 'pay_PuhZU821VgPONx', 'ff82de6362', '2025-02-12 06:34:31.776043'),
+(162, 'Hauz Khass', 'satyam ', 'Male', '2025-02-12T07:30', '', '1234567890', 'satyamkashyap035@gmail.com', 4, 1717, 'Success', 'pay_PukAn7Lhuzl3bS', '46cbbf99bd', '2025-02-12 09:07:13.653195');
 
 -- --------------------------------------------------------
 
@@ -350,9 +391,12 @@ CREATE TABLE `vender` (
 --
 
 INSERT INTO `vender` (`id`, `business_name`, `client_name`, `email`, `password`, `contact_no`, `gst_no`, `address`) VALUES
-(1, 'amit information', 'amit', 'amitpss239@gmail.com', 'Amit123', 1234567890, '1234567890', 'Noida sector 63'),
+(1, 'amit information', 'amit', 'amitpss239@gmail.com', '1234567890', 1234567890, '1234567890', 'Noida sector 63'),
 (2, 'Night Club', 'aman', 'night@gmail.com', '12345', 2147483647, '12345678', 'noida'),
-(3, 'white club', 'amit kumar', 'white@gmail.com', '12345', 2147483647, '3456789876', 'dfghjfdf');
+(3, 'white club', 'amit kumar', 'white@gmail.com', '12345', 2147483647, '3456789876', 'dfghjfdf'),
+(5, 'delhi Club', 'Delhi Club Admin', 'delhi@gmail.com', '12345', 1234567890, '123456789', 'dfghjkfd'),
+(6, 'GhaziaBad Club', 'Ghazia Bad Club Admin', 'ghaziabad@gmail.com', '1234567890', 1234567823, 'jkfjkdjh', 'kjfdjfsdu'),
+(7, 'aman', 'csdfa', 'satyamkashyap035@gmail.com', '1234567890', 2147483647, '13232', 'Noida sector 63');
 
 --
 -- Indexes for dumped tables
@@ -370,6 +414,12 @@ ALTER TABLE `club_overviews`
 ALTER TABLE `customerreg`
   ADD PRIMARY KEY (`Sr`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `customer_reviews`
+--
+ALTER TABLE `customer_reviews`
+  ADD PRIMARY KEY (`sr`);
 
 --
 -- Indexes for table `farmhouse`
@@ -404,13 +454,19 @@ ALTER TABLE `vender`
 -- AUTO_INCREMENT for table `club_overviews`
 --
 ALTER TABLE `club_overviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `customerreg`
 --
 ALTER TABLE `customerreg`
-  MODIFY `Sr` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Sr` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `customer_reviews`
+--
+ALTER TABLE `customer_reviews`
+  MODIFY `sr` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `farmhouse`
@@ -428,13 +484,13 @@ ALTER TABLE `msg`
 -- AUTO_INCREMENT for table `registrations`
 --
 ALTER TABLE `registrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT for table `vender`
 --
 ALTER TABLE `vender`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

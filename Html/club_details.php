@@ -1,74 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include('db.php');
+if (isset($_GET['id'])) {
+    $club_id = $_GET['id'];
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Details</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&display=swap"
-        rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
-</head>
+    $sql = "SELECT * FROM club_overviews WHERE id = ?";
+    $stmt = $conn->prepare($sql);
 
-<body>
-    <?php
-    include('db.php');
+    if ($stmt === false) {
+        die("SQL preparation failed: " . $conn->error);
+    }
 
+    $stmt->bind_param("i", $club_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (isset($_GET['id'])) {
-        $club_id = $_GET['id'];
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
 
-        $sql = "SELECT * FROM club_overviews WHERE id = ?";
-        $stmt = $conn->prepare($sql);
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $customer_name = $_POST['customer_name'];
+            $review_text = $_POST['review_text'];
+            $rating = $_POST['rating'];
 
-        if ($stmt === false) {
-            die("SQL preparation failed: " . $conn->error);
+            $image = null;
+
+            if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+                $image = "uploads/" . basename($_FILES['image']['name']);
+                move_uploaded_file($_FILES['image']['tmp_name'], $image);
+            } elseif (isset($_POST['image_url']) && !empty($_POST['image_url'])) {
+                $image = $_POST['image_url'];
+            }
+
+            $stmt = $conn->prepare("INSERT INTO customer_reviews (id,customer_name, review_text, rating, image) VALUES (?, ?, ?, ?,?)");
+            $stmt->bind_param("issis", $club_id, $customer_name, $review_text, $rating, $image);
+
+            if ($stmt->execute()) {
+                $response = "success";
+            } else {
+                $response = "error";
+
+            }
         }
 
-        $stmt->bind_param("i", $club_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            ?>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Club Details</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+            <link
+                href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&display=swap"
+                rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+                rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Slab:wght@100..900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap"
+                rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+            <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.min.css" rel="stylesheet">
+        </head>
+
+        <body>
             <nav>
                 <h4>The Noida Club</h4>
-                <!-- <h4><?php echo $row['club_name']; ?></h4> -->
                 <a href="index.php">Home</a>
                 <a href="about.php">About</a>
                 <a href="service.php">Services</a>
                 <a href="contact.php">Contact Us</a>
                 <a href="../Html/buyticket.php">Buy Tickets</a><img src="../image/new.gif" alt="">
                 <a href="status.php" id="status">Booking Status</a>
-
             </nav>
-
-
-
-
-
-
             <div class="overviews">
                 <h2><span>Welcome To</span> <?php echo $row['club_name']; ?></h2>
                 <div class="image-containerr">
-
                     <div class="fade">
                         <img src="<?php echo $row['image']; ?>" alt="Club Image" class="image">
                     </div>
@@ -84,174 +100,16 @@
                                     <pi id="hhh"><?php echo $row['address']; ?></pi><br>
 
                                     <!-- <a href="<?php echo $row['book_tkt']; ?>" class="btn">Buy Tickets</a> -->
-                                    <a href="registration_form.php?id=<?php echo urlencode($row['id']); ?>"
-                                        class="btn">Buy Tickets</a>
+                                    <a href="registration_form.php?id=<?php echo urlencode($row['id']); ?>" class="btn">Buy
+                                        Tickets</a>
                         </div>
 
                     </div>
                 </div>
             </div>
-            <style>
-                .menu {
-                    font-family: Arial, sans-serif;
-                    /* text-align: center; */
-                    /* margin: 20px; */
-                }
 
-                .menu h1 {
-                    font-size: 36px;
-                    margin-bottom: 20px;
-                }
-
-                .menu-sections {
-                    display: flex;
-                    justify-content: space-around;
-                    gap: 40px;
-                    width: 90%;
-                    margin-left: 5%;
-                    flex-wrap: wrap;
-                    flex-direction:row;
-                }
-
-                .section {
-                    border: 1px solid #ccc;
-                    padding: 10px;
-                    width: 28%;
-                    background-color: #f9f9f9;
-                    border-radius: 5px;
-                }
-
-                .section h4 {
-                    font-size: 24px;
-                    margin-bottom: 10px;
-                }
-
-                .section ul {
-                    list-style: none;
-                    padding: 0;
-                }
-
-                .section ul li {
-                    margin-bottom: 10px;
-                }
-
-                .product-name {
-                    font-weight: bold;
-                }
-
-                .price {
-                    color: green;
-                    font-weight: bold;
-                }
-
-                .menu {
-                    font-family: Arial, sans-serif;
-                    /* text-align: center; */
-                    /* margin: 20px; */
-                    background-color: black;
-                }
-
-                .menu h1 {
-                    font-size: 36px;
-                    padding-top: 20px;
-                    margin-bottom: 20px;
-                    text-align: center;
-                    color: white;
-                }
-
-                .menu-sections {
-                    display: flex;
-                    justify-content: space-around;
-                    gap: 40px;
-                    width: 90%;
-                    margin-left: 5%;
-                    flex-wrap: wrap;
-                    flex-direction: row;
-                    padding-bottom: 26px;
-                }
-
-                .section {
-                    border: 1px solid #ccc;
-                    padding: 10px;
-                    width: 28%;
-                    background-color: #f9f9f9;
-                    border-radius: 5px;
-                }
-                .section:hover{
-                    /* color: orange; */
-                }
-                .menu-hover:hover{
-                    /* background-color: red; */
-                    transform: translateY(4%);
-                    background: #f4eeee;
-                }
-
-                .section h4 {
-                    font-size: 24px;
-                    margin-bottom: 10px;
-                }
-
-                .section ul {
-                    list-style: none;
-                    padding: 0;
-                }
-
-                .section ul li {
-                    margin-bottom: 10px;
-                }
-
-                .product-name {
-                    font-weight: bold;
-                }
-
-                .price {
-                    color: green;
-                    font-weight: bold;
-                }
-
-                /* ..................facilities are available in ............. */
-                .fac ul li {
-                    list-style-type: circle;
-                    list-style-position: inside;
-                    margin-left: 30px;
-
-                }
-                .fac:hover{
-                    /* background-color: red; */
-                    transform: skewX(-4deg);
-                }
-
-                .rule-section {
-                    display: block;
-                }
-
-                .rule {
-                    width: auto;
-                }
-                .hover:hover{
-                    transform: translateX(1%);
-                }
-
-                .area-section:hover{
-                   /* background-color: red; */
-                   transform:translate(3%);
-
-                }
-
-                .area-section ul li {
-                  
-                    line-height: 33px;
-
-                }
-                .area-section ul li span {
-                  
-                    float: right;
-
-                }
-
-            </style>
             <div class="menu">
-            <h1>MENU BAR</h1>
+                <h1>MENU BAR</h1>
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
@@ -401,7 +259,7 @@
             </div>
             <hr>
             <div class="menu">
-            <h1>Hookas flavors</h1>
+                <h1>Hookas flavors</h1>
                 <div class="menu-sections">
                     <!-- Section 1 -->
 
@@ -553,19 +411,6 @@
             <div class="menu rule">
                 <h1>Club Rules</h1>
                 <div class="menu-sections rule-section">
-                    <!-- <div class="section  fac rule hover">
-                        <h4><span><i class="fa-solid fa-bath"></i> </span>Check-in</h4>
-                        <ul>
-                            <li>From 3:00 PM to 6:00 PM</li>
-                        </ul>
-                    </div>
-
-                    <div class="section fac rule hover">
-                        <h4><span><i class="fa-solid fa-dungeon"></i></span> Check-out</h4>
-                        <ul>
-                            <li>From 8:00 AM to 11:00 AM </li>
-                        </ul>
-                    </div> -->
                     <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-ticket"></i> </span> Cancellation/ prepayment</h4>
                         <ul>
@@ -577,16 +422,11 @@
                     <div class="section fac rule hover">
                         <h4><span><i class="fas fa-ban"></i> </span>Age Policy</h4>
                         <ul>
-                            <li>Must be grater than 18+ years are allow to enter this club any other children are not allowed as per government policies</li>
+                            <li>Must be grater than 18+ years are allow to enter this club any other children are not allowed as
+                                per government policies</li>
                         </ul>
 
                     </div>
-                    <!-- <div class="section fac rule hover">
-                        <h4><span><i class="fa-solid fa-wifi"></i> </span>Ticket Vlidity Time </h4>
-                        <ul>
-                            <li>Cribs and extra beds aren't available at this property.</li>
-                        </ul>
-                    </div> -->
                     <div class="section fac rule hover">
                         <h4><span><i class="fa-solid fa-bed"></i></span> Without Ticket</h4>
                         <ul>
@@ -615,7 +455,7 @@
                 </div>
             </div>
 
-          
+
             <!-- ............................................... -->
 
             <div class="menu">
@@ -668,7 +508,7 @@
                             <li>Hindon Airport - <span>60 km</span> </li>
                         </ul>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="new">
@@ -687,168 +527,77 @@
             </div>
 
             <?php
-        } else {
-            echo "No details found for this club.";
-        }
-        $stmt->close();
     } else {
-        echo "No club ID provided.";
+        echo "No details found for this club.";
     }
-    $conn->close();
-    ?>
+} else {
+    echo "No club ID provided.";
+}
+?>
 
-     <!-- .....................customer reviews..................................................... -->
-     <div class="c-customer-reviews">
+    <!-- .....................customer reviews..................................................... -->
+    <div class="c-customer-reviews">
         <h2>Customer Reviews</h2>
-
+        <span id="custrev">Create New Reviews</span>
         <!-- Slider Container -->
         <div class="c-slider-container">
             <div class="c-slider">
-                <!-- Slide 1 -->
-                <div class="c-slide">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR61xwV7YcxzGy_rDKq67YVijcDaYEoZyF7uQ&s"
-                        alt="Customer 1">
-                    <div class="c-content">
-                        <h4>Rashmika Mandanna</h4>
-                        <p>This product is amazing! It exceeded my expectations.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="c-slide">
-                    <img src="https://cdn.pixabay.com/photo/2022/12/13/08/42/free-smart-boy-handsome-images-7652808_1280.jpg"
-                        alt="Customer 2">
-                    <div class="c-content">
-                        <h4>Jane Smith</h4>
-                        <p>Great value for the price. Would buy again. from noida club</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="c-slide">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFZsVG6jE6NSEAE-tZ6fQInynUg0tRyD-k1Q&s"
-                        alt="Customer 3">
-                    <div class="c-content">
-                        <h4>Aishwariya Rai</h4>
-                        <p>Very satisfied with my purchase. Highly recommended!</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 4 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/564x/a6/91/38/a69138a0e0de3cd51b980fe3d21a11da.jpg" alt="Customer 4">
-                    <div class="c-content">
-                        <h4>Michael Brown</h4>
-                        <p>The quality is great, but shipping took a bit long. what is</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 5 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/originals/1d/27/bd/1d27bdd5618fd06c26e7eab218a44711.jpg"
-                        alt="Customer 5">
-                    <div class="c-content">
-                        <h4>Amy Adams</h4>
-                        <p>Good product, but could be improved in certain areas.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 6 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/564x/25/a7/f6/25a7f6e52f7d373e7db6d63c4bdb38d1.jpg" alt="Customer 6">
-                    <div class="c-content">
-                        <h4>Daniel Harris</h4>
-                        <p>Exactly what I was looking for. Excellent experience!</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 7 -->
-                <div class="c-slide">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqh7HjgdrRxRFY0-ectwdBuWLJhntXGnU0Jg&s"
-                        alt="Customer 7">
-                    <div class="c-content">
-                        <h4>Sarah Miller</h4>
-                        <p>Fantastic! I’m very happy with this product. white club delhi </p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 8 -->
-                <div class="c-slide">
-                    <img src="https://i.pinimg.com/736x/b2/c1/14/b2c114970d1473b26ae3e9433fd656e2.jpg" alt="Customer 8">
-                    <div class="c-content">
-                        <h4>Chris Wilson</h4>
-                        <p>Good quality, but a little more affordable options would be great.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Slide 9 -->
-                <div class="c-slide">
-                    <img src="https://www.dpzone.in/wp-content/uploads/1/55861489.jpg" alt="Customer 9">
-                    <div class="c-content">
-                        <h4>Kelly Davis</h4>
-                        <p>Not bad, but I had some issues with the product.</p>
-                        <div class="c-star-rating">
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                            <span class="c-star filled">★</span>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                $sql = "SELECT * FROM customer_reviews where id=$club_id";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<div class='c-slide'>";
+                        echo "<img src='" . $row['image'] . "' alt='Customer'>";
+                        echo "<div class='c-content'>";
+                        echo "<h4>" . $row['customer_name'] . "</h4>";
+                        echo "<p>" . $row['review_text'] . "</p>";
+                        echo "<div class='c-star-rating'>";
+                        for ($i = 0; $i < $row['rating']; $i++) {
+                            echo "<span class='c-star filled'>★</span>";
+                        }
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<h2>No reviews found</h2>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <!--- customer review form is here -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="customerrevForm">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <label for="customer_name">Enter Your Name</label>
+                    <input type="text" name="customer_name" placeholder="Your Name" required><br><br>
+
+                    <label for="review_text">Enter Your Reviews</label>
+                    <textarea name="review_text" placeholder="Your Review" required></textarea><br><br>
+
+                    <label for="rating">Select Your Rating</label>
+                    <input type="number" name="rating" min="1" max="5" required><br><br>
+
+                    <label for="image_upload">Upload Your Image</label><br><br>
+                    <input type="file" name="image" id="image_upload" onchange="toggleImageFields()" required><br><br>
+
+                    <label for="image_url">OR Image URL</label><br><br>
+                    <input type="text" name="image_url" id="image_url" placeholder="Your Image URL"
+                        onchange="toggleImageFields()" required><br><br>
+
+                    <button type="submit">Submit Review</button>
+                </form>
             </div>
         </div>
     </div>
 
 
+    </div>
     <div class="footer">
         <div class="fleft">
             <h4>The Noida Clubs</h4>
@@ -891,31 +640,323 @@
 </body>
 
 </html>
-<script>
-    document.querySelectorAll('.c-star-rating').forEach(starRating => {
-                starRating.addEventListener('click', function (e) {
-                    let stars = Array.from(starRating.children);
-                    let index = stars.indexOf(e.target);
-                    if (index !== -1) {
 
-                        stars.forEach((star, i) => {
-                            if (i <= index) {
-                                star.classList.add('filled');
-                                star.classList.remove('empty');
-                            } else {
-                                star.classList.remove('filled');
-                                star.classList.add('empty');
-                            }
-                        });
-                        starRating.setAttribute('data-rating', index + 1);
-                    }
-                });
-            });
-       
+            <!-- check the customer revirew is less than or greater than property -->
+<script>
+    window.onload = function () {
+        const slider = document.querySelector('.c-slider');
+        const slides = document.querySelectorAll('.c-slide');
+        // const noReviewsText = document.querySelector('.c-customer-reviews h2');
+        const noReviewsText = document.querySelector('.c-slider-container');
+
+        if (slides.length < 1) {
+            slider.remove();
+            noReviewsText.textContent = "No customer reviews were found";
+            noReviewsText.style='height:50px';
+            noReviewsText.style='align-item:center;height:50px;color:black;border-bottom-right-radius:10px;border-bottom-left-radius: 10px; justify-content: center;align-items: center;display:flex';
+        } else if (slides.length < 4) {
+            slider.style.animation = 'none'; 
+        }
+    }
 </script>
 
+<script>
+    document.querySelectorAll('.c-star-rating').forEach(starRating => {
+        starRating.addEventListener('click', function (e) {
+            let stars = Array.from(starRating.children);
+            let index = stars.indexOf(e.target);
+            if (index !== -1) {
+
+                stars.forEach((star, i) => {
+                    if (i <= index) {
+                        star.classList.add('filled');
+                        star.classList.remove('empty');
+                    } else {
+                        star.classList.remove('filled');
+                        star.classList.add('empty');
+                    }
+                });
+                starRating.setAttribute('data-rating', index + 1);
+            }
+        });
+    });
+
+</script>
+
+<!---customer form review script----->
+
+<script>
+    var modal = document.getElementById("reviewModal");
+
+    var btn = document.getElementById("custrev");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
 <style>
+                .menu {
+                    font-family: Arial, sans-serif;
+                }
+
+                .menu h1 {
+                    font-size: 36px;
+                    margin-bottom: 20px;
+                }
+
+                .menu-sections {
+                    display: flex;
+                    justify-content: space-around;
+                    gap: 40px;
+                    width: 90%;
+                    margin-left: 5%;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                }
+
+                .section {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    width: 28%;
+                    background-color: #f9f9f9;
+                    border-radius: 5px;
+                }
+
+                .section h4 {
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                }
+
+                .section ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                .section ul li {
+                    margin-bottom: 10px;
+                }
+
+                .product-name {
+                    font-weight: bold;
+                }
+
+                .price {
+                    color: green;
+                    font-weight: bold;
+                }
+
+                .menu {
+                    font-family: Arial, sans-serif;
+                    background-color: black;
+                }
+
+                .menu h1 {
+                    font-size: 36px;
+                    padding-top: 20px;
+                    margin-bottom: 20px;
+                    text-align: center;
+                    color: white;
+                }
+
+                .menu-sections {
+                    display: flex;
+                    justify-content: space-around;
+                    gap: 40px;
+                    width: 90%;
+                    margin-left: 5%;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    padding-bottom: 26px;
+                }
+
+                .section {
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    width: 28%;
+                    background-color: #f9f9f9;
+                    border-radius: 5px;
+                }
+
+                .section:hover {
+                    /* color: orange; */
+                }
+
+                .menu-hover:hover {
+                    /* background-color: red; */
+                    transform: translateY(4%);
+                    background: #f4eeee;
+                }
+
+                .section h4 {
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                }
+
+                .section ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                .section ul li {
+                    margin-bottom: 10px;
+                }
+
+                .product-name {
+                    font-weight: bold;
+                }
+
+                .price {
+                    color: green;
+                    font-weight: bold;
+                }
+
+                /* ..................facilities are available in ............. */
+                .fac ul li {
+                    list-style-type: circle;
+                    list-style-position: inside;
+                    margin-left: 30px;
+
+                }
+
+                .fac:hover {
+                    /* background-color: red; */
+                    transform: skewX(-4deg);
+                }
+
+                .rule-section {
+                    display: block;
+                }
+
+                .rule {
+                    width: auto;
+                }
+
+                .hover:hover {
+                    transform: translateX(1%);
+                }
+
+                .area-section:hover {
+                    /* background-color: red; */
+                    transform: translate(3%);
+
+                }
+
+                .area-section ul li {
+
+                    line-height: 33px;
+
+                }
+
+                .area-section ul li span {
+
+                    float: right;
+
+                }
+</style>
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 5;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+        color: red;
+        font-size: 28px;
+        font-weight: bold;
+        float: right;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+    .customerrevForm input[type="text"],
+    .customerrevForm input[type="number"],
+    .customerrevForm textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .customerrevForm label {
+        color: black;
+        float: left;
+    }
+
+   
+
+    .customerrevForm button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .customerrevForm button:hover {
+        background-color: #45a049;
+    }
+
+
+   
     /*...................................................slider................................................... */
+
+    #custrev {
+        color: black;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        z-index: 2;
+        background-color: #96a5b5;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        display: inline-block;
+        font-weight: bold;
+    }
+    
+    #custrev:hover {
+        background-color: #afcbe9;
+    }
 
 
     .slider-container {
@@ -924,20 +965,15 @@
         position: relative;
         background: black;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        /* border-radius: 8px; */
         display: flex;
     }
 
     .slider {
         display: flex;
         transition: transform 0.5s ease-in-out;
-        /* width: 80%; */
-
     }
 
     .slide {
-
-        /* background: red !important; */
         min-width: 100%;
         text-align: center;
     }
@@ -988,8 +1024,6 @@
 
     .paragraphh {
         width: 38%;
-        /* background-color: red; */
-        /* border: 2px solid #66b8cb; */
         color: white;
     }
 
@@ -1006,10 +1040,7 @@
     }
 
     .text {
-        /* background: pink; */
-        /* width: 28%; */
         color: white;
-        /* border: 2px solid #66b8cb; */
         text-align: center;
 
     }
@@ -1030,8 +1061,6 @@
     }
 
     .image3 {
-        /* background-color: red !important;         */
-        /* padding-bottom: 20px; */
         flex-wrap: wrap;
         display: flex;
         justify-content: center;
@@ -1057,17 +1086,6 @@
 
     .new h2 {
         text-align: center;
-    }
-
-    /* .new p {
-        width: 87%;
-        margin-left: 6%;
-        text-align: justify;
-        font-size: 18px;
-    } */
-
-    .overviews {
-        /* margin-top: 47px; */
     }
 
     .overviews h2 {
@@ -1111,36 +1129,6 @@
         background-color: red;
 
     }
-
-
-
-    /* .overlay { */
-    /* position: absolute; */
-    /* top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: red;
-        opacity: 0; */
-    /* transition: opacity 0.3s ease; */
-
-
-    /* .fade:hover .overlay {
-        opacity: 1;
-    } */
-
-
-    /* .text {
-        color: white;
-        font-size: 20px;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        /* transform: translate(-50%, -50%); */
-    /* width: 100%;
-    */
-
 
     .text h4,
     .text h5,
@@ -1233,7 +1221,6 @@
     }
 
     .fleft {
-        /* background-color: green; */
         width: 30%;
         margin-left: 5%;
         padding: 20px;
@@ -1255,7 +1242,6 @@
         justify-content: space-between;
         text-align: center;
         margin-right: 5%;
-        /* background-color: red; */
         width: 60%;
         padding: 20px;
     }
@@ -1278,7 +1264,6 @@
         padding: 10px;
         border: .2px solid white;
         border-radius: 8px;
-        /* background-color: black; */
     }
 
     .fa-brands:hover {
@@ -1299,313 +1284,7 @@
     }
 </style>
 <style>
-    /*...................................................slider................................................... */
-
-
-    .slider-container {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-        background: black;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        /* border-radius: 8px; */
-        display: flex;
-    }
-
-    .slider {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
-        /* width: 80%; */
-
-    }
-
-    .slide {
-
-        /* background: red !important; */
-        min-width: 100%;
-        text-align: center;
-    }
-
-    .slide img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin-bottom: 10px;
-        margin-top: 16px;
-    }
-
-    .slide p {
-        font-size: 16px;
-        color: white;
-        margin-bottom: 50px;
-
-    }
-
-    .slider-container .buttons {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .buttons button {
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    .buttons button:hover {
-        background: rgba(0, 0, 0, 0.8);
-    }
-
-
-    .new h2 {
-        font-size: 30px;
-        padding: 0;
-        /* color: #66b8cb; */
-    }
-
-    .paragraphh {
-        width: 38%;
-        /* background-color: red; */
-        /* border: 2px solid #66b8cb; */
-        color: white;
-    }
-
-    .paragraphh :first-child {
-        font-size: 30px;
-        padding: 0;
-        color: #66b8cb;
-    }
-
-    .paragraphh p {
-        padding: 9px;
-        font-size: 18px;
-        text-align: justify;
-    }
-
-    .text {
-        /* background: pink; */
-        /* width: 28%; */
-        color: white;
-        /* border: 2px solid #66b8cb; */
-        text-align: center;
-
-    }
-
-    #hhh {
-        margin-top: 6% !important;
-        font-size: 21px;
-        color: white;
-    }
-
-    #hhhh {
-        margin-top: 3%;
-        font-size: 25px;
-    }
-
-    .text p {
-        font-size: 22px;
-    }
-
-    .image3 {
-        /* background-color: red !important;         */
-        /* padding-bottom: 20px; */
-        flex-wrap: wrap;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        background-color: black;
-        padding: 20px;
-
-
-    }
-
-    .image3 section {
-        width: 28%;
-        height: 350px;
-        border: 12px solid white;
-
-    }
-
-    .new {
-        background: black;
-        color: white;
-
-    }
-
-    .new h2 {
-        text-align: center;
-    }
-
-    /* .new p {
-        width: 87%;
-        margin-left: 6%;
-        text-align: justify;
-        font-size: 18px;
-    } */
-
-    .overviews {
-        /* margin-top: 47px; */
-    }
-
-    .overviews h2 {
-        text-align: center;
-        padding: 20px;
-        background-color: black;
-        color: white;
-        font-size: 32px;
-    }
-
-    .overviews span {
-        color: #66b8cb;
-    }
-
-
-    .image-containerr {
-        padding-bottom: 20px;
-        flex-wrap: wrap;
-        display: flex;
-
-        justify-content: center;
-        gap: 20px;
-        background-color: black;
-    }
-
-
-    .fade {
-        position: relative;
-        border: 2px solid #66b8cb;
-        width: 50%;
-        height: 400px;
-    }
-
-    .image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .overlay {
-        background-color: red;
-
-    }
-
-
-
-    /* .overlay { */
-    /* position: absolute; */
-    /* top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: red;
-        opacity: 0; */
-    /* transition: opacity 0.3s ease; */
-
-
-    /* .fade:hover .overlay {
-        opacity: 1;
-    } */
-
-
-    /* .text {
-        color: white;
-        font-size: 20px;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        /* transform: translate(-50%, -50%); */
-    /* width: 100%;
-    */
-
-
-    .text h4,
-    .text h5,
-    .text p {
-        padding: 3px;
-    }
-
-    .text h2 {
-        padding: 5px;
-        margin-top: 10px;
-    }
-
-
-    .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #00aaff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-
-    .btn:hover {
-        background-color: #0077cc;
-    }
-
-
-    * {
-        padding: 0;
-        margin: 0;
-    }
-
-    nav {
-
-        background-color: black;
-        padding: 10px;
-        text-align: center;
-        height: 75px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-
-    nav img {
-        margin-top: -15px;
-        margin-left: -21px;
-    }
-
-    nav a {
-        color: white;
-        padding: 14px 20px;
-        text-decoration: none;
-        text-transform: uppercase;
-    }
-
-    nav a:hover {
-        color: orange;
-    }
-
-    nav h4 {
-        font-size: 28px;
-        color: white;
-        position: absolute;
-        left: 10px;
-        font-family: "Dancing Script", cursive;
-        font-optical-sizing: auto;
-        font-style: normal;
-    }
-
-    nav h3 {
-        font-size: 22px;
-        color: white;
-        position: absolute;
-        right: 15px;
-        font-family: "Dancing Script", cursive;
-        font-optical-sizing: auto;
-        font-style: normal;
-    }
-
+    
     /* /*...................customer revirw stylels............................... */
 
 
@@ -1614,7 +1293,6 @@
         background-color: black;
         text-align: center;
         color: white;
-        /* padding-bottom: 30px; */
     }
 
     .c-customer-reviews h2 {
@@ -1626,33 +1304,17 @@
     .c-slider-container {
         position: relative;
         overflow: hidden;
-        /* overflow-x: scroll; */
         width: 90%;
         margin-left: 5%;
         background-color: white;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
-        /* animation: amit 3s infinite alternate linear; */
 
     }
 
-    /* @keyframes amit{
-        0%{margin-left: 0px;}
-        10%{margin-left: 50px;}
-        20%{margin-left: 100px;}
-        30%{margin-left: 150px;}
-        40%{margin-left: 200px;}
-        50%{margin-left: 250px;}
-        60%{margin-left: 300px;}
-        70%{margin-left: 350px;}
-        80%{margin-left: 400px;}
-        90%{margin-left: 450px;}
-        100%{margin-left: 500px;}
-    } */
 
     .c-slider {
         display: flex;
-        /* transition: transform 0.5s ease-in-out; */
         animation: amit 32s linear infinite alternate;
         width: 100%;
     }
@@ -1703,7 +1365,6 @@
     }
 
     .c-star-rating {
-        /* display: flex; */
         justify-content: flex-start;
         overflow-x: auto;
         padding-bottom: 10px;
@@ -1732,7 +1393,6 @@
     }
 
     .c-star-rating {
-        /* display: flex; */
         justify-content: flex-start;
         padding-bottom: 10px;
         cursor: pointer;
@@ -1742,12 +1402,10 @@
         font-size: 20px;
         margin-right: 5px;
         color: lightgray;
-        /* Default color for unfilled stars */
     }
 
     .c-star-rating .filled {
         color: gold;
-        /* Filled stars color */
     }
 
 
@@ -1761,7 +1419,6 @@
     }
 
     .fleft {
-        /* background-color: green; */
         width: 30%;
         margin-left: 5%;
         padding: 20px;
@@ -1783,7 +1440,6 @@
         justify-content: space-between;
         text-align: center;
         margin-right: 5%;
-        /* background-color: red; */
         width: 60%;
         padding: 20px;
     }
@@ -1806,7 +1462,6 @@
         padding: 10px;
         border: .2px solid white;
         border-radius: 8px;
-        /* background-color: black; */
     }
 
     .fa-brands:hover {
@@ -1825,90 +1480,6 @@
         width: 100%;
         height: 1px;
     }
-
-    /* .........................................*/
-    .carousel {
-        width: 100%;
-        background-color: red;
-        overflow: hidden;
-        /* display: flex;
-                    align-items: center;
-                    position: relative;
-                    /* padding: 10px;
-                    justify-content: center; */
-    }
-
-    .carousel-content {
-        position: relative;
-        display: flex;
-        gap: 22px;
-    }
-
-    .carousel-item {
-        border-radius: 10%;
-        width: 13%;
-
-    }
-
-    @keyframes slide {
-        0% {
-            background-color: ;
-            margin-left: 20%;
-        }
-
-        100% {
-            background-color: ;
-            margin-left: 80%;
-        }
-    }
-
-
-    .carousel-item:hover {
-        background-color: red;
-
-    }
-
-    .carousel .carousel-item {
-        flex: 0 0 auto;
-        background-color: white;
-        /* width: 80%; */
-        /* gap: 40px; */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
-
-    .card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-    }
-
-    .card img {
-        max-width: 60%;
-        height: auto;
-        /* display: block; */
-
-    }
-
-    .text-center {
-        margin: 5px 0;
-        font-size: 1rem;
-        text-align: center;
-        /* color: #000; */
-        text-decoration: none;
-        /* background-color: pink; */
-    }
-
-    .text-center a {
-        text-decoration: none;
-        background: #f9f9f9;
-    }
-
-
 
     /*.......................................................*/
     .menu {
@@ -1986,7 +1557,6 @@
     }
 
     .fac:hover {
-        /* background-color: red; */
         transform: skewX(-4deg);
     }
 
@@ -2003,7 +1573,6 @@
     }
 
     .area-section:hover {
-        /* background-color: red; */
         transform: translate(3%);
 
     }
@@ -2036,17 +1605,12 @@
         display: flex;
         transition: transform 0.5s ease-in-out;
         animation: amitt 2s linear infinite alternate;
-        /* width: 100%; */
-        /* background: red */
     }
 
     @keyframes amitt {
         0% {
             margin-left: -1.8%;
         }
-
-        /* 50%{margin-left: -5%;} */
-
         100% {
             margin-left: 3.8%;
         }
@@ -2054,19 +1618,62 @@
     }
 
     .card img {
-            width: 39%;
-            border-radius: 8px;
-            /* height: 95px; */
-            /* border-radius: 100%; */
-            border: none;
+        width: 39%;
+        border-radius: 8px;
+        border: none;
     }
-    .card a{
+
+    .card a {
         border: 2px dotted black;
         border-radius: 5px;
     }
-    .card a:hover{
+
+    .card a:hover {
         background: black;
         color: white;
     }
-
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let response = "<?php echo $response; ?>";
+        let href = "<?php echo $club_id; ?>";
+
+        if (response === "success") {
+            Swal.fire({
+                title: 'Success!',
+                text: 'Customer Review Submitted successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = "CustomerReviews.php?id=" + href;
+            });
+        } else if (response === "error") {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Customer Review not updated. Please try again.',
+                icon: 'error'
+            });
+        }
+    });
+
+</script>
+
+<!-- image upllaod-->
+<script>
+    function toggleImageFields() {
+        var imageFileInput = document.getElementById("image_upload");
+        var imageUrlInput = document.getElementById("image_url");
+
+        if (imageFileInput.value) {
+            imageUrlInput.disabled = true;
+        } else {
+            imageUrlInput.disabled = false;
+        }
+
+        if (imageUrlInput.value) {
+            imageFileInput.disabled = true;
+        } else {
+            imageFileInput.disabled = false;
+        }
+    }
+</script>
